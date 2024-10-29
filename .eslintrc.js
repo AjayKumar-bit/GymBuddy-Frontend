@@ -33,7 +33,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
-    'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }], 
+    'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }],
     '@typescript-eslint/no-shadow': 'off',
     'prefer-destructuring': 'off',
     '@typescript-eslint/no-unused-expressions': 'off',
@@ -42,6 +42,6 @@ module.exports = {
       { selector: 'variableLike', format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'] },
     ],
     'react-native/sort-styles': ['error', 'asc', { ignoreClassNames: true }],
-   'arrow-body-style':"off"
+    'arrow-body-style': 'off',
   },
 }
