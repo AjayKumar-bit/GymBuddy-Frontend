@@ -1,4 +1,47 @@
 module.exports = {
   root: true,
-  extends: '@react-native',
-};
+  extends: [
+    '@react-native',
+    'airbnb',
+    'airbnb-typescript',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:react-native/all',
+  ],
+  env: {
+    jest: true,
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: 'tsconfig.json',
+  },
+  plugins: ['@typescript-eslint', 'react', 'react-native', 'react-hooks'],
+  rules: {
+    '@typescript-eslint/no-shadow': 'off',
+    'default-case': 'off',
+    'import/export': 'off',
+    'import/extensions': 'off',
+    'import/no-cycle': 'off',
+    'import/prefer-default-export': 'off',
+    'no-param-reassign': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+    'react/function-component-definition': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/require-default-props': 'off',
+    'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }], 
+    '@typescript-eslint/no-shadow': 'off',
+    'prefer-destructuring': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      { selector: 'variableLike', format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'] },
+    ],
+    'react-native/sort-styles': ['error', 'asc', { ignoreClassNames: true }],
+   'arrow-body-style':"off"
+  },
+}
