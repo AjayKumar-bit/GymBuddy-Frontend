@@ -6,8 +6,10 @@
       "@assets": ["./src/assets"],
       "@config":["./src/config"],
       "@constants": ["./src/constants"],
+      "@locales": ["./src/locales"],
       "@services": ["./src/services"],
       "@theme": ["./src/theme"],
+      "@utils":["./src/utils"]
     }
   }
 }
