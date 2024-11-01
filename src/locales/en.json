@@ -1,3 +1,9 @@
 {
-  "language": "English"
+  "language": "English",
+  "tab_data":{
+    "home":"Home",
+    "planner":"Planner",
+    "alarm":"alarm",
+    "my_profile":"My Profile"
+  }
 }
