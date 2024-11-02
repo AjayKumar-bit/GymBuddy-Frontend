@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Sizes } from '@theme'
+
+import { Colors } from './colors'
+import { Sizes } from './spacing'
 
 const CommonStyles = StyleSheet.create({
   shadow: {

@@ -1,9 +1,12 @@
-import { Text, View } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
+import { Text, View } from 'react-native'
+import { SvgProps } from 'react-native-svg'
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
 import { TAB_DATA } from '@constants'
 import { Colors } from '@theme'
-import { SvgProps } from 'react-native-svg'
+
 import { styles } from './tabNavigator.styles'
 
 const RenderIcon =
@@ -34,7 +37,6 @@ export const TabNavigator = () => {
           name={name}
           options={{
             tabBarShowLabel: false,
-            // Pass RenderIcon as a function, with Icon and name as arguments
             tabBarIcon: RenderIcon(Icon, name),
           }}
         />

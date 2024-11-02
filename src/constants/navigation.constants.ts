@@ -1,5 +1,7 @@
-import { HomeIcon, ClockIcon, UserCircleIcon, CalendarDaysIcon } from 'react-native-heroicons/solid'
-import { Alarm, Home, Profile, Planner } from '@screens'
+import { CalendarDaysIcon, ClockIcon, HomeIcon, UserCircleIcon } from 'react-native-heroicons/solid'
+
+import { Alarm, Home, Planner, Profile } from '@screens'
+
 import { translate } from '../locales/i18n'
 
 export const TAB_DATA = [
@@ -11,16 +13,16 @@ export const TAB_DATA = [
   {
     component: Planner,
     icon: CalendarDaysIcon,
-    name: 'Planner',
+    name: translate('tab_data.planner'),
   },
   {
     component: Alarm,
     icon: ClockIcon,
-    name: 'Alarms',
+    name: translate('tab_data.alarm'),
   },
   {
     component: Profile,
     icon: UserCircleIcon,
-    name: 'My Profile',
+    name: translate('tab_data.my_profile'),
   },
 ]

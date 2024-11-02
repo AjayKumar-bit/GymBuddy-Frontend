@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
-import { Colors, CommonStyles, Sizes, Typography } from '@theme'
+
 import { TAB_BAR_HEIGHT } from '@constants'
+import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -22,10 +23,10 @@ const styles = StyleSheet.create({
   tabBar: {
     ...CommonStyles.shadow,
     borderRadius: 30,
+    height: TAB_BAR_HEIGHT,
     marginBottom: Sizes.Size_8,
     marginHorizontal: Sizes.Size_8,
     position: 'absolute',
-    height: TAB_BAR_HEIGHT,
   },
 })
 
