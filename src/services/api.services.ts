@@ -1,6 +1,7 @@
+import axios, { AxiosResponse } from 'axios'
+
 import { log } from '@config'
 import { API, API_TIMEOUT, ApiStatusCode, IApiResponse, RequestType } from '@constants'
-import axios, { AxiosResponse } from 'axios'
 
 const axiosConfig = <Params = undefined>({ params }: { params?: Params }) => ({
   baseURL: API.baseUrl,

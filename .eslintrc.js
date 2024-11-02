@@ -43,5 +43,6 @@ module.exports = {
     ],
     'react-native/sort-styles': ['error', 'asc', { ignoreClassNames: true }],
     'arrow-body-style': 'off',
+    'react/display-name': 'off',
   },
 }

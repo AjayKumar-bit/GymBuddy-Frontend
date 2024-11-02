@@ -9,6 +9,8 @@ module.exports = {
           '@config': './src/config',
           '@constants': './src/constants',
           '@locales': './src/locales',
+          '@navigators': './src/navigators',
+          '@screens': './src/screens',
           '@services': './src/services',
           '@theme': './src/theme',
           '@utils': './src/utils',

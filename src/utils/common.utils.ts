@@ -1,7 +1,9 @@
-import i18n from 'i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { CURRENT_TRANSLATION_KEY, SUPPORTED_LANGUAGE } from '@constants'
+
+import i18n from 'i18next'
+
 import { log } from '@config'
+import { CURRENT_TRANSLATION_KEY, SUPPORTED_LANGUAGE } from '@constants'
 
 export const changeTranslation = async (lang: string) => {
   i18n.changeLanguage(lang)

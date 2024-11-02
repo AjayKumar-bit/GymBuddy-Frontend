@@ -2,7 +2,9 @@
 import { initReactI18next } from 'react-i18next'
 
 import i18n from 'i18next'
-import { SUPPORTED_LANGUAGE } from '@constants'
+
+import { SUPPORTED_LANGUAGE } from '../constants/common.constants'
+
 import en from './en.json'
 import hi from './hi.json'
 
