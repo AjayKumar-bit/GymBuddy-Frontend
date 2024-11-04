@@ -1,5 +1,6 @@
 // Importing functions to get and merge Metro configurations
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
+const { wrapWithReanimatedMetroConfig } = require('react-native-reanimated/metro-config')
 
 // Getting the default configuration for Metro bundler
 const defaultConfig = getDefaultConfig(__dirname)
@@ -29,4 +30,7 @@ const config = {
 }
 
 // Exporting the final Metro configuration by merging the default and custom configurations
-module.exports = mergeConfig(getDefaultConfig(__dirname), config)
+// module.exports = mergeConfig(getDefaultConfig(__dirname), config)
+const mergedConfig = mergeConfig(getDefaultConfig(__dirname), config)
+
+module.exports = wrapWithReanimatedMetroConfig(mergedConfig)
