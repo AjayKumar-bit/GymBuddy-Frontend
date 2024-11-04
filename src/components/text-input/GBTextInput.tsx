@@ -12,7 +12,7 @@ import { Colors } from '@theme'
 
 import { styles } from './gbTextInput.styles'
 
-interface IVITextInputProps extends TextInputProps {
+interface IGBTextInputProps extends TextInputProps {
   /** errorMessage : is an optional prop that gives error message */
   errorMessage?: string
   /** label: is a required prop that gives input label */
@@ -25,7 +25,7 @@ interface IVITextInputProps extends TextInputProps {
   preset: TextInputPreset
 }
 
-const GBTextInput = (props: IVITextInputProps) => {
+const GBTextInput = (props: IGBTextInputProps) => {
   const { preset, label = '', onTextChange = () => {}, errorMessage = '', placeHolder } = props
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
