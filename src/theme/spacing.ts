@@ -13,4 +13,5 @@ export enum Sizes {
   Size_20 = 20,
   Size_22 = 22,
   Size_24 = 24,
+  Size_32 = 32,
 }

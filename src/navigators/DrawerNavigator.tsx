@@ -21,10 +21,10 @@ const DrawerNavigator = () => {
       initialRouteName={RouteName.Default}
       // TODO: this will get updated later
       drawerContent={DrawerContent}
-      screenOptions={{ headerShown: true }}>
+      screenOptions={{ headerShown: false }}>
       <Drawer.Screen name={RouteName.DefaultDrawer} component={TabNavigator} />
     </Drawer.Navigator>
   )
 }
 
-export default DrawerNavigator
+export { DrawerNavigator }
