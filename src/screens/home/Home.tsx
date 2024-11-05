@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import GBAppHeader from '../../components/app-header/GBAppHeader'
+import { GBAppHeader } from '@components'
 
 const Home = () => {
   return (
