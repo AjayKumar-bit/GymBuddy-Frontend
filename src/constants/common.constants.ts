@@ -9,7 +9,7 @@ export const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('wi
 export const TAB_BAR_HEIGHT = 60
 export const HIT_SLOP_FIVE = { top: 5, bottom: 5, left: 5, right: 5 }
 
-// Enums 
+// Enums
 export enum TextInputPreset {
   Default = 'default',
   Email = 'e-mail',

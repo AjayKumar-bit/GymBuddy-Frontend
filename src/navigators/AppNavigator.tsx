@@ -4,7 +4,7 @@ import { RouteName } from '@constants'
 import { Alarm, Home, Planner, Profile, Search } from '@screens'
 import { RootStackParamList } from '@types'
 
-import DrawerNavigator from './DrawerNavigator'
+import { DrawerNavigator } from './DrawerNavigator'
 
 export type AppStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,
