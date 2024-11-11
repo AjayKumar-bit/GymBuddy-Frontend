@@ -1,3 +1,4 @@
+import { IApi } from '@types'
 import Config from 'react-native-config'
 
 export enum ApiMethod {
@@ -21,18 +22,26 @@ export enum ApiStatusCode {
   Unauthorized = 401,
 }
 
-export const API = {
-  baseUrl: Config.API_BASE_URL,
-  config: {
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': '',
-      'Content-Type': 'application/json',
-    },
+export const EXERCISE_API = {
+  baseUrl: Config.RAPID_EXERCISE_API_BASE_URL,
+  headers: {
+    'x-rapidapi-key': Config.RAPID_API_KEY,
+    'x-rapidapi-host': Config.RAPID_EXERCISE_API_HOST,
   },
-
   endPoints: {
-    // TODO: endpoints will placed here in future
+    Exercise: 'exercises',
+    Name: 'name',
+  },
+}
+
+export const YOUTUBE_SEARCH_API = {
+  baseUrl: Config.RAPID_YOUTUBE_API_BASE_URL,
+  headers: {
+    'x-rapidapi-key': Config.RAPID_API_KEY,
+    'x-rapidapi-host': Config.RAPID_YOUTUBE_API_HOST,
+  },
+  endPoints: {
+    Search:'search'
   },
 }
 
@@ -52,4 +61,14 @@ export enum RequestType {
   PUT = 'PUT',
 }
 
-export const API_TIMEOUT = 15000
+export enum ApiStatusPreset {
+  SearchExercise = 'searchExercise',
+  GetExerciseVideo='getExerciseVideo'
+}
+
+export const API : IApi = {
+  Exercise: EXERCISE_API,
+  YoutubeSearch: YOUTUBE_SEARCH_API,
+}
+
+export const API_TIMEOUT = 150000

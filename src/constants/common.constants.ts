@@ -16,3 +16,16 @@ export enum TextInputPreset {
   Password = 'password',
   Search = 'search',
 }
+
+export enum LoaderSize {
+  Large = 'large',
+  Medium = 'medium',
+  Small = 'small',
+}
+
+export enum ResizeMode {
+  center = 'center',
+  contain = 'contain',
+  Cover = 'cover',
+  Stretch = 'stretch',
+}

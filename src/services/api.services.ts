@@ -1,12 +1,20 @@
 import axios, { AxiosResponse } from 'axios'
 
 import { log } from '@config'
-import { API, API_TIMEOUT, ApiStatusCode, IApiResponse, RequestType } from '@constants'
+import { API_TIMEOUT, ApiStatusCode, IApiResponse, RequestType } from '@constants'
+import { IApiConfig } from '@types'
 
-const axiosConfig = <Params = undefined>({ params }: { params?: Params }) => ({
-  baseURL: API.baseUrl,
+const axiosConfig = <Params = undefined>({
+  params,
+  apiData,
+}: {
+  params?: Params
+  apiData: IApiConfig
+}) => ({
+  baseURL: apiData.baseUrl,
   timeout: API_TIMEOUT,
   params,
+  headers: apiData.headers,
 })
 
 const mapAxiosResponseToLocalResponseType = <RequestData, ResponseData>(
@@ -33,16 +41,20 @@ const getApiResponseUsingRequestVerb = async <RequestData, ResponseData, Params 
   endpoint,
   request,
   requestData,
+  apiData,
 }: {
   endpoint: string
   request: RequestType
   requestData?: RequestData
+  apiData: IApiConfig
 }): Promise<AxiosResponse<ResponseData, RequestData> | null> => {
-  const config = axiosConfig<Params>({})
+  const config = axiosConfig<Params>({
+    apiData,
+  })
 
   switch (request) {
     case RequestType.GET:
-      return axios.get(endpoint, { baseURL: API.baseUrl, timeout: API_TIMEOUT })
+      return axios.get(endpoint, config)
     case RequestType.POST:
       return axios.post(endpoint, requestData, config)
     case RequestType.PUT:
@@ -62,20 +74,23 @@ export const makeApiCall = async <RequestData, ResponseData, Params = undefined>
   endpoint,
   request,
   requestData,
+  apiData,
 }: {
   endpoint: string
   request: RequestType
   requestData?: RequestData
+  apiData: IApiConfig
 }): Promise<IApiResponse<ResponseData>> => {
   try {
     const response = await getApiResponseUsingRequestVerb<RequestData, ResponseData, Params>({
       endpoint,
       request,
       requestData,
+      apiData,
     })
 
     log.info('API Response', {
-      baseUrl: API.baseUrl,
+      baseUrl: apiData.baseUrl,
       endpoint,
       payload: requestData,
       response: response?.data,
@@ -89,7 +104,7 @@ export const makeApiCall = async <RequestData, ResponseData, Params = undefined>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (exception: any) {
     log.error(
-      `API Error: ${API.baseUrl}${endpoint}`,
+      `API Error: ${apiData.baseUrl}${endpoint}`,
       `\n${exception}`,
       '\nresponse:',
       exception?.response?.data,

@@ -12,6 +12,7 @@ export enum RouteName {
   Planner = 'Planner',
   Profile = 'Profile',
   Search = 'Search',
+  Details = 'Details',
 }
 
 export const TAB_DATA = [

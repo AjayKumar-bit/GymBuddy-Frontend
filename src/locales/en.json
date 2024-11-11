@@ -1,9 +1,24 @@
 {
+  "title": "GymBuddy",
   "language": "English",
-  "tab_data":{
-    "home":"Home",
-    "planner":"Planner",
-    "alarm":"Alarm",
-    "my_profile":"My Profile"
+  "common": {
+    "search": "Search Exercise",
+    "loading": "Loading"
+  },
+  "tab_data": {
+    "home": "Home",
+    "planner": "Planner",
+    "alarm": "Alarm",
+    "my_profile": "My Profile"
+  },
+  "screens": {
+    "home": {},
+    "search": {
+      "name": "Name",
+      "body_part": "Bodypart",
+      "equipment": "Equipment",
+      "searching": "Searching",
+      "recommended_exercise": "Recommended Exercise"
+    }
   }
 }

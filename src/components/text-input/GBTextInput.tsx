@@ -1,40 +1,55 @@
 import React, { useCallback, useState } from 'react'
-import { Text, TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
+import {
+  StyleProp,
+  Text,
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native'
 import {
   EyeIcon,
   EyeSlashIcon,
   MagnifyingGlassIcon as SearchIcon,
 } from 'react-native-heroicons/outline'
 
-import { log } from '@config'
 import { HIT_SLOP_FIVE, TextInputPreset } from '@constants'
 import { Colors } from '@theme'
 
 import { styles } from './gbTextInput.styles'
 
 interface IGBTextInputProps extends TextInputProps {
+  /** containerStyles: is an optional prop that gives additional styles of container */
+  containerStyles?: StyleProp<ViewStyle>
   /** errorMessage : is an optional prop that gives error message */
   errorMessage?: string
   /** label: is a required prop that gives input label */
   label?: string
-  /** placeHolder : is a required prop that gives placeHolder */
-  placeHolder: string
+  /** onSearchIconPress : is an optional prop that trigger an action on click of search icon */
+  onSearchIconPress?: () => void
   /** onTextChange : is a required prop that triggers on text change */
   onTextChange?: (value: string) => void
+  /** placeHolder : is a required prop that gives placeHolder */
+  placeHolder: string
   /** preset: is a required prop that gives preset of text input */
   preset: TextInputPreset
 }
 
 const GBTextInput = (props: IGBTextInputProps) => {
-  const { preset, label = '', onTextChange = () => {}, errorMessage = '', placeHolder } = props
+  const {
+    containerStyles = {},
+    errorMessage = '',
+    label = '',
+    onSearchIconPress = () => {},
+    onTextChange = () => {},
+    placeHolder,
+    preset,
+  } = props
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const showSearchBar = preset === TextInputPreset.Search
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
-
-  const onSearchIconPress = () => {
-    log.info('Searching...')
-  }
 
   const onValueChange = (newValue: string) => {
     showSearchBar && setIsSearchBarVisible(newValue.length !== 0)
@@ -53,11 +68,11 @@ const GBTextInput = (props: IGBTextInputProps) => {
         inputComponent = (
           <TextInput
             {...props}
+            inputMode="email"
             onChangeText={onValueChange}
             placeholder={placeHolder}
             placeholderTextColor={Colors.Placeholder}
             style={styles.inputValue}
-            inputMode="email"
           />
         )
         break
@@ -112,7 +127,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
   }, [preset, isPasswordVisible])
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyles]}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.subContainer}>
         {renderInputComponent()}

@@ -1,4 +1,5 @@
 export { default as Alarm } from './alarm/Alarm'
+export { default as Details } from './details/Details'
 export { default as Home } from './home/Home'
 export { default as Planner } from './planner/Planner'
 export { default as Profile } from './profile/Profile'

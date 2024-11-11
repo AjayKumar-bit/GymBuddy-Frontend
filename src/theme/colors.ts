@@ -4,6 +4,7 @@ export enum Colors {
   ActiveTab = Palette.Cyan,
   Dark = Palette.Black,
   Error = Palette.InternationalOrange,
+  ExerciseCardBackground = Palette.White,
   InactiveTab = Palette.DolphinGray,
   InputValue = Palette.AerieBlack,
   Label = Palette.JungleGreen,

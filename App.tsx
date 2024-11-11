@@ -3,6 +3,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
 import { AppNavigator } from '@navigators'
+import { MSTStoreContext, mstStore } from '@stores'
 
 const App = () => {
   return (
@@ -12,4 +13,12 @@ const App = () => {
   )
 }
 
-export default App
+const AppWrapper = () => {
+  return (
+    <MSTStoreContext.Provider value={mstStore}>
+      <App />
+    </MSTStoreContext.Provider>
+  )
+}
+
+export default AppWrapper
