@@ -22,3 +22,7 @@ export const fetchCurrentTranslation = async () => {
     log.error('Error fetching language from AsyncStorage:', error)
   }
 }
+
+export const matchRegex = (input: string, regex: RegExp) => {
+  return regex.test(input)
+}

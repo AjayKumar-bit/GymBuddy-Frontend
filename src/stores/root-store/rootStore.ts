@@ -5,16 +5,20 @@ import { Instance, types } from 'mobx-state-tree'
 import { ApiStatusStore } from '../api-status-store/apiStatusStore'
 import DomainStore from '../domain-store/domainStore'
 import { DomainStoreData } from '../domain-store/domainStoreData'
+import { ViewStore } from '../view-store/viewStore'
+import { ViewStoreData } from '../view-store/viewStoreData'
 
 const RootStore = types.model('RootStore', {
   apiStatusStore: ApiStatusStore,
   domainStore: DomainStore,
+  viewStore: ViewStore,
 })
 
 const createStore = () => {
   const apiStatusStore = ApiStatusStore.create({ apiStatus: {} })
   const domainStore = DomainStore.create(DomainStoreData)
-  const store = RootStore.create({ apiStatusStore, domainStore })
+  const viewStore = ViewStore.create(ViewStoreData)
+  const store = RootStore.create({ apiStatusStore, domainStore, viewStore })
   return store
 }
 

@@ -3,4 +3,8 @@ export { default as EquipmentIcon } from './icons/equipment.svg'
 
 export { default as NoImage } from './images/noImage.png'
 
-export { default as ExerciseLottie } from './lottie/Animation - 1731002214959.json'
+export { default as DoneLottie } from './lottie/complete.json'
+export { default as ErrorLottie } from './lottie/cancel.json'
+export { default as ExerciseLottie } from './lottie/exercise.json'
+export { default as InfoLottie } from './lottie/info.json'
+export { default as WelcomeLottie } from './lottie/welcomeLottie.json'

@@ -34,7 +34,17 @@ const customTransport = (params: ICustomTransportParams) => {
   const { level, rawMsg } = params
   const colorCode = logColors[level.text] || resetColor
   const time = getCurrentTime()
-  const formattedMessage = JSON.stringify(rawMsg, null, 2).slice(1, -1)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const formattedMessages = rawMsg.map((msg: any) => {
+    if (msg instanceof Error) {
+      return `Error: ${msg.message}`
+    }
+    return JSON.stringify(msg, null, 2)
+  })
+
+  // Joining formatted messages into a single string
+  const formattedMessage = formattedMessages.join('\n')
+
   // eslint-disable-next-line no-console
   console.log(`${colorCode}[${time}] ${level.text} : ${formattedMessage}${resetColor}`)
 }

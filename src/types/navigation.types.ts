@@ -13,7 +13,9 @@ export type RootStackParamList = {
   Alarm: undefined
   Details: IDetailsNavigationParams
   Home: undefined
+  Login: undefined
   Planner: undefined
   Profile: undefined
+  Registration: undefined
   Search: ISearchNavigationParams
 }

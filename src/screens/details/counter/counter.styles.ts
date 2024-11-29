@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   subContainer: {
-    alignItems:'center',
+    alignItems: 'center',
     flexDirection: 'row',
     gap: Sizes.Size_16,
     padding: Sizes.Size_4,
@@ -31,16 +31,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: Colors.ExerciseCardBackground,
-    marginHorizontal:Sizes.Size_16,
+    marginHorizontal: Sizes.Size_16,
     padding: Sizes.Size_4,
   },
   contentContainer: {
-    alignItems:"center",
+    alignItems: 'center',
     backgroundColor: Colors.TextInputBackground,
     borderRadius: Sizes.Size_4,
-    justifyContent:'center',
-    paddingBottom:Sizes.Size_4,
-    paddingHorizontal:Sizes.Size_6,
+    justifyContent: 'center',
+    paddingBottom: Sizes.Size_4,
+    paddingHorizontal: Sizes.Size_6,
   },
 })
 

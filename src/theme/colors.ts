@@ -12,4 +12,7 @@ export enum Colors {
   SearchIcon = Palette.DimGray,
   TextInputBackground = Palette.ChineseWhite,
   TextInputBorder = Palette.LightSilver,
+  ToastError = Palette.BabyPink,
+  ToastInfo = Palette.Blond,
+  ToastSuccess = Palette.TeaGreen,
 }

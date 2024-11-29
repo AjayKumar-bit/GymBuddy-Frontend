@@ -1,7 +1,5 @@
 import { types } from 'mobx-state-tree'
 
-import { log } from '@config'
-
 interface IDataParamsTypes {
   error?: object
   hasMoreData?: boolean
@@ -21,7 +19,7 @@ const ApiStatusItem = types.model('ApiStatusItem', {
 })
 
 const ApiStatusStore = types
-  .model('ApiStatusModal', {
+  .model('ApiStatusStore', {
     apiStatus: types.map(ApiStatusItem),
   })
   .actions(self => {
@@ -35,7 +33,6 @@ const ApiStatusStore = types
         isRefreshCall = prevData?.isRefreshCall ?? false,
         showBottomLoader = prevData?.showBottomLoader ?? false,
       } = data
-      log.error({ data })
       self.apiStatus.set(id, { error, hasMoreData, id, isLoading, isRefreshCall, showBottomLoader })
     }
     const getApiStatus = (id: string) => {

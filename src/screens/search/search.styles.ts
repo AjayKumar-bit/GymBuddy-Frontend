@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   textInputContainer: {
     paddingHorizontal: Sizes.Size_16,
-    paddingVertical: Sizes.Size_16,
+    paddingTop: Sizes.Size_16,
   },
   contentContainer: {
     gap: Sizes.Size_12,
