@@ -8,11 +8,13 @@ export enum RouteName {
   Default = 'Default',
   Alarm = 'Alarm',
   DefaultDrawer = 'DefaultDrawer',
+  Details = 'Details',
   Home = 'Home',
+  Login = 'Login',
   Planner = 'Planner',
   Profile = 'Profile',
+  Registration = 'Registration',
   Search = 'Search',
-  Details = 'Details',
 }
 
 export const TAB_DATA = [

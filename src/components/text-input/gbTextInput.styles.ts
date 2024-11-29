@@ -4,7 +4,7 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   container: {
-    gap: Sizes.Size_8,
+    gap: Sizes.Size_4,
   },
   label: {
     color: Colors.Label,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     color: Colors.Error,
     fontFamily: Typography.primary.regular,
     fontSize: Sizes.Size_10,
-    lineHeight: Sizes.Size_14,
+    lineHeight: Sizes.Size_12,
   },
   inputValue: {
     color: Colors.InputValue,
@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
   },
   inputValueSecondary: {
     textAlign: 'center',
+  },
+  errorContainer: {
+    height: Sizes.Size_12,
   },
 })
 

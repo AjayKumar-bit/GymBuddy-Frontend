@@ -1,5 +1,6 @@
-import { IApi } from '@types'
 import Config from 'react-native-config'
+
+import { IApi } from '@types'
 
 export enum ApiMethod {
   Delete = 'delete',
@@ -41,7 +42,16 @@ export const YOUTUBE_SEARCH_API = {
     'x-rapidapi-host': Config.RAPID_YOUTUBE_API_HOST,
   },
   endPoints: {
-    Search:'search'
+    Search: 'search',
+  },
+}
+
+export const GYMBUDDY_API = {
+  baseUrl: Config.GYMBUDDY_BASE_URL,
+  endPoints: {
+    User: 'users',
+    Register: 'register',
+    Login: 'login',
   },
 }
 
@@ -62,12 +72,15 @@ export enum RequestType {
 }
 
 export enum ApiStatusPreset {
+  GetExerciseVideo = 'getExerciseVideo',
+  RegisterUser = 'RegisterUser',
   SearchExercise = 'searchExercise',
-  GetExerciseVideo='getExerciseVideo'
+  LoginUser = 'LoginUser',
 }
 
-export const API : IApi = {
+export const API: IApi = {
   Exercise: EXERCISE_API,
+  GymBuddy: GYMBUDDY_API,
   YoutubeSearch: YOUTUBE_SEARCH_API,
 }
 

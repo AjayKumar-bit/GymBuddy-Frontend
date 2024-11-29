@@ -4,7 +4,7 @@ export interface IApiEndPoints {
 
 export interface IApiConfig {
   baseUrl: string | undefined
-  headers: {
+  headers?: {
     'x-rapidapi-key': string | undefined
     'x-rapidapi-host': string | undefined
   }
@@ -13,5 +13,6 @@ export interface IApiConfig {
 
 export interface IApi {
   Exercise: IApiConfig
+  GymBuddy: IApiConfig
   YoutubeSearch: IApiConfig
 }
