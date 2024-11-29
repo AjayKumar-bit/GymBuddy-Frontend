@@ -11,7 +11,6 @@ import { GBApiResponseToast } from '@components'
 import { RootNavigator } from '@navigators'
 import { MSTStoreContext, mstStore, useStore } from '@stores'
 import { CommonStyles } from '@theme'
-import { log } from '@config'
 
 const App = observer(() => {
   const { viewStore } = useStore()
@@ -23,7 +22,6 @@ const App = observer(() => {
   useEffect(() => {
     if (isAppReady) {
       BootSplash.hide({ fade: true })
-      log.info("helooo bhai")
     }
   }, [isAppReady])
 

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     color: Colors.Label,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_16,
-    lineHeight:Sizes.Size_18,
+    lineHeight: Sizes.Size_18,
     textAlign: 'center',
   },
   disableContainer: {
@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
   activeContainer: {
     backgroundColor: Colors.ActiveTab,
   },
-  loader:{
-    marginTop:Sizes.Size_12
-  }
+  loader: {
+    marginTop: Sizes.Size_12,
+  },
 })
 
 export { styles }

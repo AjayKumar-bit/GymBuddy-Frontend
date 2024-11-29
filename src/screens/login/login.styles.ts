@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: Sizes.Size_8,
     justifyContent: 'center',
-    marginTop:Sizes.Size_16,
+    marginTop: Sizes.Size_16,
     marginVertical: Sizes.Size_4,
-  }
+  },
 })
 
 export { styles }

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     gap: Sizes.Size_8,
     paddingHorizontal: Sizes.Size_16,
-    paddingVertical:Sizes.Size_8,
+    paddingVertical: Sizes.Size_8,
   },
   recommendation: {
     color: Colors.Label,

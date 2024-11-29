@@ -137,7 +137,9 @@ const GBTextInput = (props: IGBTextInputProps) => {
           </TouchableOpacity>
         )}
       </View>
-      <View style={styles.errorContainer}>{!!errorMessage && <Text style={styles.error}>{errorMessage}</Text>}</View>
+      <View style={styles.errorContainer}>
+        {!!errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
+      </View>
     </View>
   )
 }

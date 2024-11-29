@@ -80,7 +80,7 @@ const UserStore = types
           })
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error:any) {
+      } catch (error: any) {
         log.info('UserRegister Api call failed with error: ', error)
         setApiStatus({ id: ApiStatusPreset.RegisterUser, error })
         setValidationToastData({
