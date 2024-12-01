@@ -8,6 +8,7 @@ import { ApiStatusPreset, RouteName, TextInputPreset } from '@constants'
 import { translate } from '@locales'
 import { AppStackScreenProps } from '@navigators'
 import { SearchExerciseDataTypes, useStore } from '@stores'
+import { CommonStyles } from '@theme'
 
 import { styles } from './search.styles'
 import SearchedExerciseCard from './searches-exercise-card/SearchedExerciseCard'
@@ -24,6 +25,7 @@ const Search = observer((props: ISearchProp) => {
   const { isLoading, isRefreshCall } = getApiStatus(ApiStatusPreset.SearchExercise) ?? {}
   const { searchStore } = domainStore
   const { searchedExerciseData, searchExercise } = searchStore
+  const hasNoExerciseData = searchedExerciseData.length === 0
 
   const [searchedExerCise, setSearchedExerCise] = useState(prevSearchedExercise)
   const currentSearchRef = useRef(prevSearchedExercise)
@@ -53,6 +55,20 @@ const Search = observer((props: ISearchProp) => {
     return <Text style={styles.title}>{translate('screens.search.recommended_exercise')}</Text>
   }
 
+  const listEmptyComponent = () => {
+    return (
+      <View style={CommonStyles.flex_1}>
+        {isLoading ? (
+          <GBLoader title={translate('screens.search.searching')} />
+        ) : (
+          <GBLoader title={translate('screens.search.no_exercise_found')} />
+        )}
+      </View>
+    )
+  }
+
+  const contentContainerStyles = isLoading || hasNoExerciseData ? CommonStyles.flex_1 : {}
+
   const keyExtractor = (item: SearchExerciseDataTypes, index: number) => `${item.id}${index}`
 
   return (
@@ -66,21 +82,18 @@ const Search = observer((props: ISearchProp) => {
           preset={TextInputPreset.Search}
           containerStyles={styles.textInputContainer}
         />
-        {isLoading ? (
-          <GBLoader title={translate('screens.search.searching')} />
-        ) : (
-          <GBFlatList
-            apiStatusPreset={ApiStatusPreset.SearchExercise}
-            contentContainerStyle={styles.contentContainer}
-            data={searchedExerciseData}
-            ListHeaderComponent={listHeaderComponent}
-            onEndReached={onEndReached}
-            onRefresh={onRefresh}
-            refreshing={isRefreshCall}
-            renderItem={renderItem}
-            keyExtractor={keyExtractor}
-          />
-        )}
+        <GBFlatList
+          apiStatusPreset={ApiStatusPreset.SearchExercise}
+          contentContainerStyle={[styles.contentContainer, contentContainerStyles]}
+          data={searchedExerciseData}
+          ListHeaderComponent={listHeaderComponent}
+          onEndReached={onEndReached}
+          onRefresh={onRefresh}
+          refreshing={isRefreshCall}
+          ListEmptyComponent={listEmptyComponent}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+        />
       </View>
     </>
   )

@@ -5,7 +5,7 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   image: {
-    height: SCREEN_HEIGHT * 0.1,
+    height: SCREEN_HEIGHT * 0.15,
   },
   container: {
     ...CommonStyles.shadow,

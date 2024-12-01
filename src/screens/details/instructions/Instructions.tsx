@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { LayoutAnimation, Platform, Text, TouchableOpacity, UIManager, View } from 'react-native'
 
+import { translate } from '@locales'
+
 import { styles } from './instructions.styles'
 
 interface IInstructionsProps {
@@ -40,7 +42,7 @@ const Instructions = (props: IInstructionsProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Instructions</Text>
+      <Text style={styles.title}>{translate('screens.details.instructions')}</Text>
       <View style={styles.instructionsContainer}>
         <Text style={styles.instruction}>
           <Text style={styles.instructionNumber}>{1}. </Text>
@@ -48,7 +50,11 @@ const Instructions = (props: IInstructionsProps) => {
         </Text>
         {isExpanded && renderRestInstruction()}
         <TouchableOpacity onPress={toggleInstructionVisibility} style={styles.expanderContainer}>
-          <Text style={styles.expanderText}>{isExpanded ? 'Show Less' : 'Show More'}</Text>
+          <Text style={styles.expanderText}>
+            {isExpanded
+              ? translate('screens.details.show_less')
+              : translate('screens.details.show_more')}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

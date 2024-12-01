@@ -31,7 +31,8 @@
       "body_part": "Bodypart",
       "equipment": "Equipment",
       "searching": "Searching",
-      "recommended_exercise": "Recommended Exercise"
+      "recommended_exercise": "Recommended Exercise",
+      "no_exercise_found": "No Exercise Found"
     },
     "login": {
       "header": "Welcome Back to GYMBUDDY",
@@ -51,6 +52,16 @@
       "register": "Register",
       "already_registered": "Already have an account ",
       "log_in": "Log In"
+    },
+    "details": {
+      "header": "Exercise Details",
+      "no_recommendation": "No recommendation found",
+      "reps": "Reps",
+      "sets": "Sets",
+      "video_recommendations": "Video Recommendations",
+      "instructions": "Instructions",
+      "show_more": "Show More",
+      "show_less": "Show Less"
     }
   }
 }

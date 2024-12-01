@@ -5,8 +5,10 @@ import { observer } from 'mobx-react-lite'
 
 import { GBAppHeader, GBExerciseCard, GBFlatList, GBLoader } from '@components'
 import { ApiStatusPreset, RouteName } from '@constants'
+import { translate } from '@locales'
 import { AppStackScreenProps } from '@navigators'
 import { useStore, videoRecommendationItemType } from '@stores'
+import { CommonStyles } from '@theme'
 
 import Counter from './counter/Counter'
 import { styles } from './details.styles'
@@ -33,6 +35,7 @@ const Details = observer((props: IDetailsProp) => {
   const { getExerciseVideo, videoRecommendation } = searchStore
   const { getApiStatus } = apiStatusStore
   const { isLoading } = getApiStatus(ApiStatusPreset.GetExerciseVideo) ?? {}
+  const hasNoRecommendation = videoRecommendation.length === 0
 
   const [repsCount, setRepsCount] = useState(1)
   const [setsCount, setSetsCount] = useState(1)
@@ -74,16 +77,26 @@ const Details = observer((props: IDetailsProp) => {
 
   const keyExtractor = (item: videoRecommendationItemType) => item.title
 
-  const listEmptyComponent = () =>
-    isLoading ? <GBLoader /> : <GBLoader title="No Recommendation Found" />
+  const listEmptyComponent = () => {
+    return (
+      <View style={CommonStyles.flex_1}>
+        {isLoading ? (
+          <GBLoader />
+        ) : (
+          <GBLoader title={translate('screens.details.no_recommendation')} />
+        )}
+      </View>
+    )
+  }
 
+  const contentContainerStyles = isLoading || hasNoRecommendation ? CommonStyles.flex_1 : {}
   useEffect(() => {
     fetchData()
   }, [])
 
   return (
     <>
-      <GBAppHeader title="Exercise Details" />
+      <GBAppHeader title={translate('screens.details.header')} />
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <GifViewer gifUrl={gifUrl} name={name} />
         <View style={styles.counterContainer}>
@@ -91,18 +104,20 @@ const Details = observer((props: IDetailsProp) => {
             count={repsCount}
             onDecrease={onDecreaseRep}
             onIncrease={onIncreaseRep}
-            label="Reps"
+            label={translate('screens.details.reps')}
           />
           <View style={styles.separator} />
           <Counter
             count={setsCount}
             onDecrease={onDecreaseSet}
             onIncrease={onIncreaseSet}
-            label="Sets"
+            label={translate('screens.details.sets')}
           />
         </View>
         <Instructions data={instructions} />
-        <Text style={styles.recommendation}>Videos Recommendation</Text>
+        <Text style={styles.recommendation}>
+          {translate('screens.details.video_recommendations')}
+        </Text>
         <GBFlatList
           apiStatusPreset={ApiStatusPreset.GetExerciseVideo}
           data={videoRecommendation}
@@ -110,7 +125,7 @@ const Details = observer((props: IDetailsProp) => {
           keyExtractor={keyExtractor}
           renderItem={renderItem}
           ListEmptyComponent={listEmptyComponent}
-          contentContainerStyle={styles.contentContainerStyle}
+          contentContainerStyle={[styles.contentContainerStyle, contentContainerStyles]}
           onEndReached={onEndReached}
         />
       </ScrollView>

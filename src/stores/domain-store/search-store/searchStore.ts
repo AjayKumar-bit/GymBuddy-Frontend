@@ -42,6 +42,7 @@ const SearchStore = types
       const { apiStatusStore } = getRoot<RootStoreType>(self)
       const { setApiStatus } = apiStatusStore
       const { exerciseName, isLoading = false, isRefreshCall = false } = params
+      const exercise = exerciseName.toLowerCase()
       try {
         if (isRefreshCall) {
           self.offset = 0
@@ -50,13 +51,12 @@ const SearchStore = types
           id: ApiStatusPreset.SearchExercise,
           isLoading: isLoading || isRefreshCall,
           isRefreshCall,
-          showBottomLoader: isLoading || !isRefreshCall,
         })
 
         const apiParams = {
           endpoint: `${API.Exercise.endPoints.Exercise}/${
             API.Exercise.endPoints.Name
-          }/${exerciseName}?limit=${10}&offset=${self.offset}`,
+          }/${exercise}?limit=${10}&offset=${self.offset}`,
           request: RequestType.GET,
           apiData: API.Exercise,
         }
@@ -71,7 +71,6 @@ const SearchStore = types
             ? [...self.searchedExerciseData, ...response.data] // Note: getting duplicated data ,need to check api
             : response.data
           self.offset = cast(self.offset + 1)
-          log.info(self.searchedExerciseData, self.searchedExerciseData.length)
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -82,7 +81,6 @@ const SearchStore = types
           id: ApiStatusPreset.SearchExercise,
           isLoading: false,
           isRefreshCall: false,
-          showBottomLoader: false,
         })
       }
     })

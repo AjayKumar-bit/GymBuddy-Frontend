@@ -24,7 +24,7 @@ const CustomFlatList = (props: GBFlatListProps, ref: ForwardedRef<FlatList<any>>
   const { apiStatusPreset = '', onEndReached, onRefresh, ...restProps } = props
   const { apiStatusStore } = useStore()
   const { getApiStatus } = apiStatusStore
-  const { hasMoreData, isRefreshCall, showBottomLoader } = getApiStatus(apiStatusPreset) || {}
+  const { hasMoreData, isRefreshCall } = getApiStatus(apiStatusPreset) || {}
 
   const onEndReachedPage = () => {
     if (hasMoreData && onEndReached) {
@@ -45,7 +45,7 @@ const CustomFlatList = (props: GBFlatListProps, ref: ForwardedRef<FlatList<any>>
     />
   ) : undefined
 
-  const listFooterComponent = showBottomLoader ? (
+  const listFooterComponent = hasMoreData ? (
     <GBLoader size={LoaderSize.Small} title={translate('common.loading')} />
   ) : null
 
