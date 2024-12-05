@@ -13,6 +13,9 @@ const DomainStoreData = {
       token: '',
     },
   },
+  plannerStore: {
+    days: [],
+  },
 }
 
 export { DomainStoreData }

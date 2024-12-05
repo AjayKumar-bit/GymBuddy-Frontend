@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     height: TAB_BAR_HEIGHT,
     marginBottom: Sizes.Size_8,
     marginHorizontal: Sizes.Size_8,
-    position: 'absolute',
   },
 })
 

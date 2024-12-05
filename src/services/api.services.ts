@@ -5,16 +5,18 @@ import { API_TIMEOUT, ApiStatusCode, IApiResponse, RequestType } from '@constant
 import { IApiConfig } from '@types'
 
 const axiosConfig = <Params = undefined>({
+  authToken,
   params,
   apiData,
 }: {
+  authToken?: string
   params?: Params
   apiData: IApiConfig
 }) => ({
   baseURL: apiData.baseUrl,
   timeout: API_TIMEOUT,
   params,
-  headers: apiData.headers,
+  headers: { ...apiData.headers, Authorization: `Bearer ${authToken}` },
 })
 
 const mapAxiosResponseToLocalResponseType = <RequestData, ResponseData>(
@@ -42,14 +44,17 @@ const getApiResponseUsingRequestVerb = async <RequestData, ResponseData, Params 
   request,
   requestData,
   apiData,
+  authToken,
 }: {
   endpoint: string
   request: RequestType
   requestData?: RequestData
   apiData: IApiConfig
+  authToken?: string
 }): Promise<AxiosResponse<ResponseData, RequestData> | null> => {
   const config = axiosConfig<Params>({
     apiData,
+    authToken,
   })
 
   switch (request) {
@@ -61,9 +66,8 @@ const getApiResponseUsingRequestVerb = async <RequestData, ResponseData, Params 
       return axios.put(endpoint, requestData, config)
     case RequestType.PATCH:
       return axios.patch(endpoint, requestData, config)
-    // TODO : will update this later
-    // case RequestType.DELETE:
-    //   return axios.delete(endpoint, { ...config, data })
+    case RequestType.DELETE:
+      return axios.delete(endpoint, { ...config, data: requestData })
     default: {
       return Promise.resolve(null)
     }
@@ -75,11 +79,13 @@ export const makeApiCall = async <RequestData, ResponseData, Params = undefined>
   request,
   requestData,
   apiData,
+  authToken,
 }: {
   endpoint: string
   request: RequestType
   requestData?: RequestData
   apiData: IApiConfig
+  authToken?: string
 }): Promise<IApiResponse<ResponseData>> => {
   try {
     const response = await getApiResponseUsingRequestVerb<RequestData, ResponseData, Params>({
@@ -87,6 +93,7 @@ export const makeApiCall = async <RequestData, ResponseData, Params = undefined>
       request,
       requestData,
       apiData,
+      authToken,
     })
 
     log.info('API Response', {

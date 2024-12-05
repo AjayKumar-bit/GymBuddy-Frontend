@@ -1,5 +1,9 @@
 export { default as BodyPartIcon } from './icons/body.svg'
+export { default as BookMarkIcon } from './icons/mark.svg'
+export { default as CheckedIcon } from './icons/checked.svg'
 export { default as EquipmentIcon } from './icons/equipment.svg'
+export { default as uncheckedIcon } from './icons/unchecked.svg'
+export { default as UnMarkIcon } from './icons/unmark.svg'
 
 export { default as NoImage } from './images/noImage.png'
 

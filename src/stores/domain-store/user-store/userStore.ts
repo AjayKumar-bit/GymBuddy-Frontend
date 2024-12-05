@@ -13,7 +13,7 @@ import {
 } from '@constants'
 import { translate } from '@locales'
 import { makeApiCall } from '@services'
-import { ILoginUserParams, IRegisterUserParams } from '@types'
+import { IApiParams, ILoginUserParams, IRegisterUserParams } from '@types'
 
 import { RootStoreType } from '../../root-store/rootStore'
 
@@ -42,7 +42,7 @@ const UserStore = types
           isLoading: true,
         })
 
-        const apiParams = {
+        const apiParams: IApiParams = {
           endpoint: `${User}/${Register}`,
           request: RequestType.POST,
           apiData: API.GymBuddy,
@@ -53,10 +53,9 @@ const UserStore = types
 
         if (response.status === ApiStatusCode.Created) {
           log.info('UserRegister Api call successful')
-
           const authData = {
             isLoggedIn: true,
-            token: response.data.accessToken,
+            token: response.data.data.accessToken,
           }
 
           yield AsyncStorage.setItem(AUTH_DATA_KEY, JSON.stringify(authData))
@@ -108,7 +107,7 @@ const UserStore = types
           isLoading: true,
         })
 
-        const apiParams = {
+        const apiParams: IApiParams = {
           endpoint: `${User}/${Login}`,
           request: RequestType.POST,
           apiData: API.GymBuddy,
@@ -122,7 +121,7 @@ const UserStore = types
 
           const authData = {
             isLoggedIn: true,
-            token: response.data.accessToken,
+            token: response.data.data.accessToken,
           }
 
           yield AsyncStorage.setItem(AUTH_DATA_KEY, JSON.stringify(authData))
@@ -157,9 +156,14 @@ const UserStore = types
       }
     })
 
+    const setAuthToken = (token: string) => {
+      self.userData.token = token
+    }
+
     return {
       loginUser,
       registerUser,
+      setAuthToken,
     }
   })
 

@@ -49,9 +49,14 @@ export const YOUTUBE_SEARCH_API = {
 export const GYMBUDDY_API = {
   baseUrl: Config.GYMBUDDY_BASE_URL,
   endPoints: {
-    User: 'users',
-    Register: 'register',
+    AddDay: 'addDay',
+    Days: 'days',
+    DeleteDay: 'deleteDay',
+    GetDays: 'getDays',
     Login: 'login',
+    Register: 'register',
+    UpdateDay: 'updateDay',
+    User: 'users',
   },
 }
 
@@ -72,10 +77,14 @@ export enum RequestType {
 }
 
 export enum ApiStatusPreset {
+  AddDay = 'addDay',
+  DeleteDay = 'deleteDay',
+  GetDays = 'getDays',
   GetExerciseVideo = 'getExerciseVideo',
+  LoginUser = 'LoginUser',
   RegisterUser = 'RegisterUser',
   SearchExercise = 'searchExercise',
-  LoginUser = 'LoginUser',
+  UpdateDay = 'updateDay',
 }
 
 export const API: IApi = {

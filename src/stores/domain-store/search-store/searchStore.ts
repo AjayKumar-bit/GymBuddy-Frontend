@@ -139,6 +139,4 @@ export type SearchExerciseDataTypes = Instance<typeof searchExerciseDataItem>
 
 export type videoRecommendationItemType = Instance<typeof videoRecommendationItem>
 
-videoRecommendationItem
-
 export { SearchStore }

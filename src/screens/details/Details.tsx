@@ -3,7 +3,8 @@ import { Linking, ScrollView, Text, View } from 'react-native'
 
 import { observer } from 'mobx-react-lite'
 
-import { GBAppHeader, GBExerciseCard, GBFlatList, GBLoader } from '@components'
+import { GBAppHeader, GBButton, GBExerciseCard, GBFlatList, GBLoader } from '@components'
+import { log } from '@config'
 import { ApiStatusPreset, RouteName } from '@constants'
 import { translate } from '@locales'
 import { AppStackScreenProps } from '@navigators'
@@ -22,23 +23,41 @@ const Details = observer((props: IDetailsProp) => {
   const { params } = route
   const { data } = params
   const {
-    //  bodyPart, equipment, // TODO: will uncomment this later when wil use it
+    bodyPart,
+    equipment,
     gifUrl,
     //  id,
     instructions,
     name,
-    //  secondaryMuscles, target
+    target,
   } = data
 
   const { domainStore, apiStatusStore } = useStore()
   const { searchStore } = domainStore
   const { getExerciseVideo, videoRecommendation } = searchStore
   const { getApiStatus } = apiStatusStore
-  const { isLoading } = getApiStatus(ApiStatusPreset.GetExerciseVideo) ?? {}
+  const { isLoading } = getApiStatus(ApiStatusPreset.GetExerciseVideo) ?? { isLoading: true }
   const hasNoRecommendation = videoRecommendation.length === 0
+  const targetedBody = bodyPart.toUpperCase()
+  const requiredEquipment = equipment.toUpperCase()
+  const targetMuscle = target.toUpperCase()
 
+  const [addingState, setAddingState] = useState(false)
   const [repsCount, setRepsCount] = useState(1)
   const [setsCount, setSetsCount] = useState(1)
+  const buttonTitle = addingState
+    ? translate('screens.details.select_day')
+    : translate('screens.details.add_to_planner')
+
+  const toggleAddingState = () => {
+    setAddingState(prev => !prev)
+  }
+
+  const selectDay = () => {
+    log.info('day select')
+  }
+
+  const onButtonPress = addingState ? selectDay : toggleAddingState
 
   const fetchData = () => {
     getExerciseVideo(name)
@@ -71,7 +90,12 @@ const Details = observer((props: IDetailsProp) => {
   const renderItem = ({ item }: { item: videoRecommendationItemType }) => {
     const { thumbnails, video_id, title } = item
     return (
-      <GBExerciseCard imageUrl={thumbnails[0].url} title={title} onPress={onCardPress(video_id)} />
+      <GBExerciseCard
+        imageUrl={thumbnails[0].url}
+        isAddingState={addingState}
+        onPress={onCardPress(video_id)}
+        title={title}
+      />
     )
   }
 
@@ -99,25 +123,42 @@ const Details = observer((props: IDetailsProp) => {
       <GBAppHeader title={translate('screens.details.header')} />
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <GifViewer gifUrl={gifUrl} name={name} />
-        <View style={styles.counterContainer}>
-          <Counter
-            count={repsCount}
-            onDecrease={onDecreaseRep}
-            onIncrease={onIncreaseRep}
-            label={translate('screens.details.reps')}
-          />
-          <View style={styles.separator} />
-          <Counter
-            count={setsCount}
-            onDecrease={onDecreaseSet}
-            onIncrease={onIncreaseSet}
-            label={translate('screens.details.sets')}
-          />
+        <View style={styles.detailsContainer}>
+          <View style={styles.detailsSubContainer}>
+            <Text style={styles.details}>{translate('screens.details.targeted_body_part')}</Text>
+            <Text>:</Text>
+            <Text style={styles.details}>{targetedBody}</Text>
+          </View>
+          <View style={styles.detailsSubContainer}>
+            <Text style={styles.details}>{translate('screens.details.targeted_muscles')}</Text>
+            <Text>:</Text>
+            <Text style={styles.details}>{targetMuscle}</Text>
+          </View>
+          <View style={styles.detailsSubContainer}>
+            <Text style={styles.details}>{translate('screens.details.required_equipment')}</Text>
+            <Text>:</Text>
+            <Text style={styles.details}>{requiredEquipment}</Text>
+          </View>
         </View>
         <Instructions data={instructions} />
-        <Text style={styles.recommendation}>
-          {translate('screens.details.video_recommendations')}
-        </Text>
+        {addingState && (
+          <View style={styles.counterContainer}>
+            <Counter
+              count={repsCount}
+              onDecrease={onDecreaseRep}
+              onIncrease={onIncreaseRep}
+              label={translate('screens.details.reps')}
+            />
+            <View style={styles.separator} />
+            <Counter
+              count={setsCount}
+              onDecrease={onDecreaseSet}
+              onIncrease={onIncreaseSet}
+              label={translate('screens.details.sets')}
+            />
+          </View>
+        )}
+        <Text style={styles.details}>{translate('screens.details.video_recommendations')}</Text>
         <GBFlatList
           apiStatusPreset={ApiStatusPreset.GetExerciseVideo}
           data={videoRecommendation}
@@ -129,6 +170,20 @@ const Details = observer((props: IDetailsProp) => {
           onEndReached={onEndReached}
         />
       </ScrollView>
+      <View style={styles.buttonContainer}>
+        <GBButton
+          title={buttonTitle}
+          onPress={onButtonPress}
+          containerCustomStyles={styles.button}
+        />
+        {addingState && (
+          <GBButton
+            title={translate('screens.details.cancel')}
+            onPress={toggleAddingState}
+            containerCustomStyles={styles.button}
+          />
+        )}
+      </View>
     </>
   )
 })

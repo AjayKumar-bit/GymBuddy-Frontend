@@ -1,3 +1,7 @@
+import { RequestType } from '@constants'
+
+import { IApiConfig } from './api.types'
+
 export interface ISearchExerciseParams {
   exerciseName: string
   isLoading?: boolean
@@ -14,4 +18,13 @@ export interface IRegisterUserParams {
 export interface ILoginUserParams {
   emailId: string
   password: string
+}
+
+export interface IApiParams {
+  apiData: IApiConfig
+  authToken?: string
+  endpoint: string
+  request: RequestType
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  requestData?: any
 }

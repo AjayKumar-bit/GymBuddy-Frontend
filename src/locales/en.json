@@ -4,7 +4,12 @@
   "common": {
     "search": "Search Exercise",
     "loading": "Loading",
-    "something_went_wrong": "Something went Wrong,Try again later"
+    "something_went_wrong": "Something went Wrong,Try again later",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "update": "Update",
+    "cancel": "Cancel"
   },
   "tab_data": {
     "home": "Home",
@@ -16,7 +21,8 @@
     "name": "Enter your name",
     "email": "Enter your email",
     "password": "Enter you password",
-    "confirm_password": "Enter same password"
+    "confirm_password": "Enter same password",
+    "enter_day_name": "Enter day name"
   },
   "error_messages": {
     "email": "Invalid email address",
@@ -56,12 +62,27 @@
     "details": {
       "header": "Exercise Details",
       "no_recommendation": "No recommendation found",
-      "reps": "Reps",
-      "sets": "Sets",
+      "reps": " Add Reps",
+      "sets": "Add Sets",
       "video_recommendations": "Video Recommendations",
       "instructions": "Instructions",
       "show_more": "Show More",
-      "show_less": "Show Less"
+      "show_less": "Show Less",
+      "add_to_planner": "Add To Planner",
+      "save": "Save",
+      "select_day": "Select Day",
+      "cancel": "Cancel",
+      "targeted_muscles": "Targeted Muscles",
+      "targeted_body_part": "Targeted Bodypart",
+      "required_equipment": "Required Equipment"
+    },
+    "planner": {
+      "header": "Planner",
+      "my_days": "My Days",
+      "current_day": "Current Day Name",
+      "day_name": "Day Name",
+      "delete_confirmation": "Do you want to delete the day",
+      "new_day_name": "Day New Name"
     }
   }
 }

@@ -36,6 +36,20 @@ const ApiStatusStore = types
       self.apiStatus.set(id, { error, hasMoreData, id, isLoading, isRefreshCall, showBottomLoader })
     }
     const getApiStatus = (id: string) => {
+      const data = self.apiStatus.get(id)
+      if (data) {
+        return data
+      }
+      const defaultData = {
+        error: {},
+        hasMoreData: false,
+        id,
+        isLoading: false,
+        isRefreshCall: false,
+        showBottomLoader: false,
+      }
+      setApiStatus(defaultData)
+
       return self.apiStatus.get(id)
     }
 

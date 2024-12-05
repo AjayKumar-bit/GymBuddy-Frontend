@@ -8,10 +8,12 @@ export enum Palette {
   Cyan = '#00B6DF',
   DimGray = '#6C6C6C',
   DolphinGray = '#7E8A8C',
+  Fuzzy = '#CA7373',
   Gray = '#808181',
   InternationalOrange = '#CD2504',
   JungleGreen = '#193238',
   LightSilver = '#D7D7D7',
   TeaGreen = '#C7E9CC',
+  Water = '#D4EBF8',
   White = '#FFFFFF',
 }

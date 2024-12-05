@@ -16,10 +16,18 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.Label,
+    flex: 1,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_12,
     lineHeight: Sizes.Size_14,
     margin: Sizes.Size_4,
+  },
+  subContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  icon: {
+    padding: Sizes.Size_4,
   },
 })
 

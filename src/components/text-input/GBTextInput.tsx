@@ -30,8 +30,8 @@ interface IGBTextInputProps extends TextInputProps {
   onSearchIconPress?: () => void
   /** onTextChange : is a required prop that triggers on text change */
   onTextChange?: (value: string) => void
-  /** placeHolder : is a required prop that gives placeHolder */
-  placeHolder: string
+  /** placeHolder : is a optional prop that gives placeHolder */
+  placeHolder?: string
   /** preset: is a required prop that gives preset of text input */
   preset: TextInputPreset
 }
@@ -43,7 +43,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
     label = '',
     onSearchIconPress = () => {},
     onTextChange = () => {},
-    placeHolder,
+    placeHolder = '',
     preset,
   } = props
 
