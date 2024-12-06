@@ -2,6 +2,7 @@ export enum Sizes {
   Size_0 = 0,
   Size_1 = 1,
   Size_2 = 2,
+  Size_3 = 3,
   Size_4 = 4,
   Size_6 = 6,
   Size_8 = 8,

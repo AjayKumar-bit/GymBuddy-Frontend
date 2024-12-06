@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.ExerciseCardBackground,
     borderRadius: Sizes.Size_4,
     overflow: 'hidden',
-    width: (SCREEN_WIDTH - 32) / 2,
+    padding: Sizes.Size_2,
+    width: (SCREEN_WIDTH - 40) / 2,
   },
   title: {
     color: Colors.Label,
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_12,
     lineHeight: Sizes.Size_14,
-    margin: Sizes.Size_4,
+    padding: Sizes.Size_4,
   },
   subContainer: {
     alignItems: 'center',
@@ -28,6 +29,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     padding: Sizes.Size_4,
+  },
+  border: {
+    borderColor: Colors.ActiveTab,
+    borderWidth: Sizes.Size_3,
   },
 })
 

@@ -16,6 +16,8 @@ interface IGBExerciseCardProps {
   isAddingState?: boolean
   /** imageUrl: is a required prop that give image url */
   imageUrl: string
+  /** onBookmarkPress: is an optional prop that trigger an action on click of bookmark icon */
+  onBookmarkPress?: () => void
   /** onPress: is a required prop that trigger an action on click of card */
   onPress: () => void
   /** title: is a required prop that give title */
@@ -23,11 +25,21 @@ interface IGBExerciseCardProps {
 }
 
 const GBExerciseCard = (props: IGBExerciseCardProps) => {
-  const { containerStyles, isAddingState = false, imageUrl, onPress, title } = props
+  const {
+    containerStyles,
+    isAddingState = false,
+    imageUrl,
+    onPress,
+    onBookmarkPress = () => {},
+    title,
+  } = props
   const [isBookMarked, setIsBookMarked] = useState(false)
+
+  const borderStyles = isBookMarked ? styles.border : {}
 
   const toggleState = () => {
     setIsBookMarked(prev => !prev)
+    onBookmarkPress()
   }
 
   const renderIcon = () =>
@@ -48,7 +60,7 @@ const GBExerciseCard = (props: IGBExerciseCardProps) => {
     )
 
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, containerStyles]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, borderStyles, containerStyles]}>
       <GBFastImage
         imageStyles={styles.image}
         resizeMode={ResizeMode.Stretch}

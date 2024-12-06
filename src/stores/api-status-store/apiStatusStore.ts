@@ -3,6 +3,7 @@ import { types } from 'mobx-state-tree'
 interface IDataParamsTypes {
   error?: object
   hasMoreData?: boolean
+  hasSuccess?: boolean
   id: string
   isLoading?: boolean
   isRefreshCall?: boolean
@@ -12,6 +13,7 @@ interface IDataParamsTypes {
 const ApiStatusItem = types.model('ApiStatusItem', {
   error: types.frozen(),
   hasMoreData: types.boolean,
+  hasSuccess: types.boolean,
   id: types.string,
   isLoading: types.boolean,
   isRefreshCall: types.boolean,
@@ -28,12 +30,21 @@ const ApiStatusStore = types
       const {
         error = prevData?.error ?? {},
         hasMoreData = prevData?.hasMoreData ?? false,
+        hasSuccess = prevData?.hasSuccess ?? false,
         id,
         isLoading = prevData?.isLoading ?? false,
         isRefreshCall = prevData?.isRefreshCall ?? false,
         showBottomLoader = prevData?.showBottomLoader ?? false,
       } = data
-      self.apiStatus.set(id, { error, hasMoreData, id, isLoading, isRefreshCall, showBottomLoader })
+      self.apiStatus.set(id, {
+        error,
+        hasMoreData,
+        hasSuccess,
+        id,
+        isLoading,
+        isRefreshCall,
+        showBottomLoader,
+      })
     }
     const getApiStatus = (id: string) => {
       const data = self.apiStatus.get(id)
@@ -43,6 +54,7 @@ const ApiStatusStore = types
       const defaultData = {
         error: {},
         hasMoreData: false,
+        hasSuccess: false,
         id,
         isLoading: false,
         isRefreshCall: false,

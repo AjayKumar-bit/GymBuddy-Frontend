@@ -62,19 +62,22 @@
     "details": {
       "header": "Exercise Details",
       "no_recommendation": "No recommendation found",
-      "reps": " Add Reps",
-      "sets": "Add Sets",
+      "reps": "Reps",
+      "sets": "Sets",
       "video_recommendations": "Video Recommendations",
       "instructions": "Instructions",
       "show_more": "Show More",
       "show_less": "Show Less",
       "add_to_planner": "Add To Planner",
       "save": "Save",
-      "select_day": "Select Day",
+      "select_day": "Select Days",
       "cancel": "Cancel",
       "targeted_muscles": "Targeted Muscles",
       "targeted_body_part": "Targeted Bodypart",
-      "required_equipment": "Required Equipment"
+      "required_equipment": "Required Equipment",
+      "no_days_found": "No days found",
+      "add_rep_set": "Add Reps and Sets",
+      "select_videos": "Select Videos"
     },
     "planner": {
       "header": "Planner",
@@ -82,7 +85,8 @@
       "current_day": "Current Day Name",
       "day_name": "Day Name",
       "delete_confirmation": "Do you want to delete the day",
-      "new_day_name": "Day New Name"
+      "new_day_name": "Day New Name",
+      "no_days_found": "No days found"
     }
   }
 }

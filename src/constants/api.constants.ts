@@ -50,8 +50,11 @@ export const GYMBUDDY_API = {
   baseUrl: Config.GYMBUDDY_BASE_URL,
   endPoints: {
     AddDay: 'addDay',
+    AddExercise: 'addExercise',
     Days: 'days',
     DeleteDay: 'deleteDay',
+    Exercise: 'exercise',
+    Exercises: 'exercises',
     GetDays: 'getDays',
     Login: 'login',
     Register: 'register',
@@ -78,8 +81,10 @@ export enum RequestType {
 
 export enum ApiStatusPreset {
   AddDay = 'addDay',
+  AddExercise = 'addExercise',
   DeleteDay = 'deleteDay',
   GetDays = 'getDays',
+  GetExercise = 'getExercise',
   GetExerciseVideo = 'getExerciseVideo',
   LoginUser = 'LoginUser',
   RegisterUser = 'RegisterUser',

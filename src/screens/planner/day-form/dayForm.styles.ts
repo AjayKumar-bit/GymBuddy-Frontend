@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   loader: {
     justifyContent: 'center',
-    marginTop:Sizes.Size_0,
+    marginTop: Sizes.Size_0,
     paddingVertical: Sizes.Size_10,
     width: SCREEN_WIDTH / 2 - Sizes.Size_38,
   },

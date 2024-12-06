@@ -5,7 +5,7 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.TextInputBackground,
+    backgroundColor: Colors.ExerciseCardBackground,
     borderRadius: Sizes.Size_10,
     flexDirection: 'row',
     gap: Sizes.Size_8,
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     width: 100,
   },
   subContainer: {
-    backgroundColor: Colors.TextInputBackground,
+    backgroundColor: Colors.ExerciseCardBackground,
     flex: 2,
     justifyContent: 'center',
     padding: Sizes.Size_8,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     color: Colors.Label,
     flex: 1,
     fontFamily: Typography.primary.regular,
-    fontSize: Sizes.Size_16,
+    fontSize: Sizes.Size_14,
     textTransform: 'capitalize',
   },
   name: {

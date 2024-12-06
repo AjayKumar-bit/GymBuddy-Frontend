@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Linking, ScrollView, Text, View } from 'react-native'
 
 import { observer } from 'mobx-react-lite'
@@ -8,10 +8,16 @@ import { log } from '@config'
 import { ApiStatusPreset, RouteName } from '@constants'
 import { translate } from '@locales'
 import { AppStackScreenProps } from '@navigators'
-import { useStore, videoRecommendationItemType } from '@stores'
+import {
+  exerciseDataType,
+  useStore,
+  videoRecommendationItemType,
+  videoRecommendationType,
+} from '@stores'
 import { CommonStyles } from '@theme'
 
 import Counter from './counter/Counter'
+import DaySelector from './day-selector/DaySelector'
 import { styles } from './details.styles'
 import GifViewer from './gif-viewer/GifViewer'
 import Instructions from './instructions/Instructions'
@@ -22,15 +28,7 @@ const Details = observer((props: IDetailsProp) => {
   const { route } = props
   const { params } = route
   const { data } = params
-  const {
-    bodyPart,
-    equipment,
-    gifUrl,
-    //  id,
-    instructions,
-    name,
-    target,
-  } = data
+  const { bodyPart, equipment, gifUrl, instructions, name, target } = data
 
   const { domainStore, apiStatusStore } = useStore()
   const { searchStore } = domainStore
@@ -45,6 +43,10 @@ const Details = observer((props: IDetailsProp) => {
   const [addingState, setAddingState] = useState(false)
   const [repsCount, setRepsCount] = useState(1)
   const [setsCount, setSetsCount] = useState(1)
+  const [openDaySelector, SetOpenDaySelector] = useState(false)
+
+  const bookmarkedVideos = useRef<Array<videoRecommendationType>>([])
+
   const buttonTitle = addingState
     ? translate('screens.details.select_day')
     : translate('screens.details.add_to_planner')
@@ -53,11 +55,25 @@ const Details = observer((props: IDetailsProp) => {
     setAddingState(prev => !prev)
   }
 
-  const selectDay = () => {
-    log.info('day select')
+  const closeDaySelector = () => {
+    SetOpenDaySelector(false)
   }
 
-  const onButtonPress = addingState ? selectDay : toggleAddingState
+  const onSelectDayPress = () => {
+    SetOpenDaySelector(true)
+  }
+
+  const onBookmarkPress = (thumbnail: string, videoId: string, title: string) => () => {
+    if (bookmarkedVideos.current.some(video => video.videoId === videoId)) {
+      bookmarkedVideos.current = bookmarkedVideos.current.filter(video => video.videoId !== videoId)
+      log.error(bookmarkedVideos.current, 'insode')
+    } else {
+      bookmarkedVideos.current = [...bookmarkedVideos.current, { thumbnail, videoId, title }]
+      log.error(bookmarkedVideos.current, 'outside')
+    }
+  }
+
+  const onButtonPress = addingState ? onSelectDayPress : toggleAddingState
 
   const fetchData = () => {
     getExerciseVideo(name)
@@ -76,7 +92,7 @@ const Details = observer((props: IDetailsProp) => {
   }
 
   const onDecreaseSet = () => {
-    setsCount > 1 && setSetsCount(repsCount - 1)
+    setsCount > 1 && setSetsCount(setsCount - 1)
   }
 
   const onCardPress = (video_id: string) => () => {
@@ -89,10 +105,12 @@ const Details = observer((props: IDetailsProp) => {
 
   const renderItem = ({ item }: { item: videoRecommendationItemType }) => {
     const { thumbnails, video_id, title } = item
+    const thumbnail = thumbnails[0].url
     return (
       <GBExerciseCard
-        imageUrl={thumbnails[0].url}
+        imageUrl={thumbnail}
         isAddingState={addingState}
+        onBookmarkPress={onBookmarkPress(thumbnail, video_id, title)}
         onPress={onCardPress(video_id)}
         title={title}
       />
@@ -142,23 +160,30 @@ const Details = observer((props: IDetailsProp) => {
         </View>
         <Instructions data={instructions} />
         {addingState && (
-          <View style={styles.counterContainer}>
-            <Counter
-              count={repsCount}
-              onDecrease={onDecreaseRep}
-              onIncrease={onIncreaseRep}
-              label={translate('screens.details.reps')}
-            />
-            <View style={styles.separator} />
-            <Counter
-              count={setsCount}
-              onDecrease={onDecreaseSet}
-              onIncrease={onIncreaseSet}
-              label={translate('screens.details.sets')}
-            />
-          </View>
+          <>
+            <Text style={styles.details}>{translate('screens.details.add_rep_set')}</Text>
+            <View style={styles.counterContainer}>
+              <Counter
+                count={repsCount}
+                label={translate('screens.details.reps')}
+                onDecrease={onDecreaseRep}
+                onIncrease={onIncreaseRep}
+              />
+              <View style={styles.separator} />
+              <Counter
+                count={setsCount}
+                label={translate('screens.details.sets')}
+                onDecrease={onDecreaseSet}
+                onIncrease={onIncreaseSet}
+              />
+            </View>
+          </>
         )}
-        <Text style={styles.details}>{translate('screens.details.video_recommendations')}</Text>
+        {addingState ? (
+          <Text style={styles.details}>{translate('screens.details.select_videos')}</Text>
+        ) : (
+          <Text style={styles.details}>{translate('screens.details.video_recommendations')}</Text>
+        )}
         <GBFlatList
           apiStatusPreset={ApiStatusPreset.GetExerciseVideo}
           data={videoRecommendation}
@@ -171,19 +196,28 @@ const Details = observer((props: IDetailsProp) => {
         />
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <GBButton
-          title={buttonTitle}
-          onPress={onButtonPress}
-          containerCustomStyles={styles.button}
-        />
         {addingState && (
           <GBButton
-            title={translate('screens.details.cancel')}
-            onPress={toggleAddingState}
             containerCustomStyles={styles.button}
+            onPress={toggleAddingState}
+            title={translate('screens.details.cancel')}
           />
         )}
+        <GBButton
+          containerCustomStyles={styles.button}
+          onPress={onButtonPress}
+          title={buttonTitle}
+        />
       </View>
+      {openDaySelector && (
+        <DaySelector
+          closeDaySelector={closeDaySelector}
+          exerciseDetails={data as exerciseDataType}
+          videoRecommendations={bookmarkedVideos.current}
+          sets={setsCount}
+          reps={repsCount}
+        />
+      )}
     </>
   )
 })

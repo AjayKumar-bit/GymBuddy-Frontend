@@ -16,6 +16,10 @@ const DomainStoreData = {
   plannerStore: {
     days: [],
   },
+  exerciseStore: {
+    exerciseData: [],
+    offset: 0,
+  },
 }
 
 export { DomainStoreData }

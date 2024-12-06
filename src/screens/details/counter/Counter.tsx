@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import AnimatedNumber from 'react-native-animated-numbers'
-import { MinusCircleIcon, PlusCircleIcon } from 'react-native-heroicons/solid'
+import { MinusIcon, PlusIcon } from 'react-native-heroicons/solid'
 
 import { HIT_SLOP_FIVE } from '@constants'
 import { Colors } from '@theme'
@@ -25,19 +25,15 @@ const Counter = (props: ICounterProps) => {
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.subContainer}>
-        <MinusCircleIcon
-          color={Colors.ActiveTab}
-          onPress={onDecrease}
-          hitSlop={HIT_SLOP_FIVE}
-          style={styles.button}
-        />
+        <MinusIcon color={Colors.ActiveTab} onPress={onDecrease} hitSlop={HIT_SLOP_FIVE} />
         <AnimatedNumber
+          animationDuration={500}
           includeComma
           animateToNumber={count}
           fontStyle={styles.count}
           containerStyle={styles.contentContainer}
         />
-        <PlusCircleIcon color={Colors.ActiveTab} onPress={onIncrease} hitSlop={HIT_SLOP_FIVE} />
+        <PlusIcon color={Colors.ActiveTab} onPress={onIncrease} hitSlop={HIT_SLOP_FIVE} />
       </View>
     </View>
   )

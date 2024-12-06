@@ -1,19 +1,15 @@
 import { StyleSheet } from 'react-native'
 
-import { Colors, CommonStyles, Sizes, Typography } from '@theme'
+import { Colors, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
-  button: {
-    ...CommonStyles.shadow,
-    elevation: 6,
-  },
   count: {
     color: Colors.Label,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_16,
     fontVariant: ['lining-nums'],
     lineHeight: Sizes.Size_18,
-    textAlignVertical: 'center',
+    textAlign: 'center',
   },
   subContainer: {
     alignItems: 'center',
@@ -30,7 +26,6 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: Colors.ExerciseCardBackground,
     marginHorizontal: Sizes.Size_16,
     padding: Sizes.Size_4,
   },
@@ -38,8 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.TextInputBackground,
     borderRadius: Sizes.Size_4,
-    justifyContent: 'center',
-    paddingBottom: Sizes.Size_4,
+    paddingBottom: Sizes.Size_2,
     paddingHorizontal: Sizes.Size_6,
   },
 })

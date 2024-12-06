@@ -5,15 +5,18 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 const styles = StyleSheet.create({
   counterContainer: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CancelButton,
+    borderColor: Colors.ActiveTab,
     borderRadius: Sizes.Size_4,
+    borderWidth: Sizes.Size_2,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginBottom: Sizes.Size_16,
-    marginHorizontal: Sizes.Size_16,
+    margin: Sizes.Size_16,
+    marginTop: Sizes.Size_8,
     paddingVertical: Sizes.Size_4,
   },
   separator: {
+    borderColor: Colors.ActiveTab,
     borderLeftWidth: Sizes.Size_1,
     borderStyle: 'dashed',
     height: '100%',
@@ -37,9 +40,8 @@ const styles = StyleSheet.create({
     paddingTop: Sizes.Size_4,
   },
   button: {
-    borderBottomLeftRadius: Sizes.Size_0,
-    borderBottomRightRadius: Sizes.Size_0,
     flex: 1,
+    marginVertical: Sizes.Size_8,
   },
   buttonContainer: {
     bottom: 0,
