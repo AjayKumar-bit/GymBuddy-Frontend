@@ -56,14 +56,10 @@ const Search = observer((props: ISearchProp) => {
   }
 
   const listEmptyComponent = () => {
-    return (
-      <View style={CommonStyles.flex_1}>
-        {isLoading ? (
-          <GBLoader title={translate('screens.search.searching')} />
-        ) : (
-          <GBLoader title={translate('screens.search.no_exercise_found')} />
-        )}
-      </View>
+    return isLoading ? (
+      <GBLoader title={translate('screens.search.searching')} />
+    ) : (
+      <GBLoader title={translate('screens.search.no_exercise_found')} />
     )
   }
 

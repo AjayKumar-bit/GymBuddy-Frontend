@@ -77,7 +77,8 @@
       "required_equipment": "Required Equipment",
       "no_days_found": "No days found",
       "add_rep_set": "Add Reps and Sets",
-      "select_videos": "Select Videos"
+      "select_videos": "Select Videos",
+      "go_to_planner": "Goto Planner"
     },
     "planner": {
       "header": "Planner",

@@ -19,9 +19,10 @@ const Planner = observer(() => {
   const { plannerStore } = domainStore
   const { getDays, days } = plannerStore
   const { getApiStatus } = apiStatusStore
-  const { isLoading } = getApiStatus(ApiStatusPreset.GetDays) ?? { isLoading: true }
-  const { isLoading: isAddingDay } = getApiStatus(ApiStatusPreset.AddDay) ?? { isLoading: false }
+  const { isLoading } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
+  const { isLoading: isAddingDay } = getApiStatus(ApiStatusPreset.AddDay) ?? {}
   const [isDayManagerOpen, setIsDayManagerOpen] = useState(false)
+  const [isFirstRender, setIsFirstRender] = useState(true)
 
   const hasNoDays = days.length === 0
 
@@ -29,8 +30,9 @@ const Planner = observer(() => {
     setIsDayManagerOpen(false)
   }
 
-  const fetchData = () => {
-    getDays()
+  const fetchData = async () => {
+    await getDays()
+    setIsFirstRender(false)
   }
 
   const onAddDayPress = () => {
@@ -47,14 +49,10 @@ const Planner = observer(() => {
   const keyExtractor = ({ _id }: DaysItemTypes) => _id
 
   const listEmptyComponent = () => {
-    return (
-      <View style={CommonStyles.flex_1}>
-        {isLoading ? (
-          <GBLoader />
-        ) : (
-          <GBLoader title={translate('screens.details.no_recommendation')} />
-        )}
-      </View>
+    return isLoading || isFirstRender ? (
+      <GBLoader />
+    ) : (
+      <GBLoader title={translate('screens.planner.no_days_found')} />
     )
   }
 

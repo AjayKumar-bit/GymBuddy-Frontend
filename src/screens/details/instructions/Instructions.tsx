@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { LayoutAnimation, Platform, Text, TouchableOpacity, UIManager, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
 import { translate } from '@locales'
+import { enableLayoutAnimation, layoutAnimation } from '@utils'
 
 import { styles } from './instructions.styles'
 
@@ -14,21 +15,10 @@ const Instructions = (props: IInstructionsProps) => {
   const { data } = props
   const [isExpanded, SetIsExpended] = useState(false)
 
-  if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true)
-  }
+  enableLayoutAnimation()
 
   const toggleInstructionVisibility = () => {
-    // TODO: need to check why LayoutAnimation not working.
-    LayoutAnimation.configureNext({
-      duration: 250,
-      update: {
-        type: LayoutAnimation.Types.easeInEaseOut,
-      },
-      create: {
-        type: LayoutAnimation.Types.easeInEaseOut,
-      },
-    })
+    layoutAnimation()
     SetIsExpended(prev => !prev)
   }
 

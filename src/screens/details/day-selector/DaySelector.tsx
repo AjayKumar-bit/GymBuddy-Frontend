@@ -7,7 +7,7 @@ import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
 import { GBButton, GBFlatList, GBLoader, GBModal } from '@components'
-import { ApiStatusPreset } from '@constants'
+import { ApiStatusPreset, RouteName } from '@constants'
 import { translate } from '@locales'
 import { DaysItemTypes, exerciseDataType, useStore, videoRecommendationType } from '@stores'
 import { INavigation } from '@types'
@@ -38,11 +38,12 @@ const DaySelector = observer((props: IDaySelectorProps) => {
   const { addExercise } = exerciseStore
   const { getApiStatus } = apiStatusStore
   const { isLoading } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
+  const hasDays = days.length > 0
 
   const dayIdsRef = useRef<Array<string>>([])
 
   const fetchData = () => {
-    days.length === 0 && getDays()
+    !hasDays && getDays()
   }
 
   const onCardPress = (id: string) => () => {
@@ -64,6 +65,10 @@ const DaySelector = observer((props: IDaySelectorProps) => {
     closeDaySelector()
   }
 
+  const onGotoPress = () => {
+    navigation.navigate(RouteName.Planner)
+  }
+
   const renderItem = ({ item }: { item: DaysItemTypes }) => {
     const { _id: id, dayName } = item
     return <DaysCard key={id} onCardPress={onCardPress(id)} dayName={dayName} />
@@ -75,7 +80,10 @@ const DaySelector = observer((props: IDaySelectorProps) => {
     return isLoading ? (
       <GBLoader />
     ) : (
-      <GBLoader title={translate('screens.details.no_days_found')} />
+      <>
+        <GBLoader title={translate('screens.details.no_days_found')} />
+        <GBButton title={translate('screens.details.go_to_planner')} onPress={onGotoPress} />
+      </>
     )
   }
 
@@ -109,18 +117,22 @@ const DaySelector = observer((props: IDaySelectorProps) => {
           contentContainerStyle={[styles.contentContainerStyle]}
         />
         <View style={styles.buttonContainer}>
-          <GBButton
-            title={translate('common.cancel')}
-            onPress={closeDaySelector}
-            containerCustomStyles={styles.cancelButton}
-          />
-          <GBButton
-            title={translate('common.add')}
-            onPress={onButtonPress}
-            apiStatusPreset={ApiStatusPreset.AddExercise}
-            containerCustomStyles={styles.addButton}
-            loaderStyles={styles.loader}
-          />
+          {!isLoading || hasDays && (
+            <>
+              <GBButton
+                title={translate('common.cancel')}
+                onPress={closeDaySelector}
+                containerCustomStyles={styles.cancelButton}
+              />
+              <GBButton
+                title={translate('common.add')}
+                onPress={onButtonPress}
+                apiStatusPreset={ApiStatusPreset.AddExercise}
+                containerCustomStyles={styles.addButton}
+                loaderStyles={styles.loader}
+              />
+            </>
+          )}
         </View>
       </View>
     </GBModal>

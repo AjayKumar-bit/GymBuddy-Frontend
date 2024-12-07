@@ -4,7 +4,6 @@ import { Linking, ScrollView, Text, View } from 'react-native'
 import { observer } from 'mobx-react-lite'
 
 import { GBAppHeader, GBButton, GBExerciseCard, GBFlatList, GBLoader } from '@components'
-import { log } from '@config'
 import { ApiStatusPreset, RouteName } from '@constants'
 import { translate } from '@locales'
 import { AppStackScreenProps } from '@navigators'
@@ -15,6 +14,7 @@ import {
   videoRecommendationType,
 } from '@stores'
 import { CommonStyles } from '@theme'
+import { enableLayoutAnimation, layoutAnimation } from '@utils'
 
 import Counter from './counter/Counter'
 import DaySelector from './day-selector/DaySelector'
@@ -51,7 +51,10 @@ const Details = observer((props: IDetailsProp) => {
     ? translate('screens.details.select_day')
     : translate('screens.details.add_to_planner')
 
+  enableLayoutAnimation()
+
   const toggleAddingState = () => {
+    layoutAnimation()
     setAddingState(prev => !prev)
   }
 
@@ -66,10 +69,8 @@ const Details = observer((props: IDetailsProp) => {
   const onBookmarkPress = (thumbnail: string, videoId: string, title: string) => () => {
     if (bookmarkedVideos.current.some(video => video.videoId === videoId)) {
       bookmarkedVideos.current = bookmarkedVideos.current.filter(video => video.videoId !== videoId)
-      log.error(bookmarkedVideos.current, 'insode')
     } else {
       bookmarkedVideos.current = [...bookmarkedVideos.current, { thumbnail, videoId, title }]
-      log.error(bookmarkedVideos.current, 'outside')
     }
   }
 
@@ -158,7 +159,7 @@ const Details = observer((props: IDetailsProp) => {
             <Text style={styles.details}>{requiredEquipment}</Text>
           </View>
         </View>
-        <Instructions data={instructions} />
+        {!!data && <Instructions data={instructions} />}
         {addingState && (
           <>
             <Text style={styles.details}>{translate('screens.details.add_rep_set')}</Text>
