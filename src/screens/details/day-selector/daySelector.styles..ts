@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     gap: Sizes.Size_8,
     justifyContent: 'center',
     maxHeight: '100%',
+    minWidth: SCREEN_WIDTH - Sizes.Size_32,
     padding: Sizes.Size_16,
   },
   buttonContainer: {

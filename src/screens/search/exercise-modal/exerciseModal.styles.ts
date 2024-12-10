@@ -1,14 +1,22 @@
 import { StyleSheet } from 'react-native'
 
 import { SCREEN_WIDTH } from '@constants'
-import { Colors, CommonStyles, Sizes, Typography } from '@theme'
+import { Colors, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   container: {
-    ...CommonStyles.shadow,
+    backgroundColor: Colors.OverLay,
+    flex: 1,
+    justifyContent: 'center',
+    padding: Sizes.Size_16,
+  },
+  subContainer: {
     backgroundColor: Colors.ExerciseCardBackground,
     borderRadius: Sizes.Size_8,
-    gap: Sizes.Size_6,
+    gap: Sizes.Size_8,
+    justifyContent: 'center',
+    maxHeight: '100%',
+    minWidth: SCREEN_WIDTH - Sizes.Size_32,
     padding: Sizes.Size_16,
   },
   header: {
@@ -17,9 +25,6 @@ const styles = StyleSheet.create({
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,
     textAlign: 'center',
-  },
-  lottie: {
-    height: 100,
   },
   button: {
     width: SCREEN_WIDTH / 2 - Sizes.Size_38,
@@ -42,6 +47,15 @@ const styles = StyleSheet.create({
     marginTop: Sizes.Size_0,
     paddingVertical: Sizes.Size_10,
     width: SCREEN_WIDTH / 2 - Sizes.Size_38,
+  },
+  exerciseName: {
+    color: Colors.Label,
+    fontFamily: Typography.primary.regular,
+    fontSize: Sizes.Size_18,
+    lineHeight: Sizes.Size_20,
+    paddingVertical: Sizes.Size_8,
+    textAlign: 'center',
+    textTransform: 'capitalize',
   },
 })
 

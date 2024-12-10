@@ -15,14 +15,14 @@ import { Colors } from '@theme'
 import { styles } from './dayForm.styles'
 
 interface IDayFormProps {
+  /** closeModal : is a required prop that trigger to close modal when required  */
+  closeModal: () => void
   /** currentDay:is an optional prop that gives current name of day */
   currentDay?: string
   /** dayId : is a required prop that given id of day */
   dayId: string
   /** preset : is a required prop that give preset of day form  */
   preset: DayPlannerPreset
-  /** closeModal : is a required prop that trigger to close modal when required  */
-  closeModal: () => void
 }
 
 const DayForm = observer((props: IDayFormProps) => {
@@ -79,7 +79,7 @@ const DayForm = observer((props: IDayFormProps) => {
           buttonStyles: styles.deleteButton,
           buttonTitle: translate('common.delete'),
           label: '',
-          loaderColor: Colors.DelateButton,
+          loaderColor: Colors.DeleteButton,
           onButtonPress: onDeletePress,
         })
         break

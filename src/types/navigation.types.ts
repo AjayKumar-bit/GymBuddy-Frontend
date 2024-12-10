@@ -1,11 +1,19 @@
-import { SearchExerciseDataTypes } from '@stores'
+import { ExerciseListScreenPreset } from '@constants'
+import { SearchExerciseDataTypes, exerciseDetailsType, videoRecommendationType } from '@stores'
 
 interface ISearchNavigationParams {
-  prevSearchedExercise: string
+  dayId?: string
+  dayName?: string
+  preset: ExerciseListScreenPreset
+  prevSearchedExercise?: string
 }
 
 interface IDetailsNavigationParams {
-  data: SearchExerciseDataTypes
+  data: exerciseDetailsType | SearchExerciseDataTypes
+  dayId?: string
+  exerciseId?: string
+  isPlannerEnable?: boolean
+  videos?: Array<videoRecommendationType>
 }
 
 export type RootStackParamList = {

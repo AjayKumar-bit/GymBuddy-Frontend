@@ -4,7 +4,7 @@ export enum Colors {
   ActiveTab = Palette.Cyan,
   CancelButton = Palette.Water,
   Dark = Palette.Black,
-  DelateButton = Palette.Fuzzy,
+  DeleteButton = Palette.Fuzzy,
   Error = Palette.InternationalOrange,
   ExerciseCardBackground = Palette.White,
   InactiveTab = Palette.DolphinGray,

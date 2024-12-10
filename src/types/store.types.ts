@@ -1,11 +1,12 @@
 import { RequestType } from '@constants'
-import { exerciseDataType, videoRecommendationType } from '@stores'
+import { exerciseDetailsType, videoRecommendationType } from '@stores'
 
 import { IApiConfig } from './api.types'
 
 export interface ISearchExerciseParams {
   exerciseName: string
   isLoading?: boolean
+  isNewCall?: boolean
   isRefreshCall?: boolean
 }
 
@@ -32,7 +33,7 @@ export interface IApiParams {
 
 interface AddExerciseData {
   dayIds: string[]
-  exerciseDetails: exerciseDataType
+  exerciseDetails: exerciseDetailsType
   videoRecommendations: videoRecommendationType[]
 }
 
@@ -44,4 +45,23 @@ export interface IGetExerciseParams {
   dayId: string
   isLoading?: boolean
   isRefreshCall?: boolean
+  isFirstCall?: boolean
+}
+
+interface IExerciseDetailsTypes {
+  sets: number
+  reps: number
+}
+
+export interface IUpdateExerciseParams {
+  dayId: string
+  exerciseDetails?: IExerciseDetailsTypes
+  exerciseId: string
+  newAddedVideos?: videoRecommendationType[]
+  removedVideos?: string[]
+}
+
+export interface IDeleteExerciseParams {
+  dayId: string
+  exerciseId: string
 }

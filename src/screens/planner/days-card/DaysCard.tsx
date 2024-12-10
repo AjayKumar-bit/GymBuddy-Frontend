@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Text, TouchableOpacity, View } from 'react-native'
 import {
   CalendarDaysIcon,
   TrashIcon as DeleteIcon,
@@ -43,21 +42,19 @@ const DaysCard = (props: IDaysCardProps) => {
   }
 
   return (
-    <>
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.subContainer} onPress={onCardPress}>
-          <CalendarDaysIcon color={Colors.InactiveTab} />
-          <Text style={styles.title}>{title.toUpperCase()}</Text>
-        </TouchableOpacity>
-        <View style={styles.buttonContainer}>
-          <EditIcon color={Colors.InactiveTab} onPress={onEditPress} />
-          <DeleteIcon color={Colors.Error} onPress={onDeletePress} />
-        </View>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.subContainer} onPress={onCardPress}>
+        <CalendarDaysIcon color={Colors.InactiveTab} />
+        <Text style={styles.title}>{title}</Text>
+      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <EditIcon color={Colors.InactiveTab} onPress={onEditPress} />
+        <DeleteIcon color={Colors.Error} onPress={onDeletePress} />
       </View>
       {isDayManagerOpen && (
         <DayManager dayId={id} dayName={title} preset={preset} closeDayManager={closeDayManager} />
       )}
-    </>
+    </View>
   )
 }
 

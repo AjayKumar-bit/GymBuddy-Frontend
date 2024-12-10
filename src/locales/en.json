@@ -38,7 +38,8 @@
       "equipment": "Equipment",
       "searching": "Searching",
       "recommended_exercise": "Recommended Exercise",
-      "no_exercise_found": "No Exercise Found"
+      "no_exercise_found": "No Exercise Found",
+      "my_exercises_title": "Its {{dayName}}"
     },
     "login": {
       "header": "Welcome Back to GYMBUDDY",
@@ -77,7 +78,13 @@
       "required_equipment": "Required Equipment",
       "no_days_found": "No days found",
       "add_rep_set": "Add Reps and Sets",
-      "select_videos": "Select Videos"
+      "select_videos": "Select Videos",
+      "go_to_planner": "Goto Planner",
+      "your_rep_sets": "Your Reps and Sets",
+      "your_videos": "Your Videos",
+      "remove_videos": "Select videos to remove",
+      "no_videos_Added": "No videos added yet",
+      "add_videos": "Add Videos"
     },
     "planner": {
       "header": "Planner",

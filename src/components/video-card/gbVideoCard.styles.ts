@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
     borderColor: Colors.ActiveTab,
     borderWidth: Sizes.Size_3,
   },
+  containerSecondary: {
+    borderColor: Colors.Error,
+    borderWidth: Sizes.Size_3,
+  },
 })
 
 export { styles }

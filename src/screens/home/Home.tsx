@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 
 import { GBAppHeader, GBLoader, GBTextInput } from '@components'
-import { RouteName, TextInputPreset } from '@constants'
+import { ExerciseListScreenPreset, RouteName, TextInputPreset } from '@constants'
 import { translate } from '@locales'
 import { useStore } from '@stores'
 import { INavigation } from '@types'
@@ -23,7 +23,10 @@ const Home = observer(() => {
 
   const onSearchIconPress = () => {
     searchExercise({ exerciseName: searchedExerCise, isLoading: true })
-    navigation.navigate(RouteName.Search, { prevSearchedExercise: searchedExerCise })
+    navigation.navigate(RouteName.Search, {
+      prevSearchedExercise: searchedExerCise,
+      preset: ExerciseListScreenPreset.Search,
+    })
   }
 
   const onTextChange = (value: string) => {

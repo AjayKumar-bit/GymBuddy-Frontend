@@ -11,6 +11,8 @@ import { styles } from './counter.styles'
 interface ICounterProps {
   /** count: is a required prop that gives count number */
   count: number
+  /** isPlannerEnable: is an optional prop that tell wether is exercise getting adding by planner */
+  isPlannerEnable?: boolean
   /** onIncrease: is a required prop that trigger an action on clicking increase button */
   onIncrease: () => void
   /** onDecrease: is a required prop that trigger an action on clicking decrease button */
@@ -20,20 +22,26 @@ interface ICounterProps {
 }
 
 const Counter = (props: ICounterProps) => {
-  const { count, onDecrease, onIncrease, label } = props
+  const { count, isPlannerEnable, onDecrease, onIncrease, label } = props
+  const containerStyles = isPlannerEnable ? styles.containerSecondary : {}
+  const contentContainerStyles = isPlannerEnable ? {} : styles.contentContainerSecondary
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyles]}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.subContainer}>
-        <MinusIcon color={Colors.ActiveTab} onPress={onDecrease} hitSlop={HIT_SLOP_FIVE} />
+        {isPlannerEnable && (
+          <MinusIcon color={Colors.ActiveTab} onPress={onDecrease} hitSlop={HIT_SLOP_FIVE} />
+        )}
         <AnimatedNumber
           animationDuration={500}
           includeComma
           animateToNumber={count}
           fontStyle={styles.count}
-          containerStyle={styles.contentContainer}
+          containerStyle={[styles.contentContainer, contentContainerStyles]}
         />
-        <PlusIcon color={Colors.ActiveTab} onPress={onIncrease} hitSlop={HIT_SLOP_FIVE} />
+        {isPlannerEnable && (
+          <PlusIcon color={Colors.ActiveTab} onPress={onIncrease} hitSlop={HIT_SLOP_FIVE} />
+        )}
       </View>
     </View>
   )

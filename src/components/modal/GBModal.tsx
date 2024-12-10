@@ -22,7 +22,12 @@ const GBModal = (props: IGBModalProps) => {
   }
 
   return (
-    <Modal animationType="slide" transparent visible={isModalVisible} onRequestClose={onCloseModal}>
+    <Modal
+      animationType="slide"
+      onRequestClose={onCloseModal}
+      statusBarTranslucent
+      transparent
+      visible={isModalVisible}>
       <Pressable style={styles} onPress={onBackDropPress}>
         <View>{children}</View>
       </Pressable>
