@@ -53,12 +53,14 @@ export const GYMBUDDY_API = {
     AddExercise: 'addExercise',
     Days: 'days',
     DeleteDay: 'deleteDay',
+    DeleteExercise: 'deleteExercise',
     Exercise: 'exercise',
     Exercises: 'exercises',
     GetDays: 'getDays',
     Login: 'login',
     Register: 'register',
     UpdateDay: 'updateDay',
+    UpdateExercise: 'updateExercise',
     User: 'users',
   },
 }
@@ -83,6 +85,7 @@ export enum ApiStatusPreset {
   AddDay = 'addDay',
   AddExercise = 'addExercise',
   DeleteDay = 'deleteDay',
+  DeleteExercise = 'deleteExercise',
   GetDays = 'getDays',
   GetExercise = 'getExercise',
   GetExerciseVideo = 'getExerciseVideo',
@@ -90,6 +93,7 @@ export enum ApiStatusPreset {
   RegisterUser = 'RegisterUser',
   SearchExercise = 'searchExercise',
   UpdateDay = 'updateDay',
+  UpdateExercise = 'updateExercise',
 }
 
 export const API: IApi = {

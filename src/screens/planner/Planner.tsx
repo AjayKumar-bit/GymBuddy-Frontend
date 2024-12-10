@@ -2,19 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import { PlusIcon as AddIcon } from 'react-native-heroicons/solid'
 
+import { useNavigation } from '@react-navigation/native'
+
 import { observer } from 'mobx-react-lite'
 
 import { GBAppHeader, GBButton, GBFlatList, GBLoader } from '@components'
-import { ApiStatusPreset, DayPlannerPreset } from '@constants'
+import { ApiStatusPreset, DayPlannerPreset, ExerciseListScreenPreset, RouteName } from '@constants'
 import { translate } from '@locales'
 import { DaysItemTypes, useStore } from '@stores'
 import { Colors, CommonStyles, Sizes } from '@theme'
+import { INavigation } from '@types'
 
 import DayManager from './day-manager/DayManager'
 import DaysCard from './days-card/DaysCard'
 import { styles } from './planner.styles'
 
 const Planner = observer(() => {
+  const navigation = useNavigation<INavigation>()
   const { domainStore, apiStatusStore } = useStore()
   const { plannerStore } = domainStore
   const { getDays, days } = plannerStore
@@ -39,11 +43,17 @@ const Planner = observer(() => {
     setIsDayManagerOpen(true)
   }
 
-  const onCardPress = () => {}
+  const onCardPress = (dayId: string, dayName: string) => () => {
+    navigation.navigate(RouteName.Search, {
+      dayId,
+      dayName,
+      preset: ExerciseListScreenPreset.MyExercises,
+    })
+  }
 
   const renderItem = ({ item }: { item: DaysItemTypes }) => {
     const { _id: id, dayName } = item
-    return <DaysCard key={id} id={id} onCardPress={onCardPress} title={dayName} />
+    return <DaysCard key={id} id={id} onCardPress={onCardPress(id, dayName)} title={dayName} />
   }
 
   const keyExtractor = ({ _id }: DaysItemTypes) => _id
@@ -61,10 +71,10 @@ const Planner = observer(() => {
       <View style={styles.listHeader}>
         <Text style={styles.title}>{translate('screens.planner.my_days')}</Text>
         <GBButton
-          title={translate('common.add')}
-          onPress={onAddDayPress}
-          leftIcon={<AddIcon color={Colors.Label} size={Sizes.Size_18} />}
           containerCustomStyles={styles.addButton}
+          leftIcon={<AddIcon color={Colors.Label} size={Sizes.Size_18} />}
+          onPress={onAddDayPress}
+          title={translate('common.add')}
           titleStyles={styles.addButtonTitle}
         />
       </View>
@@ -80,15 +90,15 @@ const Planner = observer(() => {
     <View style={CommonStyles.flex_1}>
       <GBAppHeader title={translate('screens.planner.header')} showBackButton={false} />
       <GBFlatList
-        ListHeaderComponent={listHeaderComponent}
         apiStatusPreset={ApiStatusPreset.GetExerciseVideo}
+        contentContainerStyle={[styles.contentContainerStyle, contentContainerStyles]}
         data={days}
         keyExtractor={keyExtractor}
-        renderItem={renderItem}
         ListEmptyComponent={listEmptyComponent}
-        contentContainerStyle={[styles.contentContainerStyle, contentContainerStyles]}
-        refreshing={isAddingDay}
+        ListHeaderComponent={listHeaderComponent}
         onRefresh={fetchData}
+        refreshing={isAddingDay}
+        renderItem={renderItem}
       />
       {isDayManagerOpen && (
         <DayManager preset={DayPlannerPreset.AddDay} closeDayManager={closeDayManager} />

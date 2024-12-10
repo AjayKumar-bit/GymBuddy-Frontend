@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
+    flexDirection: 'row',
     marginHorizontal: Sizes.Size_16,
     padding: Sizes.Size_4,
   },
@@ -35,6 +36,13 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.Size_4,
     paddingBottom: Sizes.Size_2,
     paddingHorizontal: Sizes.Size_6,
+  },
+  containerSecondary: {
+    flexDirection: 'column',
+  },
+  contentContainerSecondary: {
+    backgroundColor: Colors.CancelButton,
+    gap: Sizes.Size_4,
   },
 })
 

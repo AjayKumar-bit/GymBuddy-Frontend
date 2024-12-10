@@ -85,10 +85,16 @@ const SearchStore = types
       }
     })
 
-    const getExerciseVideo = flow(function* getExerciseVideo(exerciseName: string) {
+    const getExerciseVideo = flow(function* getExerciseVideo(
+      exerciseName: string,
+      isNewCall: boolean = false,
+    ) {
       const { apiStatusStore } = getRoot<RootStoreType>(self)
       const { setApiStatus } = apiStatusStore
       try {
+        if (isNewCall) {
+          self.ytContinuationToken = ''
+        }
         setApiStatus({
           id: ApiStatusPreset.GetExerciseVideo,
           isLoading: true,

@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { GBButton, GBFlatList, GBLoader, GBModal } from '@components'
 import { ApiStatusPreset, RouteName } from '@constants'
 import { translate } from '@locales'
-import { DaysItemTypes, exerciseDataType, useStore, videoRecommendationType } from '@stores'
+import { DaysItemTypes, exerciseDetailsType, useStore, videoRecommendationType } from '@stores'
 import { INavigation } from '@types'
 
 import DaysCard from '../days-card/DaysCard'
@@ -20,7 +20,7 @@ interface IDaySelectorProps {
   /** closeDayManager : is a required prop that trigger to close day planner manager */
   closeDaySelector: () => void
   /** exerciseDetails: is a required prop that give exercise details */
-  exerciseDetails: exerciseDataType
+  exerciseDetails: exerciseDetailsType
   /** videoRecommendations: is a required prop that give selected video recommendations */
   videoRecommendations: Array<videoRecommendationType>
   /** sets: is a required prop that give no. of sets */
@@ -117,7 +117,7 @@ const DaySelector = observer((props: IDaySelectorProps) => {
           contentContainerStyle={[styles.contentContainerStyle]}
         />
         <View style={styles.buttonContainer}>
-          {!isLoading || hasDays && (
+          {hasDays && (
             <>
               <GBButton
                 title={translate('common.cancel')}

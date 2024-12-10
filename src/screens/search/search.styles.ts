@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     color: Colors.Label,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
+    marginTop: Sizes.Size_8,
+    textTransform: 'capitalize',
   },
 })
 

@@ -1,5 +1,7 @@
 export * from './api.constants'
 export * from './common.constants'
+export * from './details.constants'
+export * from './exerciseList'
 export * from './navigation.constants'
 export * from './planner.constants'
 export * from './registration.constants'

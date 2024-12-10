@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
   detailsContainer: {
     marginTop: Sizes.Size_16,
   },
+  loader: {
+    alignSelf: 'center',
+    flex: 1,
+    height: Sizes.Size_32,
+  },
 })
 
 export { styles }

@@ -19,10 +19,8 @@ const styles = StyleSheet.create({
     width: 100,
   },
   subContainer: {
-    backgroundColor: Colors.ExerciseCardBackground,
     flex: 2,
     justifyContent: 'center',
-    padding: Sizes.Size_8,
   },
   detailsContainer: {
     alignItems: 'center',
@@ -41,8 +39,14 @@ const styles = StyleSheet.create({
     color: Colors.Label,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
+    marginRight: Sizes.Size_24,
     paddingBottom: Sizes.Size_8,
     textTransform: 'capitalize',
+  },
+  deleteButton: {
+    position: 'absolute',
+    right: Sizes.Size_0,
+    top: Sizes.Size_0,
   },
 })
 
