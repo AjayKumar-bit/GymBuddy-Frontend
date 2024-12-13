@@ -20,13 +20,16 @@ import { styles } from './planner.styles'
 const Planner = observer(() => {
   const navigation = useNavigation<INavigation>()
   const { domainStore, apiStatusStore } = useStore()
-  const { plannerStore } = domainStore
+  const { plannerStore, userStore } = domainStore
+  const { userData } = userStore
+  const { plannerStartDate } = userData
   const { getDays, days } = plannerStore
   const { getApiStatus } = apiStatusStore
-  const { isLoading } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
+  const { isLoading, hasSuccess } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
   const { isLoading: isAddingDay } = getApiStatus(ApiStatusPreset.AddDay) ?? {}
   const [isDayManagerOpen, setIsDayManagerOpen] = useState(false)
   const [isFirstRender, setIsFirstRender] = useState(true)
+  const [isAddDayPreset, setIsAddDayPreset] = useState(true)
 
   const hasNoDays = days.length === 0
 
@@ -40,6 +43,12 @@ const Planner = observer(() => {
   }
 
   const onAddDayPress = () => {
+    setIsAddDayPreset(true)
+    setIsDayManagerOpen(true)
+  }
+
+  const onStartPlannerPress = () => {
+    setIsAddDayPreset(false)
     setIsDayManagerOpen(true)
   }
 
@@ -70,13 +79,23 @@ const Planner = observer(() => {
     return (
       <View style={styles.listHeader}>
         <Text style={styles.title}>{translate('screens.planner.my_days')}</Text>
-        <GBButton
-          containerCustomStyles={styles.addButton}
-          leftIcon={<AddIcon color={Colors.Label} size={Sizes.Size_18} />}
-          onPress={onAddDayPress}
-          title={translate('common.add')}
-          titleStyles={styles.addButtonTitle}
-        />
+        <View style={styles.buttonContainer}>
+          {hasSuccess && !plannerStartDate && (
+            <GBButton
+              containerCustomStyles={styles.button}
+              onPress={onStartPlannerPress}
+              title={translate('screens.planner.start')}
+              titleStyles={styles.buttonTitle}
+            />
+          )}
+          <GBButton
+            containerCustomStyles={styles.button}
+            leftIcon={<AddIcon color={Colors.Label} size={Sizes.Size_18} />}
+            onPress={onAddDayPress}
+            title={translate('common.add')}
+            titleStyles={styles.buttonTitle}
+          />
+        </View>
       </View>
     )
   }
@@ -101,7 +120,10 @@ const Planner = observer(() => {
         renderItem={renderItem}
       />
       {isDayManagerOpen && (
-        <DayManager preset={DayPlannerPreset.AddDay} closeDayManager={closeDayManager} />
+        <DayManager
+          preset={isAddDayPreset ? DayPlannerPreset.AddDay : DayPlannerPreset.StartPlanner}
+          closeDayManager={closeDayManager}
+        />
       )}
     </View>
   )

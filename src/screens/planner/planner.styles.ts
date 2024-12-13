@@ -20,14 +20,18 @@ const styles = StyleSheet.create({
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_28,
   },
-  addButton: {
+  button: {
     borderRadius: Sizes.Size_6,
     gap: Sizes.Size_2,
     padding: Sizes.Size_8,
   },
-  addButtonTitle: {
+  buttonTitle: {
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_18,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: Sizes.Size_8,
   },
 })
 

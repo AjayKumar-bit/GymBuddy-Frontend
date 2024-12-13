@@ -13,15 +13,16 @@ import {
 } from '@constants'
 import { translate } from '@locales'
 import { makeApiCall } from '@services'
-import { IApiParams, ILoginUserParams, IRegisterUserParams } from '@types'
+import { IAddPlannerDate, IApiParams, ILoginUserParams, IRegisterUserParams } from '@types'
 
 import { RootStoreType } from '../../root-store/rootStore'
 
 const UserData = types.model('UserData', {
-  isLoggedIn: types.boolean,
   emailId: types.string,
-  token: types.string,
+  isLoggedIn: types.boolean,
   name: types.string,
+  plannerStartDate: types.string,
+  token: types.string,
 })
 
 const UserStore = types
@@ -59,12 +60,13 @@ const UserStore = types
           }
 
           yield AsyncStorage.setItem(AUTH_DATA_KEY, JSON.stringify(authData))
-          const { emailId, name, accessToken } = response.data.data
+          const { emailId, name, accessToken, plannerStartDate } = response.data.data
           self.userData = cast({
             emailId,
             isLoggedIn: true,
             name,
             token: accessToken,
+            plannerStartDate,
           })
           setValidationToastData({
             isVisible: true,
@@ -125,12 +127,13 @@ const UserStore = types
           }
 
           yield AsyncStorage.setItem(AUTH_DATA_KEY, JSON.stringify(authData))
-          const { emailId, name, accessToken } = response.data.data
+          const { emailId, name, accessToken, plannerStartDate } = response.data.data
           self.userData = cast({
             emailId,
             isLoggedIn: true,
             name,
             token: accessToken,
+            plannerStartDate,
           })
           setValidationToastData({
             isVisible: true,
@@ -156,14 +159,68 @@ const UserStore = types
       }
     })
 
+    const addPlannerDate = flow(function* addPlannerDate(params: IAddPlannerDate) {
+      const { apiStatusStore, viewStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      const { setValidationToastData } = viewStore
+      const { User, AddPlannerDate } = API.GymBuddy.endPoints
+
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.AddPlannerDate,
+          isLoading: true,
+        })
+
+        const apiParams: IApiParams = {
+          endpoint: `${User}/${AddPlannerDate}`,
+          request: RequestType.POST,
+          apiData: API.GymBuddy,
+          requestData: params,
+          authToken: self.userData.token,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('AddPlannerDate Api call successful')
+          self.userData.plannerStartDate = response.data.data.plannerStartDate
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Success,
+          })
+        } else {
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Error,
+          })
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.AddPlannerDate, error })
+        log.info('AddPlannerDate Api call failed with error: ', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.AddPlannerDate,
+          isLoading: false,
+        })
+      }
+    })
+
     const setAuthToken = (token: string) => {
       self.userData.token = token
+    }
+    const setPlannerStartDate = (plannerStartDate: string) => {
+      self.userData.plannerStartDate = plannerStartDate
     }
 
     return {
       loginUser,
       registerUser,
       setAuthToken,
+      setPlannerStartDate,
+      addPlannerDate,
     }
   })
 

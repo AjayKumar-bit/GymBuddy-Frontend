@@ -10,6 +10,7 @@ const DomainStoreData = {
       emailId: '',
       isLoggedIn: false,
       name: '',
+      plannerStartDate: '',
       token: '',
     },
   },
@@ -19,6 +20,7 @@ const DomainStoreData = {
   exerciseStore: {
     exerciseData: [],
     offset: 0,
+    todaysExercise: [],
   },
 }
 

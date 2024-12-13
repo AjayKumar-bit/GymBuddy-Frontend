@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     lineHeight: Sizes.Size_12,
   },
   inputValue: {
+    ...CommonStyles.text,
     color: Colors.InputValue,
     flex: 1,
     fontFamily: Typography.primary.medium,

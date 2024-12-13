@@ -9,7 +9,8 @@
     "edit": "Edit",
     "delete": "Delete",
     "update": "Update",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "submit": "Submit"
   },
   "tab_data": {
     "home": "Home",
@@ -22,7 +23,8 @@
     "email": "Enter your email",
     "password": "Enter you password",
     "confirm_password": "Enter same password",
-    "enter_day_name": "Enter day name"
+    "enter_day_name": "Enter day name",
+    "select_date": "Select Date"
   },
   "error_messages": {
     "email": "Invalid email address",
@@ -31,7 +33,13 @@
     "confirm_password": "Password should be same as above"
   },
   "screens": {
-    "home": {},
+    "home": {
+      "search_exercises_for": "Search exercises for",
+      "today_exercises": "Today's exercises",
+      "no_exercise_found": "No exercises for today in planner",
+      "gymbuddy_recommendations": "Today's Recommendations",
+      "no_recommendation": "No recommendation available for today "
+    },
     "search": {
       "name": "Name",
       "body_part": "Bodypart",
@@ -93,7 +101,9 @@
       "day_name": "Day Name",
       "delete_confirmation": "Do you want to delete the day",
       "new_day_name": "Day New Name",
-      "no_days_found": "No days found"
+      "no_days_found": "No days found",
+      "start": "Start Planner",
+      "start_date": "Start Date"
     }
   }
 }

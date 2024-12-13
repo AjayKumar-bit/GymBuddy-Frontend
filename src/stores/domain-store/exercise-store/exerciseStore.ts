@@ -1,4 +1,5 @@
 import { Instance, cast, flow, getRoot, types } from 'mobx-state-tree'
+import moment from 'moment'
 
 import { log } from '@config'
 import { API, ApiStatusCode, ApiStatusPreset, RequestType, ToastPreset } from '@constants'
@@ -20,9 +21,9 @@ const exerciseDetailsItem = types.model('exerciseDetailsItem', {
   id: types.string,
   instructions: types.array(types.string),
   name: types.string,
-  reps: types.number,
+  reps: types.optional(types.number, 1),
   secondaryMuscles: types.array(types.string),
-  sets: types.number,
+  sets: types.optional(types.number, 1),
   target: types.string,
 })
 
@@ -36,12 +37,15 @@ const exerciseDataItems = types.model('exerciseDataItems', {
   _id: types.string,
   exerciseDetails: exerciseDetailsItem,
   videoRecommendations: types.array(videoRecommendation),
+  dayId: types.optional(types.string, ''),
 })
 
 const ExerciseStore = types
   .model('ExerciseStore', {
     exerciseData: types.array(exerciseDataItems),
     offset: types.number,
+    todaysExercise: types.array(exerciseDataItems),
+    recommendedExercises: types.array(exerciseDetailsItem),
   })
   .actions(self => {
     const getExercise = flow(function* getExercise(params: IGetExerciseParams) {
@@ -277,12 +281,87 @@ const ExerciseStore = types
       }
     })
 
+    const getTodaysExercises = flow(function* getTodaysExercises() {
+      const { apiStatusStore, domainStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      const { userStore } = domainStore
+      const { token } = userStore.userData
+      const { Exercise, GetTodaysExercises } = API.GymBuddy.endPoints
+
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.GetTodaysExercises,
+          isLoading: true,
+        })
+
+        const apiParams: IApiParams = {
+          endpoint: `${Exercise}/${GetTodaysExercises}?limit=${10}&offset=${self.offset}`,
+          request: RequestType.GET,
+          apiData: API.GymBuddy,
+          authToken: token,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('GetTodaysExercises Api call successful')
+          self.todaysExercise = response.data.data
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.GetTodaysExercises, error })
+        log.error('GetTodaysExercises Api call failed with error :', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.GetTodaysExercises,
+          isLoading: false,
+        })
+      }
+    })
+
+    const getRecommendedExercises = flow(function* getRecommendedExercises() {
+      const { apiStatusStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.GetRecommendedExercises,
+          isLoading: true,
+        })
+
+        const offset = moment().format('DD')
+
+        const apiParams = {
+          endpoint: `${API.Exercise.endPoints.Exercise}?limit=${10}&offset=${offset}`,
+          request: RequestType.GET,
+          apiData: API.Exercise,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('GetRandomExercise Api call successful')
+          self.recommendedExercises = response.data
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.GetRecommendedExercises, error })
+        log.info('GetRandomExercise Api call failed with error: ', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.GetRecommendedExercises,
+          isLoading: false,
+        })
+      }
+    })
+
     return {
       getExercise,
       addExercise,
       resetExerciseData,
       updateExercise,
       deleteExercise,
+      getTodaysExercises,
+      getRecommendedExercises,
     }
   })
 

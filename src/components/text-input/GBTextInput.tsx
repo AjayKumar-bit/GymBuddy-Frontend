@@ -14,8 +14,10 @@ import {
   MagnifyingGlassIcon as SearchIcon,
 } from 'react-native-heroicons/outline'
 
-import { HIT_SLOP_FIVE, TextInputPreset } from '@constants'
-import { Colors } from '@theme'
+import { DateTimePickerMode, HIT_SLOP_FIVE, TextInputPreset } from '@constants'
+import { Colors, CommonStyles } from '@theme'
+
+import GBDateTimePicker from '../date-time-picker/GBDateTimePicker'
 
 import { styles } from './gbTextInput.styles'
 
@@ -34,6 +36,8 @@ interface IGBTextInputProps extends TextInputProps {
   placeHolder?: string
   /** preset: is a required prop that gives preset of text input */
   preset: TextInputPreset
+  /** value: is a required prop that gives value of text input */
+  value?: string
 }
 
 const GBTextInput = (props: IGBTextInputProps) => {
@@ -45,15 +49,38 @@ const GBTextInput = (props: IGBTextInputProps) => {
     onTextChange = () => {},
     placeHolder = '',
     preset,
+    value = '',
   } = props
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const showSearchBar = preset === TextInputPreset.Search
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
+  const [isPickerOpen, setIsPickerOpen] = useState(false)
+  const [pickerMode, setPickerMode] = useState<DateTimePickerMode>()
+  const showDatePicker = isPickerOpen && pickerMode === DateTimePickerMode.Date
+  const showTimePicker = isPickerOpen && pickerMode === DateTimePickerMode.Time
 
   const onValueChange = (newValue: string) => {
     showSearchBar && setIsSearchBarVisible(newValue.length !== 0)
     onTextChange && onTextChange(newValue)
+  }
+
+  const onPickerValueChange = (newDateTime: Date) => {
+    setIsPickerOpen(false)
+    const updatedValue =
+      pickerMode === DateTimePickerMode.Date
+        ? newDateTime.toLocaleDateString('en-GB')
+        : newDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    onTextChange && onTextChange(updatedValue)
+  }
+
+  const onPickerPress = (mode: DateTimePickerMode) => () => {
+    setPickerMode(mode)
+    setIsPickerOpen(true)
+  }
+
+  const onPickerClose = () => {
+    setIsPickerOpen(false)
   }
 
   const onPasswordIconPress = useCallback(() => {
@@ -111,6 +138,62 @@ const GBTextInput = (props: IGBTextInputProps) => {
         )
         break
 
+      case TextInputPreset.DatePicker:
+        inputComponent = (
+          <>
+            <TouchableOpacity
+              onPress={onPickerPress(DateTimePickerMode.Date)}
+              style={CommonStyles.flex_1}>
+              <TextInput
+                {...props}
+                editable={false}
+                onChangeText={onValueChange}
+                placeholder={placeHolder}
+                placeholderTextColor={Colors.Placeholder}
+                style={[styles.inputValue, styles.inputValueSecondary]}
+                value={value}
+              />
+            </TouchableOpacity>
+            {showDatePicker && (
+              <GBDateTimePicker
+                mode={DateTimePickerMode.Date}
+                onChange={onPickerValueChange}
+                onPickerClose={onPickerClose}
+                showPicker={isPickerOpen}
+              />
+            )}
+          </>
+        )
+        break
+
+      case TextInputPreset.TimePicker:
+        inputComponent = (
+          <>
+            <TouchableOpacity
+              onPress={onPickerPress(DateTimePickerMode.Time)}
+              style={CommonStyles.flex_1}>
+              <TextInput
+                {...props}
+                editable={false}
+                onChangeText={onValueChange}
+                placeholder={placeHolder}
+                placeholderTextColor={Colors.Placeholder}
+                style={[styles.inputValue, styles.inputValueSecondary]}
+                value={value}
+              />
+            </TouchableOpacity>
+            {showTimePicker && (
+              <GBDateTimePicker
+                mode={DateTimePickerMode.Time}
+                onChange={onPickerValueChange}
+                onPickerClose={onPickerClose}
+                showPicker={isPickerOpen}
+              />
+            )}
+          </>
+        )
+        break
+
       case TextInputPreset.Default:
         inputComponent = (
           <TextInput
@@ -124,7 +207,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
     }
 
     return inputComponent
-  }, [preset, isPasswordVisible])
+  }, [preset, isPasswordVisible, isPickerOpen, pickerMode, value])
 
   return (
     <View style={[styles.container, containerStyles]}>
