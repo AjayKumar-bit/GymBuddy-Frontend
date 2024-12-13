@@ -1,15 +1,25 @@
 import { StyleSheet } from 'react-native'
 
-import { Sizes } from '@theme'
+import { Colors, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: Sizes.Size_12,
-    paddingHorizontal: Sizes.Size_12,
   },
   textInputContainer: {
-    paddingVertical: Sizes.Size_16,
+    paddingHorizontal: Sizes.Size_16,
+    paddingTop: Sizes.Size_16,
+  },
+  header: {
+    color: Colors.Label,
+    fontFamily: Typography.primary.bold,
+    fontSize: Sizes.Size_18,
+    paddingHorizontal: Sizes.Size_16,
+    textTransform: 'capitalize',
+  },
+  bodypartCarousel: {
+    justifyContent: 'center',
   },
 })
 

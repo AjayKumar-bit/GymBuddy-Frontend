@@ -15,6 +15,8 @@ export enum TextInputPreset {
   Email = 'e-mail',
   Password = 'password',
   Search = 'search',
+  DatePicker = 'datePicker',
+  TimePicker = 'timePicker',
 }
 
 export enum LoaderSize {
@@ -34,6 +36,11 @@ export enum ToastPreset {
   Success = 'success',
   Error = 'error',
   Info = 'info',
+}
+
+export enum DateTimePickerMode {
+  Date = 'date',
+  Time = 'time',
 }
 
 export const AUTH_DATA_KEY = 'authDataKey'

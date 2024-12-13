@@ -1,26 +1,28 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 
 import { observer } from 'mobx-react-lite'
 
-import { GBAppHeader, GBLoader, GBTextInput } from '@components'
-import { ExerciseListScreenPreset, RouteName, TextInputPreset } from '@constants'
+import { GBAppHeader, GBTextInput } from '@components'
+import { BODYPART_DATA, ExerciseListScreenPreset, RouteName, TextInputPreset } from '@constants'
 import { translate } from '@locales'
 import { useStore } from '@stores'
-import { INavigation } from '@types'
+import { BodyPartItem, INavigation } from '@types'
 
+import BodyCard from './body-card/BodyCard'
+import RNCarousel from './carousel/RNCarousel'
 import { styles } from './home.styles'
+import RecommendedExercises from './recommended-exercises/RecommendedExercises'
+import TodaysExercise from './todays-exercise/TodaysExercise'
 
 const Home = observer(() => {
   const navigation = useNavigation<INavigation>()
   const { domainStore } = useStore()
   const { searchStore } = domainStore
   const { searchExercise } = searchStore
-
   const [searchedExerCise, SetSearchedExerCise] = useState('')
-
   const onSearchIconPress = () => {
     searchExercise({ exerciseName: searchedExerCise, isLoading: true })
     navigation.navigate(RouteName.Search, {
@@ -28,15 +30,19 @@ const Home = observer(() => {
       preset: ExerciseListScreenPreset.Search,
     })
   }
-
   const onTextChange = (value: string) => {
     SetSearchedExerCise(value)
+  }
+
+  const renderBodyPart = ({ item }: { item: BodyPartItem }) => {
+    const { title, image } = item
+    return <BodyCard image={image} title={title} />
   }
 
   return (
     <>
       <GBAppHeader title={translate('title')} showBackButton={false} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <GBTextInput
           preset={TextInputPreset.Search}
           placeHolder={translate('common.search')}
@@ -44,11 +50,18 @@ const Home = observer(() => {
           onSearchIconPress={onSearchIconPress}
           onTextChange={onTextChange}
         />
-        <Text>Home</Text>
-        <GBLoader />
-      </View>
+        <Text style={styles.header}>{translate('screens.home.search_exercises_for')}</Text>
+        <RNCarousel
+          renderItem={renderBodyPart}
+          data={BODYPART_DATA}
+          style={styles.bodypartCarousel}
+        />
+        <Text style={styles.header}>{translate('screens.home.today_exercises')}</Text>
+        <TodaysExercise />
+        <Text style={styles.header}>{translate('screens.home.gymbuddy_recommendations')}</Text>
+        <RecommendedExercises />
+      </ScrollView>
     </>
   )
 })
-
 export default Home

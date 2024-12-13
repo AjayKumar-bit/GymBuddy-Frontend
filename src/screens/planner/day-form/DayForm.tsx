@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import LottieView from 'lottie-react-native'
 import { observer } from 'mobx-react-lite'
+import moment from 'moment'
 
 import { WelcomeLottie } from '@assets'
 import { GBButton, GBTextInput } from '@components'
@@ -29,7 +30,8 @@ const DayForm = observer((props: IDayFormProps) => {
   const { currentDay, dayId, closeModal, preset } = props
 
   const { apiStatusStore, domainStore } = useStore()
-  const { plannerStore } = domainStore
+  const { plannerStore, userStore } = domainStore
+  const { addPlannerDate } = userStore
   const { addDay, updateDay, deleteDay } = plannerStore
   const { getApiStatus } = apiStatusStore
   const { isLoading: isAddingDay } = getApiStatus(ApiStatusPreset.AddDay) ?? {}
@@ -51,6 +53,11 @@ const DayForm = observer((props: IDayFormProps) => {
   const onDeletePress = async () => {
     await deleteDay(dayId)
     !isDeletingDay && closeModal()
+  }
+
+  const onSubmitPress = () => {
+    const date = moment(data, 'YYYY-MM-DDTHH:mm')
+    addPlannerDate({ plannerStartDate: date })
   }
 
   const getButtonData = () => {
@@ -82,11 +89,30 @@ const DayForm = observer((props: IDayFormProps) => {
           loaderColor: Colors.DeleteButton,
           onButtonPress: onDeletePress,
         })
+
+        break
+
+      case DayPlannerPreset.StartPlanner:
+        Object.assign(buttonData, {
+          apiStatusPreset: ApiStatusPreset.AddPlannerDate,
+          buttonTitle: translate('common.submit'),
+          label: translate('screens.planner.start_date'),
+          onButtonPress: onSubmitPress,
+        })
+
         break
     }
 
     return buttonData
   }
+
+  const textInputPreset =
+    preset === DayPlannerPreset.StartPlanner ? TextInputPreset.DatePicker : TextInputPreset.Default
+
+  const placeHolder =
+    preset === DayPlannerPreset.StartPlanner
+      ? translate('placeholder.select_date')
+      : translate('placeholder.enter_day_name')
 
   const { loaderColor, buttonStyles, apiStatusPreset, label, buttonTitle, onButtonPress } =
     getButtonData()
@@ -111,8 +137,9 @@ const DayForm = observer((props: IDayFormProps) => {
         <GBTextInput
           label={label}
           onTextChange={onTextChange}
-          placeHolder={translate('placeholder.enter_day_name')}
-          preset={TextInputPreset.Default}
+          placeHolder={placeHolder}
+          preset={textInputPreset}
+          value={data}
         />
       )}
       <View style={styles.buttonContainer}>

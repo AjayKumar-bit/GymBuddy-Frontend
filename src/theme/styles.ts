@@ -11,6 +11,9 @@ const CommonStyles = StyleSheet.create({
   flex_1: {
     flex: 1,
   },
+  text: {
+    fontVariant: ['lining-nums'],
+  },
 })
 
 export { CommonStyles }

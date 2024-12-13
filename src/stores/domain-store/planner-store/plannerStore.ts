@@ -20,7 +20,8 @@ const PlannerStore = types
     const getDays = flow(function* getDays() {
       const { apiStatusStore, domainStore } = getRoot<RootStoreType>(self)
       const { userStore } = domainStore
-      const { token } = userStore.userData
+      const { userData, setPlannerStartDate } = userStore
+      const { token } = userData
       const { setApiStatus } = apiStatusStore
       const { Days, GetDays } = API.GymBuddy.endPoints
 
@@ -39,8 +40,14 @@ const PlannerStore = types
         const response = yield makeApiCall(apiParams)
 
         if (response.status === ApiStatusCode.Success) {
+          setApiStatus({
+            id: ApiStatusPreset.GetDays,
+            hasSuccess: true,
+          })
+          const { days, plannerStartDate } = response.data.data
           log.info('GetDays Api call successful')
-          self.days = response.data.data
+          self.days = days
+          setPlannerStartDate(plannerStartDate)
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {

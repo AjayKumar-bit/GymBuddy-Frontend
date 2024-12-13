@@ -41,11 +41,15 @@ const SearchStore = types
     const searchExercise = flow(function* searchExercise(params: ISearchExerciseParams) {
       const { apiStatusStore } = getRoot<RootStoreType>(self)
       const { setApiStatus } = apiStatusStore
-      const { exerciseName, isLoading = false, isRefreshCall = false } = params
+      const { exerciseName, isLoading = false, isRefreshCall = false, isNewCall = false } = params
       const exercise = exerciseName.toLowerCase()
       try {
         if (isRefreshCall) {
           self.offset = 0
+        }
+        if (isNewCall) {
+          self.offset = 0
+          self.searchedExerciseData = cast([])
         }
         setApiStatus({
           id: ApiStatusPreset.SearchExercise,

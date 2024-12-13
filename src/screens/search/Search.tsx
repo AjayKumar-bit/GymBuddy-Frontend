@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 
 import { observer } from 'mobx-react-lite'
 
-import { GBAppHeader, GBFlatList, GBLoader, GBTextInput } from '@components'
+import { GBAppHeader, GBExerciseCard, GBFlatList, GBLoader, GBTextInput } from '@components'
 import { ApiStatusPreset, ExerciseListScreenPreset, RouteName, TextInputPreset } from '@constants'
 import { translate } from '@locales'
 import { AppStackScreenProps } from '@navigators'
@@ -11,7 +11,6 @@ import { SearchExerciseDataTypes, exerciseDataType, useStore } from '@stores'
 import { CommonStyles } from '@theme'
 
 import { styles } from './search.styles'
-import SearchedExerciseCard from './searches-exercise-card/SearchedExerciseCard'
 
 type ISearchProp = AppStackScreenProps<RouteName.Search>
 
@@ -69,7 +68,7 @@ const Search = observer((props: ISearchProp) => {
     const exerciseId = (item as exerciseDataType)._id ?? ''
     const videos = (item as exerciseDataType).videoRecommendations ?? []
     return (
-      <SearchedExerciseCard
+      <GBExerciseCard
         data={data}
         dayId={dayId}
         exerciseId={exerciseId}
@@ -133,24 +132,24 @@ const Search = observer((props: ISearchProp) => {
       <View style={styles.container}>
         {isSearchScreen && (
           <GBTextInput
+            containerStyles={styles.textInputContainer}
             onSearchIconPress={onSearchIconPress}
             onTextChange={onTextChange}
             placeHolder={translate('common.search')}
             preset={TextInputPreset.Search}
-            containerStyles={styles.textInputContainer}
           />
         )}
         <GBFlatList
           apiStatusPreset={apiStatusPreset}
           contentContainerStyle={[styles.contentContainer, contentContainerStyles]}
           data={isSearchScreen ? searchedExerciseData : exerciseData}
+          keyExtractor={keyExtractor}
+          ListEmptyComponent={listEmptyComponent}
           ListHeaderComponent={listHeaderComponent}
           onEndReached={onEndReached}
           onRefresh={onRefresh}
           refreshing={isSearchRefreshCall || isExerciseRefreshCall}
-          ListEmptyComponent={listEmptyComponent}
           renderItem={renderItem}
-          keyExtractor={keyExtractor}
         />
       </View>
     </>
