@@ -71,7 +71,7 @@ const Reminders = () => {
   }
 
   const renderItem = ({ item }: { item: IReminderType }) => {
-    const { id, title, time, description = '' } = item
+    const { id = '', title, time, description = '' } = item
     return (
       <ReminderCard
         description={description}
