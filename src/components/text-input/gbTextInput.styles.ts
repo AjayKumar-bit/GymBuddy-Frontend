@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
   errorContainer: {
     height: Sizes.Size_12,
   },
+  multiline: {
+    textAlignVertical: 'top',
+  },
 })
 
 export { styles }

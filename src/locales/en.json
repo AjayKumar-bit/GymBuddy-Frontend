@@ -24,7 +24,10 @@
     "password": "Enter you password",
     "confirm_password": "Enter same password",
     "enter_day_name": "Enter day name",
-    "select_date": "Select Date"
+    "select_date": "Select Date",
+    "reminder_title": "Enter reminder title",
+    "choose_time": "Select time",
+    "enter_description": "Enter reminder description here"
   },
   "error_messages": {
     "email": "Invalid email address",
@@ -104,6 +107,15 @@
       "no_days_found": "No days found",
       "start": "Start Planner",
       "start_date": "Start Date"
+    },
+    "reminders": {
+      "header": "Reminders",
+      "my_reminders": "My Reminders",
+      "no_reminders": "No reminders found...",
+      "deletion_confirmation": "Do you want to delete",
+      "title": "Title",
+      "time": "Time",
+      "Description": "Description"
     }
   }
 }

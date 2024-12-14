@@ -150,7 +150,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
                 onChangeText={onValueChange}
                 placeholder={placeHolder}
                 placeholderTextColor={Colors.Placeholder}
-                style={[styles.inputValue, styles.inputValueSecondary]}
+                style={styles.inputValue}
                 value={value}
               />
             </TouchableOpacity>
@@ -178,7 +178,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
                 onChangeText={onValueChange}
                 placeholder={placeHolder}
                 placeholderTextColor={Colors.Placeholder}
-                style={[styles.inputValue, styles.inputValueSecondary]}
+                style={styles.inputValue}
                 value={value}
               />
             </TouchableOpacity>
@@ -191,6 +191,20 @@ const GBTextInput = (props: IGBTextInputProps) => {
               />
             )}
           </>
+        )
+        break
+
+      case TextInputPreset.Multiline:
+        inputComponent = (
+          <TextInput
+            {...props}
+            onChangeText={onValueChange}
+            multiline
+            numberOfLines={3}
+            placeholder={placeHolder}
+            placeholderTextColor={Colors.Placeholder}
+            style={[styles.inputValue, styles.multiline]}
+          />
         )
         break
 
