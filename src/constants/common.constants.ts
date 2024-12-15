@@ -11,11 +11,12 @@ export const HIT_SLOP_FIVE = { top: 5, bottom: 5, left: 5, right: 5 }
 
 // Enums
 export enum TextInputPreset {
+  DatePicker = 'datePicker',
   Default = 'default',
   Email = 'e-mail',
+  Multiline = 'multiline',
   Password = 'password',
   Search = 'search',
-  DatePicker = 'datePicker',
   TimePicker = 'timePicker',
 }
 
@@ -43,7 +44,15 @@ export enum DateTimePickerMode {
   Time = 'time',
 }
 
-export const AUTH_DATA_KEY = 'authDataKey'
+export const USER_DATA_KEY = 'UserDataKey'
+export const REMINDERS_KEY = 'remindersKey'
+export const USER_DEFAULT_DATA = {
+  emailId: '',
+  isLoggedIn: false,
+  name: '',
+  plannerStartDate: '',
+  token: '',
+}
 
 export const IS_ANDROID = Platform.OS === 'android'
 

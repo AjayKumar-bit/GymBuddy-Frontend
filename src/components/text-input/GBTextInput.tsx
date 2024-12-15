@@ -99,7 +99,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
             onChangeText={onValueChange}
             placeholder={placeHolder}
             placeholderTextColor={Colors.Placeholder}
-            style={styles.inputValue}
+            style={[styles.inputValue, CommonStyles.flex_1]}
           />
         )
         break
@@ -113,7 +113,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
               placeholder={placeHolder}
               placeholderTextColor={Colors.Placeholder}
               secureTextEntry={!isPasswordVisible}
-              style={styles.inputValue}
+              style={[styles.inputValue, CommonStyles.flex_1]}
             />
             <TouchableOpacity onPress={onPasswordIconPress}>
               {isPasswordVisible ? (
@@ -133,7 +133,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
             onChangeText={onValueChange}
             placeholder={placeHolder}
             placeholderTextColor={Colors.Placeholder}
-            style={[styles.inputValue, styles.inputValueSecondary]}
+            style={[styles.inputValue, styles.inputValueSecondary, CommonStyles.flex_1]}
           />
         )
         break
@@ -150,7 +150,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
                 onChangeText={onValueChange}
                 placeholder={placeHolder}
                 placeholderTextColor={Colors.Placeholder}
-                style={[styles.inputValue, styles.inputValueSecondary]}
+                style={styles.inputValue}
                 value={value}
               />
             </TouchableOpacity>
@@ -178,7 +178,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
                 onChangeText={onValueChange}
                 placeholder={placeHolder}
                 placeholderTextColor={Colors.Placeholder}
-                style={[styles.inputValue, styles.inputValueSecondary]}
+                style={styles.inputValue}
                 value={value}
               />
             </TouchableOpacity>
@@ -194,6 +194,20 @@ const GBTextInput = (props: IGBTextInputProps) => {
         )
         break
 
+      case TextInputPreset.Multiline:
+        inputComponent = (
+          <TextInput
+            {...props}
+            onChangeText={onValueChange}
+            multiline
+            numberOfLines={3}
+            placeholder={placeHolder}
+            placeholderTextColor={Colors.Placeholder}
+            style={[styles.inputValue, styles.multiline, CommonStyles.flex_1]}
+          />
+        )
+        break
+
       case TextInputPreset.Default:
         inputComponent = (
           <TextInput
@@ -201,7 +215,7 @@ const GBTextInput = (props: IGBTextInputProps) => {
             onChangeText={onValueChange}
             placeholder={placeHolder}
             placeholderTextColor={Colors.Placeholder}
-            style={styles.inputValue}
+            style={[styles.inputValue, CommonStyles.flex_1]}
           />
         )
     }

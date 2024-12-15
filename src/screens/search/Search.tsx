@@ -121,8 +121,8 @@ const Search = observer((props: ISearchProp) => {
   useEffect(() => {
     if (preset === ExerciseListScreenPreset.MyExercises) {
       getExercise({ dayId, isLoading: true, isFirstCall: true })
-      setIsInitialRender(false)
     }
+    setIsInitialRender(false)
     return resetExerciseData
   }, [])
 

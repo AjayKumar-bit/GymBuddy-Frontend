@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import { observer } from 'mobx-react-lite'
+import moment from 'moment'
 
 import { GBExerciseCard, GBLoader } from '@components'
 import { ApiStatusPreset, RNCarouselPreset } from '@constants'
@@ -17,9 +18,21 @@ const TodaysExercise = observer(() => {
   const { getApiStatus } = apiStatusStore
   const { isLoading } = getApiStatus(ApiStatusPreset.GetTodaysExercises) ?? {}
   const [isInitialRender, setIsInitialRender] = useState(true)
-  const { exerciseStore } = domainStore
+  const { exerciseStore, userStore } = domainStore
   const { getTodaysExercises, todaysExercise } = exerciseStore
+  const { userData } = userStore
   const hasNoExerciseData = todaysExercise.length === 0
+
+  const plannerStartDate = moment(userData.plannerStartDate, 'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ')
+  const today = moment()
+
+  const dayDifference = today.diff(plannerStartDate, 'days')
+  const formattedDate = plannerStartDate.format('DD MMM')
+
+  const noDataTitle =
+    dayDifference < 0
+      ? translate('screens.home.planner_start', { date: formattedDate })
+      : translate('screens.home.no_exercise_found')
 
   const fetchData = () => {
     getTodaysExercises()
@@ -43,11 +56,7 @@ const TodaysExercise = observer(() => {
   }
 
   const listEmptyComponent = () => {
-    return isLoading || isInitialRender ? (
-      <GBLoader />
-    ) : (
-      <GBLoader title={translate('screens.home.no_exercise_found')} />
-    )
+    return isLoading || isInitialRender ? <GBLoader /> : <GBLoader title={noDataTitle} />
   }
 
   useEffect(() => {

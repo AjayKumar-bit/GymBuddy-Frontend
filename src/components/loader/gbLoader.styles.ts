@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { Colors, Sizes, Typography } from '@theme'
+import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   container: {
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   title: {
+    ...CommonStyles.text,
     alignSelf: 'center',
     color: Colors.InactiveTab,
     fontFamily: Typography.primary.bold,

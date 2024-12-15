@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { observer } from 'mobx-react-lite'
 
-import { AUTH_DATA_KEY } from '@constants'
+import { USER_DATA_KEY, USER_DEFAULT_DATA } from '@constants'
 import { useStore } from '@stores'
 
 import { AppNavigator } from './AppNavigator'
@@ -19,25 +19,20 @@ const RootNavigator = observer((props: IRootNavigatorProps) => {
   const { setIsAppReady } = props
   const { domainStore } = useStore()
   const { userStore } = domainStore
-  const { setAuthToken, userData } = userStore
-
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const { setUserData, userData } = userStore
 
   useEffect(() => {
     const init = async () => {
-      const data = await AsyncStorage.getItem(AUTH_DATA_KEY)
-      const authData = data ? await JSON.parse(data) : {}
-      const isLoggedIn = authData ? authData.isLoggedIn : false
-      const token = authData ? authData.token : ''
-      setAuthToken(token ?? '')
-      setIsUserLoggedIn(isLoggedIn)
+      const data = await AsyncStorage.getItem(USER_DATA_KEY)
+      const userDetails = data ? await JSON.parse(data) : USER_DEFAULT_DATA
+      setUserData(userDetails)
       setIsAppReady(true)
     }
 
     init()
   }, [])
 
-  return isUserLoggedIn || userData.isLoggedIn ? <AppNavigator /> : <AuthNavigator />
+  return userData.isLoggedIn ? <AppNavigator /> : <AuthNavigator />
 })
 
 export { RootNavigator }

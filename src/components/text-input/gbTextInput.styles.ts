@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   inputValue: {
     ...CommonStyles.text,
     color: Colors.InputValue,
-    flex: 1,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_16,
     lineHeight: Sizes.Size_18,
@@ -45,6 +44,9 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     height: Sizes.Size_12,
+  },
+  multiline: {
+    textAlignVertical: 'top',
   },
 })
 

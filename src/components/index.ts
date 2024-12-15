@@ -1,6 +1,7 @@
 export { default as GBApiResponseToast } from './api-response-toast/GBApiResponseToast'
 export { default as GBAppHeader } from './app-header/GBAppHeader'
 export { default as GBButton } from './button/GBButton'
+export { default as GBDateTimePicker } from './date-time-picker/GBDateTimePicker'
 export { default as GBExerciseCard } from './exercise-card/GBExerciseCard'
 export { default as GBFastImage } from './fast-image/GBFastImage'
 export { default as GBFlatList } from './flatlist/GBFlatlist'

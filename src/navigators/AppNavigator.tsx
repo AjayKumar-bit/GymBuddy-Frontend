@@ -1,7 +1,7 @@
 import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { RouteName } from '@constants'
-import { Alarm, Details, Home, Planner, Profile, Search } from '@screens'
+import { Details, Home, Planner, Profile, Reminders, Search } from '@screens'
 import { RootStackParamList } from '@types'
 
 import { DrawerNavigator } from './DrawerNavigator'
@@ -17,11 +17,11 @@ const AppNavigator = () => {
   return (
     <AppStack.Navigator initialRouteName={RouteName.Default} screenOptions={{ headerShown: false }}>
       <AppStack.Screen name={RouteName.Default} component={DrawerNavigator} />
-      <AppStack.Screen name={RouteName.Alarm} component={Alarm} />
       <AppStack.Screen name={RouteName.Details} component={Details} />
       <AppStack.Screen name={RouteName.Home} component={Home} />
       <AppStack.Screen name={RouteName.Planner} component={Planner} />
       <AppStack.Screen name={RouteName.Profile} component={Profile} />
+      <AppStack.Screen name={RouteName.Reminders} component={Reminders} />
       <AppStack.Screen name={RouteName.Search} component={Search} />
     </AppStack.Navigator>
   )
