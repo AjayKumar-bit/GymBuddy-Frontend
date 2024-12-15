@@ -25,7 +25,7 @@ const Planner = observer(() => {
   const { plannerStartDate } = userData
   const { getDays, days } = plannerStore
   const { getApiStatus } = apiStatusStore
-  const { isLoading, hasSuccess } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
+  const { isLoading } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
   const { isLoading: isAddingDay } = getApiStatus(ApiStatusPreset.AddDay) ?? {}
   const [isDayManagerOpen, setIsDayManagerOpen] = useState(false)
   const [isFirstRender, setIsFirstRender] = useState(true)
@@ -80,7 +80,7 @@ const Planner = observer(() => {
       <View style={styles.listHeader}>
         <Text style={styles.title}>{translate('screens.planner.my_days')}</Text>
         <View style={styles.buttonContainer}>
-          {hasSuccess && !plannerStartDate && (
+          {!plannerStartDate && (
             <GBButton
               containerCustomStyles={styles.button}
               onPress={onStartPlannerPress}
@@ -109,7 +109,7 @@ const Planner = observer(() => {
     <View style={CommonStyles.flex_1}>
       <GBAppHeader title={translate('screens.planner.header')} showBackButton={false} />
       <GBFlatList
-        apiStatusPreset={ApiStatusPreset.GetExerciseVideo}
+        apiStatusPreset={ApiStatusPreset.GetDays}
         contentContainerStyle={[styles.contentContainerStyle, contentContainerStyles]}
         data={days}
         keyExtractor={keyExtractor}

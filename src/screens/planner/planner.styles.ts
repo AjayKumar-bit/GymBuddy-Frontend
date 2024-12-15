@@ -21,7 +21,10 @@ const styles = StyleSheet.create({
     lineHeight: Sizes.Size_28,
   },
   button: {
+    backgroundColor: Colors.CancelButton,
+    borderColor: Colors.ActiveTab,
     borderRadius: Sizes.Size_6,
+    borderWidth: Sizes.Size_1,
     gap: Sizes.Size_2,
     padding: Sizes.Size_8,
   },

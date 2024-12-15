@@ -1,19 +1,26 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { cast, flow, getRoot, types } from 'mobx-state-tree'
+import { Instance, cast, flow, getRoot, types } from 'mobx-state-tree'
 
 import { log } from '@config'
 import {
   API,
-  AUTH_DATA_KEY,
   ApiStatusCode,
   ApiStatusPreset,
   RequestType,
   ToastPreset,
+  USER_DATA_KEY,
 } from '@constants'
 import { translate } from '@locales'
 import { makeApiCall } from '@services'
-import { IAddPlannerDate, IApiParams, ILoginUserParams, IRegisterUserParams } from '@types'
+import {
+  IAddPlannerDateParams,
+  IApiParams,
+  IChangePasswordParams,
+  ILoginUserParams,
+  IRegisterUserParams,
+  IUpdateUserParams,
+} from '@types'
 
 import { RootStoreType } from '../../root-store/rootStore'
 
@@ -24,6 +31,8 @@ const UserData = types.model('UserData', {
   plannerStartDate: types.string,
   token: types.string,
 })
+
+export type userDataTypes = Instance<typeof UserData>
 
 const UserStore = types
   .model('UserStore', {
@@ -54,20 +63,17 @@ const UserStore = types
 
         if (response.status === ApiStatusCode.Created) {
           log.info('UserRegister Api call successful')
-          const authData = {
-            isLoggedIn: true,
-            token: response.data.data.accessToken,
-          }
-
-          yield AsyncStorage.setItem(AUTH_DATA_KEY, JSON.stringify(authData))
           const { emailId, name, accessToken, plannerStartDate } = response.data.data
-          self.userData = cast({
+          const userData = {
             emailId,
             isLoggedIn: true,
             name,
             token: accessToken,
-            plannerStartDate,
-          })
+            plannerStartDate: plannerStartDate ?? '',
+          }
+
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(userData))
+          self.userData = cast(userData)
           setValidationToastData({
             isVisible: true,
             message: response.data.message,
@@ -121,20 +127,17 @@ const UserStore = types
         if (response.status === ApiStatusCode.Success) {
           log.info('LoginUser Api call successful')
 
-          const authData = {
-            isLoggedIn: true,
-            token: response.data.data.accessToken,
-          }
-
-          yield AsyncStorage.setItem(AUTH_DATA_KEY, JSON.stringify(authData))
           const { emailId, name, accessToken, plannerStartDate } = response.data.data
-          self.userData = cast({
+          const userData = {
             emailId,
             isLoggedIn: true,
             name,
             token: accessToken,
-            plannerStartDate,
-          })
+            plannerStartDate: plannerStartDate ?? '',
+          }
+
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(userData))
+          self.userData = cast(userData)
           setValidationToastData({
             isVisible: true,
             message: response.data.message,
@@ -159,7 +162,7 @@ const UserStore = types
       }
     })
 
-    const addPlannerDate = flow(function* addPlannerDate(params: IAddPlannerDate) {
+    const addPlannerDate = flow(function* addPlannerDate(params: IAddPlannerDateParams) {
       const { apiStatusStore, viewStore } = getRoot<RootStoreType>(self)
       const { setApiStatus } = apiStatusStore
       const { setValidationToastData } = viewStore
@@ -208,19 +211,267 @@ const UserStore = types
       }
     })
 
-    const setAuthToken = (token: string) => {
-      self.userData.token = token
+    const setUserData = (data: userDataTypes) => {
+      self.userData = data
     }
+
     const setPlannerStartDate = (plannerStartDate: string) => {
       self.userData.plannerStartDate = plannerStartDate
     }
 
+    const changePassword = flow(function* changePassword(params: IChangePasswordParams) {
+      const { apiStatusStore, viewStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      const { setValidationToastData } = viewStore
+      const { User, ChangePassword } = API.GymBuddy.endPoints
+
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.ChangePassword,
+          isLoading: true,
+        })
+
+        const apiParams: IApiParams = {
+          endpoint: `${User}/${ChangePassword}`,
+          request: RequestType.PATCH,
+          apiData: API.GymBuddy,
+          requestData: params,
+          authToken: self.userData.token,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('ChangePassword Api call successful')
+
+          const authData = {
+            isLoggedIn: true,
+            token: response.data.data.accessToken,
+          }
+
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(authData))
+          const { emailId, name, accessToken, plannerStartDate } = response.data.data
+          self.userData = cast({
+            emailId,
+            isLoggedIn: true,
+            name,
+            token: accessToken,
+            plannerStartDate: plannerStartDate ?? '',
+          })
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Success,
+          })
+        } else {
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Error,
+          })
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.ChangePassword, error })
+        log.info('ChangePassword Api call failed with error: ', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.ChangePassword,
+          isLoading: false,
+        })
+      }
+    })
+
+    const logoutUser = flow(function* logoutUser() {
+      const { apiStatusStore, domainStore, viewStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      const { setValidationToastData } = viewStore
+      const { plannerStore } = domainStore
+      const { resetDayData } = plannerStore
+      const { User, Logout } = API.GymBuddy.endPoints
+
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.LogoutUser,
+          isLoading: true,
+        })
+
+        const apiParams: IApiParams = {
+          endpoint: `${User}/${Logout}`,
+          request: RequestType.POST,
+          apiData: API.GymBuddy,
+          authToken: self.userData.token,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('LogoutUser Api call successful')
+          resetDayData()
+          setApiStatus({
+            id: ApiStatusPreset.LogoutUser,
+            hasSuccess: true,
+          })
+
+          const userData = {
+            emailId: '',
+            isLoggedIn: false,
+            name: '',
+            token: '',
+            plannerStartDate: '',
+          }
+
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(userData))
+          self.userData = cast(userData)
+          setApiStatus({
+            id: ApiStatusPreset.LogoutUser,
+            hasSuccess: true,
+          })
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Success,
+          })
+        } else {
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Error,
+          })
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.LogoutUser, error })
+        log.info('LogoutUser Api call failed with error: ', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.LogoutUser,
+          isLoading: false,
+        })
+      }
+    })
+
+    const updateUser = flow(function* updateUser(params: IUpdateUserParams) {
+      const { apiStatusStore, viewStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      const { setValidationToastData } = viewStore
+      const { User, UpdateUser } = API.GymBuddy.endPoints
+
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.UpdateUser,
+          isLoading: true,
+        })
+
+        const apiParams: IApiParams = {
+          endpoint: `${User}/${UpdateUser}`,
+          request: RequestType.PATCH,
+          apiData: API.GymBuddy,
+          requestData: params,
+          authToken: self.userData.token,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('UpdateUser Api call successful')
+          const { name, emailId } = response.data.data
+          self.userData.name = name ?? self.userData.name
+          self.userData.emailId = emailId ?? self.userData.emailId
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Success,
+          })
+        } else {
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Error,
+          })
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.UpdateUser, error })
+        log.info('UpdateUser Api call failed with error: ', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.UpdateUser,
+          isLoading: false,
+        })
+      }
+    })
+
+    const deleteUser = flow(function* deleteUser() {
+      const { apiStatusStore, domainStore, viewStore } = getRoot<RootStoreType>(self)
+      const { setApiStatus } = apiStatusStore
+      const { setValidationToastData } = viewStore
+      const { plannerStore } = domainStore
+      const { resetDayData } = plannerStore
+      const { User, DeleteUser } = API.GymBuddy.endPoints
+
+      try {
+        setApiStatus({
+          id: ApiStatusPreset.DeleteUser,
+          isLoading: true,
+        })
+
+        const apiParams: IApiParams = {
+          endpoint: `${User}/${DeleteUser}`,
+          request: RequestType.DELETE,
+          apiData: API.GymBuddy,
+          authToken: self.userData.token,
+        }
+
+        const response = yield makeApiCall(apiParams)
+
+        if (response.status === ApiStatusCode.Success) {
+          log.info('DeleteUser Api call successful')
+          resetDayData()
+          const userData = {
+            emailId: '',
+            isLoggedIn: false,
+            name: '',
+            token: '',
+            plannerStartDate: '',
+          }
+
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(userData))
+          self.userData = cast(userData)
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Success,
+          })
+        } else {
+          setValidationToastData({
+            isVisible: true,
+            message: response.data.message,
+            preset: ToastPreset.Error,
+          })
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setApiStatus({ id: ApiStatusPreset.DeleteUser, error })
+        log.info('DeleteUser Api call failed with error: ', error)
+      } finally {
+        setApiStatus({
+          id: ApiStatusPreset.DeleteUser,
+          isLoading: false,
+        })
+      }
+    })
+
     return {
+      addPlannerDate,
+      changePassword,
       loginUser,
       registerUser,
-      setAuthToken,
+      setUserData,
       setPlannerStartDate,
-      addPlannerDate,
+      logoutUser,
+      updateUser,
+      deleteUser,
     }
   })
 

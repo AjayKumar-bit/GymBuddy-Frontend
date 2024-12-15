@@ -31,7 +31,7 @@ export const TAB_DATA = [
   {
     component: Reminders,
     icon: ClockIcon,
-    name: translate('tab_data.alarm'),
+    name: translate('tab_data.reminders'),
   },
   {
     component: Profile,

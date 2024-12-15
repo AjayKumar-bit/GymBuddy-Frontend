@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   inputValue: {
     ...CommonStyles.text,
     color: Colors.InputValue,
-    flex: 1,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_16,
     lineHeight: Sizes.Size_18,

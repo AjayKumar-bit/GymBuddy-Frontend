@@ -1,5 +1,3 @@
-import { Moment } from 'moment'
-
 import { RequestType } from '@constants'
 import { exerciseDetailsType, videoRecommendationType } from '@stores'
 
@@ -68,6 +66,16 @@ export interface IDeleteExerciseParams {
   exerciseId: string
 }
 
-export interface IAddPlannerDate {
-  plannerStartDate: Moment
+export interface IAddPlannerDateParams {
+  plannerStartDate: string
+}
+
+export interface IChangePasswordParams {
+  oldPassword: string
+  newPassword: string
+}
+
+export interface IUpdateUserParams {
+  name?: string
+  emailId?: string
 }

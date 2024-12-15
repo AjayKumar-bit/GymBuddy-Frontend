@@ -55,9 +55,10 @@ const DayForm = observer((props: IDayFormProps) => {
     !isDeletingDay && closeModal()
   }
 
-  const onSubmitPress = () => {
-    const date = moment(data, 'YYYY-MM-DDTHH:mm')
-    addPlannerDate({ plannerStartDate: date })
+  const onSubmitPress = async () => {
+    const date = moment(data, 'DD/MM/YYYY').toLocaleString()
+    await addPlannerDate({ plannerStartDate: date })
+    closeModal()
   }
 
   const getButtonData = () => {

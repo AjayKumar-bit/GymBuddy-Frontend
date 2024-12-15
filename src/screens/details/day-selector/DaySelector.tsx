@@ -35,7 +35,7 @@ const DaySelector = observer((props: IDaySelectorProps) => {
   const { apiStatusStore, domainStore } = useStore()
   const { plannerStore, exerciseStore } = domainStore
   const { getDays, days } = plannerStore
-  const { addExercise } = exerciseStore
+  const { addExercise, todaysExercise, getTodaysExercises } = exerciseStore
   const { getApiStatus } = apiStatusStore
   const { isLoading } = getApiStatus(ApiStatusPreset.GetDays) ?? {}
   const hasDays = days.length > 0
@@ -62,6 +62,7 @@ const DaySelector = observer((props: IDaySelectorProps) => {
         videoRecommendations,
       },
     })
+    todaysExercise.length === 0 && (await getTodaysExercises())
     closeDaySelector()
   }
 

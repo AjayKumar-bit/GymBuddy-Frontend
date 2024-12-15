@@ -8,11 +8,9 @@ const AuthNavigator = () => {
   const AuthStack = createNativeStackNavigator<RootStackParamList>()
 
   return (
-    <AuthStack.Navigator
-      initialRouteName={RouteName.Registration}
-      screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen name={RouteName.Registration} component={Registration} />
+    <AuthStack.Navigator initialRouteName={RouteName.Login} screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name={RouteName.Login} component={Login} />
+      <AuthStack.Screen name={RouteName.Registration} component={Registration} />
     </AuthStack.Navigator>
   )
 }

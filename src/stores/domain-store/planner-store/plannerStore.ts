@@ -222,11 +222,16 @@ const PlannerStore = types
       }
     })
 
+    const resetDayData = () => {
+      self.days = cast([])
+    }
+
     return {
       addDay,
       deleteDay,
       getDays,
       updateDay,
+      resetDayData,
     }
   })
 

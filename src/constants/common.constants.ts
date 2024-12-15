@@ -44,8 +44,15 @@ export enum DateTimePickerMode {
   Time = 'time',
 }
 
-export const AUTH_DATA_KEY = 'authDataKey'
+export const USER_DATA_KEY = 'UserDataKey'
 export const REMINDERS_KEY = 'remindersKey'
+export const USER_DEFAULT_DATA = {
+  emailId: '',
+  isLoggedIn: false,
+  name: '',
+  plannerStartDate: '',
+  token: '',
+}
 
 export const IS_ANDROID = Platform.OS === 'android'
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
+import { PlusIcon as AddIcon } from 'react-native-heroicons/solid'
 
 import { GBAppHeader, GBButton, GBFlatList, GBLoader } from '@components'
 import { ReminderManagerPreset } from '@constants'
 import { translate } from '@locales'
-import { CommonStyles } from '@theme'
+import { Colors, CommonStyles, Sizes } from '@theme'
 import { IReminderType } from '@types'
 import { getReminders } from '@utils'
 
@@ -55,6 +56,7 @@ const Reminders = () => {
         <View style={styles.buttonContainer}>
           <GBButton
             containerCustomStyles={styles.button}
+            leftIcon={<AddIcon color={Colors.Label} size={Sizes.Size_18} />}
             onPress={onAddDayPress}
             title={translate('common.add')}
             titleStyles={styles.buttonTitle}
