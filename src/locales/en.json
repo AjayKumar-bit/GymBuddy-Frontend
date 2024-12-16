@@ -10,7 +10,10 @@
     "delete": "Delete",
     "update": "Update",
     "cancel": "Cancel",
-    "submit": "Submit"
+    "submit": "Submit",
+    "no_internet": "Oops! Looks like your device is not connected to the Internet.",
+    "connect_error": "Connection Error",
+    "try_again": "Try Again"
   },
   "tab_data": {
     "home": "Home",

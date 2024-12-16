@@ -41,7 +41,11 @@ const RecommendedExercises = observer(() => {
     return isLoading || isInitialRender ? (
       <GBLoader />
     ) : (
-      <GBLoader title={translate('screens.home.no_recommendation')} />
+      <GBLoader
+        title={translate('screens.home.no_recommendation')}
+        retryEnabled
+        fetchData={fetchData}
+      />
     )
   }
 

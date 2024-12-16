@@ -33,9 +33,12 @@ const styles = StyleSheet.create({
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_22,
     paddingHorizontal: Sizes.Size_16,
-    paddingVertical: Sizes.Size_16,
+    paddingVertical: Sizes.Size_4,
     textAlign: 'center',
     textTransform: 'capitalize',
+  },
+  iconSecondary: {
+    top: Sizes.Size_32,
   },
 })
 

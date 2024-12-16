@@ -56,7 +56,11 @@ const TodaysExercise = observer(() => {
   }
 
   const listEmptyComponent = () => {
-    return isLoading || isInitialRender ? <GBLoader /> : <GBLoader title={noDataTitle} />
+    return isLoading || isInitialRender ? (
+      <GBLoader />
+    ) : (
+      <GBLoader fetchData={fetchData} retryEnabled title={noDataTitle} />
+    )
   }
 
   useEffect(() => {

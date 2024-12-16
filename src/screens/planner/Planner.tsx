@@ -71,7 +71,11 @@ const Planner = observer(() => {
     return isLoading || isFirstRender ? (
       <GBLoader />
     ) : (
-      <GBLoader title={translate('screens.planner.no_days_found')} />
+      <GBLoader
+        fetchData={fetchData}
+        retryEnabled
+        title={translate('screens.planner.no_days_found')}
+      />
     )
   }
 

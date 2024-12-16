@@ -6,7 +6,6 @@ import { IApiConfig } from './api.types'
 export interface ISearchExerciseParams {
   exerciseName: string
   isLoading?: boolean
-  isNewCall?: boolean
   isRefreshCall?: boolean
 }
 

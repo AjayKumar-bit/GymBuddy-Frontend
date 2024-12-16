@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Instance, cast, flow, getRoot, types } from 'mobx-state-tree'
 
 import { log } from '@config'
-import { API, ApiStatusCode, ApiStatusPreset, RequestType } from '@constants'
+import { API, ApiStatusCode, ApiStatusPreset, RequestType, SearchApiPreset } from '@constants'
 import { makeApiCall } from '@services'
 import { ISearchExerciseParams } from '@types'
 
@@ -41,45 +42,77 @@ const SearchStore = types
     const searchExercise = flow(function* searchExercise(params: ISearchExerciseParams) {
       const { apiStatusStore } = getRoot<RootStoreType>(self)
       const { setApiStatus } = apiStatusStore
-      const { exerciseName, isLoading = false, isRefreshCall = false, isNewCall = false } = params
+      const { exerciseName, isLoading = false, isRefreshCall = false } = params
       const exercise = exerciseName.toLowerCase()
+      const { Exercise, Name } = API.Exercise.endPoints
+
       try {
         if (isRefreshCall) {
           self.offset = 0
         }
-        if (isNewCall) {
-          self.offset = 0
-          self.searchedExerciseData = cast([])
-        }
+
         setApiStatus({
           id: ApiStatusPreset.SearchExercise,
           isLoading: isLoading || isRefreshCall,
           isRefreshCall,
         })
 
-        const apiParams = {
-          endpoint: `${API.Exercise.endPoints.Exercise}/${
-            API.Exercise.endPoints.Name
-          }/${exercise}?limit=${10}&offset=${self.offset}`,
-          request: RequestType.GET,
-          apiData: API.Exercise,
+        // Mapping presets to corresponding endpoints
+        const endpointMap = {
+          [SearchApiPreset.Name]: `${Exercise}/${Name}/${exercise}`,
+          [SearchApiPreset.Target]: `${Exercise}/target/${exercise}`,
+          [SearchApiPreset.Equipment]: `${Exercise}/equipment/${exercise}`,
+          [SearchApiPreset.BodyPart]: `${Exercise}/bodyPart/${exercise}`,
         }
 
-        const response = yield makeApiCall(apiParams)
+        let dataFetched = false // Track if data has been successfully fetched
 
-        if (response.status === ApiStatusCode.Success) {
-          log.info('SearchExercise Api call successful')
-          const hasMoreData = response.data.length === 10
-          setApiStatus({ id: ApiStatusPreset.SearchExercise, hasMoreData })
-          self.searchedExerciseData = self.offset
-            ? [...self.searchedExerciseData, ...response.data] // Note: getting duplicated data ,need to check api
-            : response.data
-          self.offset = cast(self.offset + 1)
+        // eslint-disable-next-line no-restricted-syntax
+        for (const [preset, endpoint] of Object.entries(endpointMap)) {
+          if (dataFetched) break
+
+          try {
+            // Build API parameters
+            const apiParams = {
+              endpoint: `${endpoint}?limit=10&offset=${self.offset}`,
+              request: RequestType.GET,
+              apiData: API.Exercise,
+            }
+
+            // Make the API call
+            const response = yield makeApiCall(apiParams)
+
+            if (response.status === ApiStatusCode.Success) {
+              if (response.data.length > 0) {
+                // Successfully fetched data, update the store
+                log.info(`SearchExercise API call successful for preset: ${preset}`)
+                const hasMoreData = response.data.length === 10
+
+                setApiStatus({ id: ApiStatusPreset.SearchExercise, hasMoreData })
+                self.searchedExerciseData = self.offset
+                  ? [...self.searchedExerciseData, ...response.data]
+                  : response.data
+                self.offset = cast(self.offset + 1)
+
+                dataFetched = true // Data fetched successfully, break the loop
+              } else {
+                log.warn(`No data found for preset: ${preset}. Trying next preset.`)
+              }
+            } else {
+              log.error(`API call failed for preset: ${preset} with status: ${response.status}`)
+            }
+          } catch (error: any) {
+            log.error(`Error during API call for preset: ${preset}`, error)
+          }
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+        if (!dataFetched) {
+          log.warn('All presets exhausted. No data found.')
+          setApiStatus({ id: ApiStatusPreset.SearchExercise, hasMoreData: false })
+        }
       } catch (error: any) {
         setApiStatus({ id: ApiStatusPreset.SearchExercise, error })
-        log.info('SearchExercise Api call failed with error: ', error)
+        log.error('SearchExercise API call failed with error: ', error)
       } finally {
         setApiStatus({
           id: ApiStatusPreset.SearchExercise,
@@ -126,7 +159,6 @@ const SearchStore = types
           log.info('GetExerciseVideo Api call successful')
           self.ytContinuationToken = response.data.continuation_token
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setApiStatus({ id: ApiStatusPreset.GetExerciseVideo, error })
         log.error('GetExerciseVideo Api call failed with error :', error)
@@ -139,9 +171,15 @@ const SearchStore = types
       }
     })
 
+    const resetSearchedExercise = () => {
+      self.offset = 0
+      self.searchedExerciseData = cast([])
+    }
+
     return {
       getExerciseVideo,
       searchExercise,
+      resetSearchedExercise,
     }
   })
 

@@ -23,6 +23,7 @@ const ApiStatusItem = types.model('ApiStatusItem', {
 const ApiStatusStore = types
   .model('ApiStatusStore', {
     apiStatus: types.map(ApiStatusItem),
+    isInterneDisconnected: types.boolean,
   })
   .actions(self => {
     const setApiStatus = (data: IDataParamsTypes) => {
@@ -65,9 +66,14 @@ const ApiStatusStore = types
       return self.apiStatus.get(id)
     }
 
+    const setInternetDisconnect = () => {
+      self.isInterneDisconnected = true
+    }
+
     return {
       setApiStatus,
       getApiStatus,
+      setInternetDisconnect,
     }
   })
 

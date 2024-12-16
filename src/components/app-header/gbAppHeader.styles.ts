@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_20,
     lineHeight: Sizes.Size_22,
-    marginRight: Sizes.Size_32,
+    paddingTop: Sizes.Size_8,
+    // marginRight: Sizes.Size_32, // Note: will uncomment in  future.
     textAlign: 'center',
   },
 })
