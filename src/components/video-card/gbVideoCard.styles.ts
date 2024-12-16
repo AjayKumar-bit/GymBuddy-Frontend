@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
   },
   container: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_4,
     overflow: 'hidden',
     padding: Sizes.Size_2,
     width: (SCREEN_WIDTH - 40) / 2,
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_12,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_4,
   },
   border: {
-    borderColor: Colors.ActiveTab,
+    borderColor: Colors.Primary,
     borderWidth: Sizes.Size_3,
   },
   containerSecondary: {

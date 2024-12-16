@@ -82,8 +82,7 @@ const ReminderManager = (props: IReminderManagerProps) => {
     preset === ReminderManagerPreset.Delete ? translate('common.delete') : translate('common.add')
   const onButtonPress = preset === ReminderManagerPreset.Delete ? onDeletePress : onAddPress
   const buttonStyles = preset === ReminderManagerPreset.Delete ? styles.deleteButton : {}
-  const loaderColor =
-    preset === ReminderManagerPreset.Delete ? Colors.DeleteButton : Colors.ActiveTab
+  const loaderColor = preset === ReminderManagerPreset.Delete ? Colors.DeleteButton : Colors.Primary
 
   useEffect(() => {
     getPermissions()

@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_16,
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_28,
     textAlign: 'center',
   },
   subContainer: {
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_8,
     gap: Sizes.Size_8,
     justifyContent: 'center',

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_16,
   },
   header: {
-    color: Colors.ActiveTab,
+    color: Colors.Primary,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     height: 90,
   },
   subHeader: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_16,
     lineHeight: Sizes.Size_18,
@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.Size_32,
   },
   alreadyRegistered: {
-    color: Colors.ActiveTab,
+    color: Colors.Primary,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,
     textDecorationLine: 'underline',
   },
   login: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,

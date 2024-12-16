@@ -5,7 +5,7 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 const styles = StyleSheet.create({
   container: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_10,
     flexDirection: 'row',
     gap: Sizes.Size_8,
@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
   },
   detail: {
     alignSelf: 'center',
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.regular,
     fontSize: Sizes.Size_14,
     textTransform: 'capitalize',
   },
   name: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
     marginRight: Sizes.Size_24,

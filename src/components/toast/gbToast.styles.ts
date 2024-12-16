@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   message: {
     alignSelf: 'center',
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_14,

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.Size_8,
   },
   details: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,

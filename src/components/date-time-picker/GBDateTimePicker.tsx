@@ -29,15 +29,15 @@ const GBDateTimePicker = (props: IGBDateTimePickerProps) => {
 
   return (
     <DateTimePickerModal
-      textColor={Colors.ActiveTab}
-      accentColor={Colors.ActiveTab}
+      textColor={Colors.Primary}
+      accentColor={Colors.Primary}
       isVisible={showPicker}
       minimumDate={new Date(currentTime)}
       mode={mode}
       onCancel={onPickerClose}
       onConfirm={onConfirm}
-      negativeButton={{ textColor: Colors.ActiveTab }}
-      positiveButton={{ textColor: Colors.ActiveTab }}
+      negativeButton={{ textColor: Colors.Primary }}
+      positiveButton={{ textColor: Colors.Primary }}
     />
   )
 }

@@ -34,7 +34,7 @@ const GBAppHeader = (props: IGBAppHeaderProps) => {
 
     return (
       <TouchableOpacity onPress={onPress} hitSlop={HIT_SLOP_FIVE}>
-        <Icon color={Colors.Label} />
+        <Icon color={Colors.PrimaryText} />
       </TouchableOpacity>
     )
   }
@@ -46,7 +46,7 @@ const GBAppHeader = (props: IGBAppHeaderProps) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={Colors.TextInputBackground} barStyle="dark-content" />
+      <StatusBar backgroundColor={Colors.HeaderBackGround} barStyle="dark-content" />
       <View style={styles.subContainer}>
         {showBackButton && renderIcon(startIconData)}
         <Text style={styles.title} numberOfLines={1}>

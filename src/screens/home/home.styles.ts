@@ -5,14 +5,13 @@ import { Colors, Sizes, Typography } from '@theme'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: Sizes.Size_12,
   },
   textInputContainer: {
     paddingHorizontal: Sizes.Size_16,
     paddingTop: Sizes.Size_16,
   },
   header: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
     paddingHorizontal: Sizes.Size_16,

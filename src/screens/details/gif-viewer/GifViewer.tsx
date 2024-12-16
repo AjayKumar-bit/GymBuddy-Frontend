@@ -25,7 +25,7 @@ const GifViewer = (props: IGifViewerProps) => {
   }
 
   const renderGif = () => (
-    <View>
+    <View style={styles.gifContainer}>
       <GBFastImage source={{ uri: gifUrl }} imageStyles={imageStyles} />
       <Text style={styles.name}>{name}</Text>
       {isModalVisible ? (

@@ -6,14 +6,14 @@
         <item name="android:timePickerDialogTheme">@style/Dialog.Theme</item>
     </style>
 
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#3EDBB5</item>
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
     <style name="BootTheme" parent="Theme.BootSplash">
         <item name="bootSplashBackground">@color/bootsplash_background</item>
         <item name="bootSplashLogo">@drawable/bootsplash_logo</item>
         <item name="postBootSplashTheme">@style/AppTheme</item>
-    </style>
-
-    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">#00B6DF</item>
-        <item name="android:textColorPrimary">#000000</item>
     </style>
 </resources>

@@ -185,7 +185,12 @@ const UserStore = types
         const response = yield makeApiCall(apiParams)
 
         if (response.status === ApiStatusCode.Success) {
-          log.info('AddPlannerDate Api call successful')
+          log.info('AddPlannerDate Api call successful', response.data.data.plannerStartDate)
+          const userData = {
+            ...self.userData,
+            plannerStartDate: response.data.data.plannerStartDate ?? '',
+          }
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(userData))
           self.userData.plannerStartDate = response.data.data.plannerStartDate
           setValidationToastData({
             isVisible: true,

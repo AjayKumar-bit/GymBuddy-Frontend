@@ -74,6 +74,10 @@ const GBVideoCard = (props: IGBVideoCardProps) => {
   const onCardPress = isRemovingVideos ? OnRemoveVideo : onPress
 
   useEffect(() => {
+    !isAddingState && setIsBookMarked(false)
+  }, [isAddingState])
+
+  useEffect(() => {
     isRemovingVideos && setIsRemoveMarked(false)
   }, [isRemovingVideos])
 

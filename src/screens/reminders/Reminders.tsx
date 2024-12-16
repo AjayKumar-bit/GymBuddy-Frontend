@@ -56,7 +56,7 @@ const Reminders = () => {
         <View style={styles.buttonContainer}>
           <GBButton
             containerCustomStyles={styles.button}
-            leftIcon={<AddIcon color={Colors.Label} size={Sizes.Size_18} />}
+            leftIcon={<AddIcon color={Colors.PrimaryText} size={Sizes.Size_18} />}
             onPress={onAddDayPress}
             title={translate('common.add')}
             titleStyles={styles.buttonTitle}

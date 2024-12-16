@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     marginHorizontal: Sizes.Size_16,
     marginTop: Sizes.Size_16,
   },
+  container: {
+    paddingBottom: Sizes.Size_42,
+  },
 })
 
 export { styles }

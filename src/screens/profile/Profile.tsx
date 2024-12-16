@@ -45,7 +45,7 @@ const Profile = observer(() => {
   return (
     <>
       <GBAppHeader title={translate('screens.profile.header')} showBackButton={false} />
-      <View style={styles.detailsContainer}>
+      <View style={styles.container}>
         <LottieView source={WelcomeLottie} autoPlay style={styles.lottie} />
         <Text style={styles.heading}>{translate('screens.profile.gymbuddy_profile')}</Text>
         <View style={styles.detailsSubContainer}>
@@ -76,7 +76,7 @@ const Profile = observer(() => {
         </View>
         <TouchableOpacity onPress={onLogoutPress}>
           {isLoading ? (
-            <ActivityIndicator color={Colors.ActiveTab} />
+            <ActivityIndicator color={Colors.Primary} />
           ) : (
             <Text style={styles.bottomText}>{translate('screens.profile.logout')}</Text>
           )}

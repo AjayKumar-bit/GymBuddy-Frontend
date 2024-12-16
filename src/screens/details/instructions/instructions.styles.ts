@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.Size_12,
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     lineHeight: Sizes.Size_14,
   },
   expanderText: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_12,
     lineHeight: Sizes.Size_14,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.Size_4,
   },
   instructionNumber: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
   },
 })

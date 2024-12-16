@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_28,
   },
   button: {
-    backgroundColor: Colors.CancelButton,
-    borderColor: Colors.ActiveTab,
+    backgroundColor: Colors.HeaderBackGround,
+    borderColor: Colors.Primary,
     borderRadius: Sizes.Size_6,
     borderWidth: Sizes.Size_1,
     gap: Sizes.Size_2,

@@ -5,13 +5,12 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   image: {
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     height: SCREEN_HEIGHT / 2.5,
     padding: Sizes.Size_16,
-    paddingHorizontal: Sizes.Size_16,
   },
   fullImage: {
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     height: SCREEN_HEIGHT,
   },
   icon: {
@@ -27,18 +26,22 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH - 32,
   },
   name: {
-    backgroundColor: Colors.ExerciseCardBackground,
-    color: Colors.Label,
+    alignSelf: 'center',
+    backgroundColor: Colors.CardBackground,
+    bottom: Sizes.Size_8,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
-    lineHeight: Sizes.Size_22,
     paddingHorizontal: Sizes.Size_16,
-    paddingVertical: Sizes.Size_4,
-    textAlign: 'center',
+    position: 'absolute',
     textTransform: 'capitalize',
   },
   iconSecondary: {
     top: Sizes.Size_32,
+  },
+  gifContainer: {
+    backgroundColor: Colors.CardBackground,
+    padding: Sizes.Size_16,
   },
 })
 

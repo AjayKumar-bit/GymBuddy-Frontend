@@ -38,10 +38,10 @@ const CustomFlatList = (props: GBFlatListProps, ref: ForwardedRef<FlatList<any>>
 
   const refreshControl = onRefresh ? (
     <RefreshControl
-      colors={[Colors.ActiveTab]}
+      colors={[Colors.Primary]}
       onRefresh={onRefreshCall}
       refreshing={!!isRefreshCall}
-      tintColor={Colors.InactiveTab}
+      tintColor={Colors.Secondary}
     />
   ) : undefined
 

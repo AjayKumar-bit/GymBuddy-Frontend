@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     gap: Sizes.Size_4,
   },
   label: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_18,

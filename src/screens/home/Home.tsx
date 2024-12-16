@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 
 import { GBAppHeader, GBTextInput } from '@components'
-import { BODYPART_DATA, ExerciseListScreenPreset, RouteName, TextInputPreset } from '@constants'
+import { BODYPART_DATA, ExerciseListScreenPreset, RouteName, SCREEN_HEIGHT, SCREEN_WIDTH, TextInputPreset } from '@constants'
 import { translate } from '@locales'
 import { useStore } from '@stores'
 import { BodyPartItem, INavigation } from '@types'
@@ -52,9 +52,11 @@ const Home = observer(() => {
         />
         <Text style={styles.header}>{translate('screens.home.search_exercises_for')}</Text>
         <RNCarousel
-          renderItem={renderBodyPart}
           data={BODYPART_DATA}
+          height={SCREEN_HEIGHT*0.22}
+          renderItem={renderBodyPart}
           style={styles.bodypartCarousel}
+          width={SCREEN_WIDTH*0.7}
         />
         <Text style={styles.header}>{translate('screens.home.today_exercises')}</Text>
         <TodaysExercise />

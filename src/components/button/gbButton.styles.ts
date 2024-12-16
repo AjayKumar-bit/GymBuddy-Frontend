@@ -13,17 +13,17 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_12,
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_16,
     lineHeight: Sizes.Size_18,
     textAlign: 'center',
   },
   disableContainer: {
-    backgroundColor: Colors.InactiveTab,
+    backgroundColor: Colors.Secondary,
   },
   activeContainer: {
-    backgroundColor: Colors.ActiveTab,
+    backgroundColor: Colors.Primary,
   },
   loader: {
     marginTop: Sizes.Size_12,

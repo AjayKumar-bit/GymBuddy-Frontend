@@ -54,7 +54,7 @@ const RecommendedExercises = observer(() => {
   }, [])
 
   return (
-    <View>
+    <View style={styles.container}>
       {isLoading || hasNoExerciseData ? (
         listEmptyComponent()
       ) : (

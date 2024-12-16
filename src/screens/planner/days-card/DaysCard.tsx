@@ -44,11 +44,11 @@ const DaysCard = (props: IDaysCardProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.subContainer} onPress={onCardPress}>
-        <CalendarDaysIcon color={Colors.InactiveTab} />
+        <CalendarDaysIcon color={Colors.Secondary} />
         <Text style={styles.title}>{title}</Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
-        <EditIcon color={Colors.InactiveTab} onPress={onEditPress} />
+        <EditIcon color={Colors.Secondary} onPress={onEditPress} />
         <DeleteIcon color={Colors.Error} onPress={onDeletePress} />
       </View>
       {isDayManagerOpen && (

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   container: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_4,
     flex: 1,
     flexDirection: 'row',
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...CommonStyles.text,
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_16,
     lineHeight: Sizes.Size_18,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   description: {
     ...CommonStyles.text,
-    color: Colors.InactiveTab,
+    color: Colors.Secondary,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,

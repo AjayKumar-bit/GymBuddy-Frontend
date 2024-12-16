@@ -4,7 +4,7 @@ import { Colors, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   count: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_16,
     fontVariant: ['lining-nums'],
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_4,
   },
   label: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_16,
   },
   subContainer: {
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_8,
     gap: Sizes.Size_8,
     justifyContent: 'center',
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     padding: Sizes.Size_16,
   },
   header: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH / 2 - Sizes.Size_38,
   },
   exerciseName: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.regular,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,

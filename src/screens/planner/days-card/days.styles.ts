@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
   },
   container: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_4,
     flex: 1,
     overflow: 'hidden',
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_16,
     textTransform: 'capitalize',

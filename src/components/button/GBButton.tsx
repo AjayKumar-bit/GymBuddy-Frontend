@@ -50,7 +50,7 @@ const GBButton = observer((props: IGBButtonProps) => {
     title,
     titleStyles = {},
     loaderStyles = {},
-    loaderColor = Colors.ActiveTab,
+    loaderColor = Colors.Primary,
   } = props
 
   const { apiStatusStore } = useStore()

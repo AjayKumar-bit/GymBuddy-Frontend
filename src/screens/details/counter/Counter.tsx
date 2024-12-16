@@ -30,7 +30,7 @@ const Counter = (props: ICounterProps) => {
       <Text style={styles.label}>{label}</Text>
       <View style={styles.subContainer}>
         {isPlannerEnable && (
-          <MinusIcon color={Colors.ActiveTab} onPress={onDecrease} hitSlop={HIT_SLOP_FIVE} />
+          <MinusIcon color={Colors.Primary} onPress={onDecrease} hitSlop={HIT_SLOP_FIVE} />
         )}
         <AnimatedNumber
           animationDuration={500}
@@ -40,7 +40,7 @@ const Counter = (props: ICounterProps) => {
           containerStyle={[styles.contentContainer, contentContainerStyles]}
         />
         {isPlannerEnable && (
-          <PlusIcon color={Colors.ActiveTab} onPress={onIncrease} hitSlop={HIT_SLOP_FIVE} />
+          <PlusIcon color={Colors.Primary} onPress={onIncrease} hitSlop={HIT_SLOP_FIVE} />
         )}
       </View>
     </View>

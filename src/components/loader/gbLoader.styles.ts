@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   title: {
     ...CommonStyles.text,
     alignSelf: 'center',
-    color: Colors.InactiveTab,
+    color: Colors.Secondary,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_16,
   },
   tryAgain: {
-    color: Colors.ActiveTab,
+    color: Colors.Primary,
     textDecorationLine: 'underline',
   },
 })

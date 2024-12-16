@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   counterContainer: {
     ...CommonStyles.shadow,
     backgroundColor: Colors.CancelButton,
-    borderColor: Colors.ActiveTab,
+    borderColor: Colors.Primary,
     borderRadius: Sizes.Size_4,
     borderWidth: Sizes.Size_2,
     flexDirection: 'row',
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.Size_4,
   },
   separator: {
-    borderColor: Colors.ActiveTab,
+    borderColor: Colors.Primary,
     borderLeftWidth: Sizes.Size_1,
     borderStyle: 'dashed',
     height: '100%',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   details: {
     ...CommonStyles.text,
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,

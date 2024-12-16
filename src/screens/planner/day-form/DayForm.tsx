@@ -67,7 +67,7 @@ const DayForm = observer((props: IDayFormProps) => {
       buttonStyles: {},
       buttonTitle: translate('common.add'),
       label: translate('screens.planner.day_name'),
-      loaderColor: Colors.ActiveTab,
+      loaderColor: Colors.Primary,
       onButtonPress: onAddPress,
     }
 

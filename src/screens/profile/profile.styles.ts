@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   details: {
     ...CommonStyles.text,
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,
@@ -20,26 +20,28 @@ const styles = StyleSheet.create({
   detailsSubContainer: {
     alignItems: 'center',
     flexDirection: 'row',
+    marginTop: Sizes.Size_4,
   },
-  detailsContainer: {
-    backgroundColor: Colors.CancelButton,
-    borderColor: Colors.ActiveTab,
+  container: {
+    backgroundColor: Colors.ProfileCard,
+    borderColor: Colors.Primary,
     borderRadius: Sizes.Size_8,
     borderWidth: Sizes.Size_1,
-    gap: Sizes.Size_6,
+    gap: Sizes.Size_8,
     justifyContent: 'center',
     margin: Sizes.Size_16,
     padding: Sizes.Size_16,
   },
   edit: {
-    color: Colors.ActiveTab,
+    color: Colors.Primary,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,
+    marginLeft: Sizes.Size_8,
     textDecorationLine: 'underline',
   },
   bottomText: {
-    color: Colors.ActiveTab,
+    color: Colors.Primary,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     ...CommonStyles.text,
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,

@@ -105,7 +105,7 @@ export const addReminder = async (params: IReminderType) => {
           android: {
             channelId: 'reminder',
             smallIcon: 'ic_notification',
-            color: Colors.ActiveTab,
+            color: Colors.Primary,
             sound: 'notification.wav',
             pressAction: {
               id: 'default',

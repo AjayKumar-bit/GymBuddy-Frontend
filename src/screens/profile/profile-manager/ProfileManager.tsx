@@ -104,7 +104,7 @@ const ProfileManager = observer((props: IProfileManagerProps) => {
       onButtonPress: updateDetails,
       buttonTitle: translate('common.update'),
       apiStatusPreset: ApiStatusPreset.UpdateUser,
-      loaderColor: Colors.ActiveTab,
+      loaderColor: Colors.Primary,
       buttonStyles: {},
       isDisable: !name && !emailId,
     }

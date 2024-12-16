@@ -23,7 +23,7 @@ const ReminderCard = (props: IReminderCardProps) => {
 
   return (
     <View style={[styles.container, containerStyles]}>
-      <BellIcon color={Colors.ActiveTab} />
+      <BellIcon color={Colors.Primary} />
       <View style={styles.subContainer}>
         <View style={styles.headerContainer}>
           <Text style={[styles.title, CommonStyles.flex_1]}>{title}</Text>

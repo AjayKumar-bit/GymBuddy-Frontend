@@ -19,12 +19,12 @@ interface RNCarouselProps {
   autoPlay?: boolean
   /** style: is an optional prop that gives custom styles for the container of the carousel. */
   style?: StyleProp<ViewStyle>
-  /**
-   * width: is an optional prop that gives the width of carousel. */
+  /** width: is an optional prop that gives the width of carousel. */
   width?: number
-  /**
-   * modeConfig: is an optional prop that gives configuration options for the animation mode. */
+  /** modeConfig: is an optional prop that gives configuration options for the animation mode. */
   modeConfig?: any
+  /** height: is an optional prop that gives the height of carousel. */
+  height?: number
 }
 
 const RNCarousel = (props: RNCarouselProps) => {
@@ -39,6 +39,7 @@ const RNCarousel = (props: RNCarouselProps) => {
       parallaxScrollingScale: 0.86,
       parallaxScrollingOffset: 50,
     },
+    height = SCREEN_HEIGHT * 0.24,
   } = props
   const progress = useSharedValue<number>(0)
   const animationStyle: TAnimationStyle = React.useCallback((value: number) => {
@@ -61,7 +62,7 @@ const RNCarousel = (props: RNCarouselProps) => {
         autoPlay={autoPlay}
         customAnimation={preset === RNCarouselPreset.QuickSWipe ? animationStyle : null}
         data={data}
-        height={SCREEN_HEIGHT * 0.24}
+        height={height}
         loop
         minScrollDistancePerSwipe={10}
         mode="parallax"

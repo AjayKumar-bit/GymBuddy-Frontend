@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.Size_16,
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_18,
     marginTop: Sizes.Size_8,

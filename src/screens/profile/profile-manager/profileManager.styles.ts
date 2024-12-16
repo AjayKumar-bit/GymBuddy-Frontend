@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     ...CommonStyles.shadow,
-    backgroundColor: Colors.ExerciseCardBackground,
+    backgroundColor: Colors.CardBackground,
     borderRadius: Sizes.Size_8,
     gap: Sizes.Size_6,
     padding: Sizes.Size_16,
   },
   header: {
     ...CommonStyles.text,
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_18,
     lineHeight: Sizes.Size_20,
