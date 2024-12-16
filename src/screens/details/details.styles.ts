@@ -28,12 +28,14 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.Size_8,
   },
   details: {
+    ...CommonStyles.text,
     color: Colors.Label,
     flex: 1,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,
     paddingHorizontal: Sizes.Size_16,
+    textTransform: 'capitalize',
   },
   container: {
     paddingBottom: Sizes.Size_8,

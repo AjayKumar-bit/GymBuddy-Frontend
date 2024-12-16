@@ -26,7 +26,7 @@ const Search = observer((props: ISearchProp) => {
   const { isLoading: isExerciseLoading, isRefreshCall: isExerciseRefreshCall } =
     getApiStatus(ApiStatusPreset.GetExercise) ?? {}
   const { searchStore, exerciseStore } = domainStore
-  const { searchedExerciseData, searchExercise } = searchStore
+  const { searchedExerciseData, searchExercise, resetSearchedExercise } = searchStore
   const { exerciseData, getExercise, resetExerciseData } = exerciseStore
   const isSearchScreen = preset === ExerciseListScreenPreset.Search
   const hasNoExerciseData =
@@ -101,15 +101,28 @@ const Search = observer((props: ISearchProp) => {
 
   const { apiStatusPreset, headerTitle, loadingTitle, onEndReached, onRefresh } = getScreenDetails()
 
+  const fetchData = () => {
+    if (preset === ExerciseListScreenPreset.Search) {
+      searchExercise({
+        exerciseName: currentSearchRef.current,
+        isLoading: true,
+      })
+    } else {
+      getExercise({ dayId, isLoading: true, isFirstCall: true })
+    }
+  }
+
   const listHeaderComponent = () => {
     return <Text style={styles.title}>{headerTitle}</Text>
   }
 
   const listEmptyComponent = () => {
-    return isSearching || isExerciseLoading || isInitialRender ? (
-      <GBLoader title={loadingTitle} />
-    ) : (
-      <GBLoader title={translate('screens.search.no_exercise_found')} />
+    return (
+      <GBLoader
+        fetchData={fetchData}
+        retryEnabled
+        title={translate('screens.search.no_exercise_found')}
+      />
     )
   }
 
@@ -123,7 +136,10 @@ const Search = observer((props: ISearchProp) => {
       getExercise({ dayId, isLoading: true, isFirstCall: true })
     }
     setIsInitialRender(false)
-    return resetExerciseData
+    return () => {
+      resetExerciseData()
+      resetSearchedExercise()
+    }
   }, [])
 
   return (
@@ -139,18 +155,23 @@ const Search = observer((props: ISearchProp) => {
             preset={TextInputPreset.Search}
           />
         )}
-        <GBFlatList
-          apiStatusPreset={apiStatusPreset}
-          contentContainerStyle={[styles.contentContainer, contentContainerStyles]}
-          data={isSearchScreen ? searchedExerciseData : exerciseData}
-          keyExtractor={keyExtractor}
-          ListEmptyComponent={listEmptyComponent}
-          ListHeaderComponent={listHeaderComponent}
-          onEndReached={onEndReached}
-          onRefresh={onRefresh}
-          refreshing={isSearchRefreshCall || isExerciseRefreshCall}
-          renderItem={renderItem}
-        />
+
+        {isSearching || isExerciseLoading || isInitialRender ? (
+          <GBLoader title={loadingTitle} />
+        ) : (
+          <GBFlatList
+            apiStatusPreset={apiStatusPreset}
+            contentContainerStyle={[styles.contentContainer, contentContainerStyles]}
+            data={isSearchScreen ? searchedExerciseData : exerciseData}
+            keyExtractor={keyExtractor}
+            ListEmptyComponent={listEmptyComponent}
+            ListHeaderComponent={listHeaderComponent}
+            onEndReached={onEndReached}
+            onRefresh={onRefresh}
+            refreshing={isSearchRefreshCall || isExerciseRefreshCall}
+            renderItem={renderItem}
+          />
+        )}
       </View>
     </>
   )

@@ -222,7 +222,7 @@ const ExerciseStore = types
           hasSuccess: false,
         })
         setApiStatus({ id: ApiStatusPreset.UpdateExercise, error })
-        log.error('update Exercise Api call failed with error :', error)
+        log.error('Update Exercise Api call failed with error :', error)
       } finally {
         setApiStatus({
           id: ApiStatusPreset.UpdateExercise,

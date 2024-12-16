@@ -148,7 +148,11 @@ const Videos = observer((props: IVideosProps) => {
         {isLoading ? (
           <GBLoader />
         ) : (
-          <GBLoader title={translate('screens.details.no_recommendation')} />
+          <GBLoader
+            fetchData={fetchData}
+            retryEnabled
+            title={translate('screens.details.no_recommendation')}
+          />
         )}
       </View>
     )

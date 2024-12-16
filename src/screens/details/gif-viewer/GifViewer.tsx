@@ -33,7 +33,7 @@ const GifViewer = (props: IGifViewerProps) => {
           color={Colors.Dark}
           onPress={toggleModalVisibility}
           size={Sizes.Size_32}
-          style={styles.icon}
+          style={[styles.icon, styles.iconSecondary]}
         />
       ) : (
         <ArrowsPointingOutIcon

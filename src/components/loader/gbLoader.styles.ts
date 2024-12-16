@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_16,
   },
+  tryAgain: {
+    color: Colors.ActiveTab,
+    textDecorationLine: 'underline',
+  },
 })
 
 export { styles }

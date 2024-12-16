@@ -25,7 +25,7 @@ const BodyCard = (props: IBodyCard) => {
   const { searchStore } = domainStore
   const { searchExercise } = searchStore
   const onPress = () => {
-    searchExercise({ exerciseName: title, isLoading: true, isNewCall: true })
+    searchExercise({ exerciseName: title, isLoading: true })
     navigation.navigate(RouteName.Search, {
       prevSearchedExercise: title,
       preset: ExerciseListScreenPreset.Search,

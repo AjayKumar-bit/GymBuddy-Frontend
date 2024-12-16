@@ -243,21 +243,17 @@ const UserStore = types
 
         if (response.status === ApiStatusCode.Success) {
           log.info('ChangePassword Api call successful')
-
-          const authData = {
-            isLoggedIn: true,
-            token: response.data.data.accessToken,
-          }
-
-          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(authData))
           const { emailId, name, accessToken, plannerStartDate } = response.data.data
-          self.userData = cast({
+          const userData = {
             emailId,
             isLoggedIn: true,
             name,
             token: accessToken,
             plannerStartDate: plannerStartDate ?? '',
-          })
+          }
+
+          yield AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(userData))
+          self.userData = cast(userData)
           setValidationToastData({
             isVisible: true,
             message: response.data.message,

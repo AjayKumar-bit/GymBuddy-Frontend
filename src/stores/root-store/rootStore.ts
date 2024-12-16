@@ -15,7 +15,7 @@ const RootStore = types.model('RootStore', {
 })
 
 const createStore = () => {
-  const apiStatusStore = ApiStatusStore.create({ apiStatus: {} })
+  const apiStatusStore = ApiStatusStore.create({ apiStatus: {}, isInterneDisconnected: false })
   const domainStore = DomainStore.create(DomainStoreData)
   const viewStore = ViewStore.create(ViewStoreData)
   const store = RootStore.create({ apiStatusStore, domainStore, viewStore })
