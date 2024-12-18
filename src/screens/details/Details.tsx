@@ -33,9 +33,6 @@ const Details = observer((props: IDetailsProp) => {
   const { domainStore, apiStatusStore } = useStore()
   const { exerciseStore } = domainStore
   const { updateExercise } = exerciseStore
-  const { getApiStatus } = apiStatusStore
-
-  const { hasSuccess } = getApiStatus(ApiStatusPreset.UpdateExercise) ?? {}
 
   const [addingState, setAddingState] = useState(false)
   const [repsCount, setRepsCount] = useState(reps)
@@ -111,7 +108,6 @@ const Details = observer((props: IDetailsProp) => {
       newAddedVideos: bookmarkedVideos.current,
     }
     await updateExercise(data)
-    hasSuccess && navigation.goBack()
   }
 
   const renderSideButton = () => {

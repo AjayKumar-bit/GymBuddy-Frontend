@@ -195,6 +195,17 @@ const ExerciseStore = types
           log.info('Update Exercise Api call successful')
           const index = self.exerciseData.findIndex(data => data._id === params.exerciseId)
           self.exerciseData[index] = response.data.data
+
+          const todayExerciseIndex = self.todaysExercise.findIndex(
+            data => data._id === params.exerciseId,
+          )
+          if (todayExerciseIndex !== -1) {
+            self.todaysExercise[todayExerciseIndex].videoRecommendations =
+              response.data.data.videoRecommendations
+            self.todaysExercise[todayExerciseIndex].exerciseDetails =
+              response.data.data.exerciseDetails
+          }
+
           setApiStatus({
             id: ApiStatusPreset.UpdateExercise,
             hasSuccess: true,
