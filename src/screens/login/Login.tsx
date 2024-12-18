@@ -73,7 +73,7 @@ const Login = observer(() => {
       enabled
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}>
-      <StatusBar backgroundColor={Colors.TextInputBackground} barStyle="dark-content" />
+      <StatusBar backgroundColor={Colors.HeaderBackGround} barStyle="dark-content" />
       <LottieView source={WelcomeLottie} autoPlay style={styles.lottie} />
       <Text style={styles.header}>{translate('screens.login.header')}</Text>
       <Text style={styles.subHeader}>{translate('screens.login.login')}</Text>
@@ -94,7 +94,6 @@ const Login = observer(() => {
         <TouchableOpacity hitSlop={HIT_SLOP_FIVE} onPress={onRegisterPress}>
           <Text style={styles.alreadyRegistered}>{translate('screens.login.not_registered')}</Text>
         </TouchableOpacity>
-        <Text style={styles.login}>{translate('screens.login.register')}</Text>
       </View>
       <GBButton
         title={translate('screens.login.login')}

@@ -84,7 +84,7 @@ const Registration = observer(() => {
       enabled
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}>
-      <StatusBar backgroundColor={Colors.TextInputBackground} barStyle="dark-content" />
+      <StatusBar backgroundColor={Colors.HeaderBackGround} barStyle="dark-content" />
       <LottieView source={WelcomeLottie} autoPlay style={styles.lottie} />
       <Text style={styles.header}>{translate('screens.registration.header')}</Text>
       <Text style={styles.subHeader}>{translate('screens.registration.create_account')}</Text>
@@ -122,7 +122,6 @@ const Registration = observer(() => {
             {translate('screens.registration.already_registered')}
           </Text>
         </TouchableOpacity>
-        <Text style={styles.login}>{translate('screens.registration.log_in')}</Text>
       </View>
       <GBButton
         title={translate('screens.registration.register')}
