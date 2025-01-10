@@ -4,10 +4,10 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   container: {
-    gap: Sizes.Size_8,
+    gap: Sizes.Size_4,
   },
   label: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_18,
@@ -30,17 +30,23 @@ const styles = StyleSheet.create({
     color: Colors.Error,
     fontFamily: Typography.primary.regular,
     fontSize: Sizes.Size_10,
-    lineHeight: Sizes.Size_14,
+    lineHeight: Sizes.Size_12,
   },
   inputValue: {
+    ...CommonStyles.text,
     color: Colors.InputValue,
-    flex: 1,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_16,
     lineHeight: Sizes.Size_18,
   },
   inputValueSecondary: {
     textAlign: 'center',
+  },
+  errorContainer: {
+    height: Sizes.Size_12,
+  },
+  multiline: {
+    textAlignVertical: 'top',
   },
 })
 

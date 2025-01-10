@@ -39,10 +39,15 @@ module.exports = {
     '@typescript-eslint/no-unused-expressions': 'off',
     '@typescript-eslint/naming-convention': [
       'error',
-      { selector: 'variableLike', format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'] },
+      {
+        selector: 'variableLike',
+        format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
+      },
     ],
     'react-native/sort-styles': ['error', 'asc', { ignoreClassNames: true }],
     'arrow-body-style': 'off',
     'react/display-name': 'off',
+    'no-underscore-dangle': 'off',
   },
 }

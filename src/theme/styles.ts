@@ -8,6 +8,12 @@ const CommonStyles = StyleSheet.create({
     elevation: Sizes.Size_4,
     shadowColor: Colors.Dark,
   },
+  flex_1: {
+    flex: 1,
+  },
+  text: {
+    fontVariant: ['lining-nums'],
+  },
 })
 
 export { CommonStyles }

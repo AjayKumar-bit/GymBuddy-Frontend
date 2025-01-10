@@ -1,12 +1,22 @@
 import axios, { AxiosResponse } from 'axios'
 
 import { log } from '@config'
-import { API, API_TIMEOUT, ApiStatusCode, IApiResponse, RequestType } from '@constants'
+import { API_TIMEOUT, ApiStatusCode, IApiResponse, RequestType } from '@constants'
+import { IApiConfig } from '@types'
 
-const axiosConfig = <Params = undefined>({ params }: { params?: Params }) => ({
-  baseURL: API.baseUrl,
+const axiosConfig = <Params = undefined>({
+  authToken,
+  params,
+  apiData,
+}: {
+  authToken?: string
+  params?: Params
+  apiData: IApiConfig
+}) => ({
+  baseURL: apiData.baseUrl,
   timeout: API_TIMEOUT,
   params,
+  headers: { ...apiData.headers, Authorization: `Bearer ${authToken}` },
 })
 
 const mapAxiosResponseToLocalResponseType = <RequestData, ResponseData>(
@@ -33,25 +43,31 @@ const getApiResponseUsingRequestVerb = async <RequestData, ResponseData, Params 
   endpoint,
   request,
   requestData,
+  apiData,
+  authToken,
 }: {
   endpoint: string
   request: RequestType
   requestData?: RequestData
+  apiData: IApiConfig
+  authToken?: string
 }): Promise<AxiosResponse<ResponseData, RequestData> | null> => {
-  const config = axiosConfig<Params>({})
+  const config = axiosConfig<Params>({
+    apiData,
+    authToken,
+  })
 
   switch (request) {
     case RequestType.GET:
-      return axios.get(endpoint, { baseURL: API.baseUrl, timeout: API_TIMEOUT })
+      return axios.get(endpoint, config)
     case RequestType.POST:
       return axios.post(endpoint, requestData, config)
     case RequestType.PUT:
       return axios.put(endpoint, requestData, config)
     case RequestType.PATCH:
       return axios.patch(endpoint, requestData, config)
-    // TODO : will update this later
-    // case RequestType.DELETE:
-    //   return axios.delete(endpoint, { ...config, data })
+    case RequestType.DELETE:
+      return axios.delete(endpoint, { ...config, data: requestData })
     default: {
       return Promise.resolve(null)
     }
@@ -62,20 +78,26 @@ export const makeApiCall = async <RequestData, ResponseData, Params = undefined>
   endpoint,
   request,
   requestData,
+  apiData,
+  authToken,
 }: {
   endpoint: string
   request: RequestType
   requestData?: RequestData
+  apiData: IApiConfig
+  authToken?: string
 }): Promise<IApiResponse<ResponseData>> => {
   try {
     const response = await getApiResponseUsingRequestVerb<RequestData, ResponseData, Params>({
       endpoint,
       request,
       requestData,
+      apiData,
+      authToken,
     })
 
     log.info('API Response', {
-      baseUrl: API.baseUrl,
+      baseUrl: apiData.baseUrl,
       endpoint,
       payload: requestData,
       response: response?.data,
@@ -89,7 +111,7 @@ export const makeApiCall = async <RequestData, ResponseData, Params = undefined>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (exception: any) {
     log.error(
-      `API Error: ${API.baseUrl}${endpoint}`,
+      `API Error: ${apiData.baseUrl}${endpoint}`,
       `\n${exception}`,
       '\nresponse:',
       exception?.response?.data,

@@ -1,12 +1,9 @@
 import React from 'react'
 import { StatusBar, Text, TouchableOpacity, View } from 'react-native'
-import {
-  ChevronLeftIcon as BackIcon,
-  Bars3Icon as HamburgerIcon,
-} from 'react-native-heroicons/outline'
+import { ChevronLeftIcon as BackIcon } from 'react-native-heroicons/outline'
 import { SvgProps } from 'react-native-svg'
 
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 import { HIT_SLOP_FIVE } from '@constants'
 import { Colors } from '@theme'
@@ -24,10 +21,12 @@ interface IGBAppHeaderProps {
 const GBAppHeader = (props: IGBAppHeaderProps) => {
   const { showBackButton = true, title } = props
   const navigation = useNavigation<INavigation>()
-  const leftIcon = showBackButton ? BackIcon : HamburgerIcon
+  // const leftIcon = showBackButton ? BackIcon : HamburgerIcon // Note: will uncomment in future
+  const leftIcon = BackIcon
 
   const onLeftIconPress = () => {
-    showBackButton ? navigation.goBack() : navigation.dispatch(DrawerActions.openDrawer())
+    // showBackButton ? navigation.goBack() : navigation.dispatch(DrawerActions.openDrawer()) // Note: will uncomment in future
+    navigation.goBack()
   }
 
   const renderIcon = (renderIconData: { icon: React.FC<SvgProps>; onPress: () => void }) => {
@@ -35,7 +34,7 @@ const GBAppHeader = (props: IGBAppHeaderProps) => {
 
     return (
       <TouchableOpacity onPress={onPress} hitSlop={HIT_SLOP_FIVE}>
-        <Icon color={Colors.Label} />
+        <Icon color={Colors.PrimaryText} />
       </TouchableOpacity>
     )
   }
@@ -47,9 +46,9 @@ const GBAppHeader = (props: IGBAppHeaderProps) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={Colors.TextInputBackground} barStyle="dark-content" />
+      <StatusBar backgroundColor={Colors.HeaderBackGround} barStyle="dark-content" />
       <View style={styles.subContainer}>
-        {renderIcon(startIconData)}
+        {showBackButton && renderIcon(startIconData)}
         <Text style={styles.title} numberOfLines={1}>
           {title}
         </Text>

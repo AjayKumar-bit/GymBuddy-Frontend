@@ -9,13 +9,13 @@ const styles = StyleSheet.create({
     gap: Sizes.Size_4,
   },
   activeLabel: {
-    color: Colors.ActiveTab,
+    color: Colors.Primary,
     fontFamily: Typography.primary.semiBold,
     fontSize: Sizes.Size_14,
     lineHeight: Sizes.Size_16,
   },
   inactiveLabel: {
-    color: Colors.InactiveTab,
+    color: Colors.Secondary,
     fontFamily: Typography.primary.medium,
     fontSize: Sizes.Size_12,
     lineHeight: Sizes.Size_16,

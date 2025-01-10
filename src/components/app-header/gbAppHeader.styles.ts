@@ -4,7 +4,7 @@ import { Colors, CommonStyles, Sizes, Typography } from '@theme'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.TextInputBackground,
+    backgroundColor: Colors.HeaderBackGround,
     ...CommonStyles.shadow,
   },
   subContainer: {
@@ -16,12 +16,13 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.Size_6,
   },
   title: {
-    color: Colors.Label,
+    color: Colors.PrimaryText,
     flex: 1,
     fontFamily: Typography.primary.bold,
     fontSize: Sizes.Size_20,
     lineHeight: Sizes.Size_22,
-    marginRight: Sizes.Size_32,
+    paddingTop: Sizes.Size_8,
+    // marginRight: Sizes.Size_32, // Note: will uncomment in  future.
     textAlign: 'center',
   },
 })

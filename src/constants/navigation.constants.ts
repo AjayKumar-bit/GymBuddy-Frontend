@@ -1,16 +1,19 @@
 import { CalendarDaysIcon, ClockIcon, HomeIcon, UserCircleIcon } from 'react-native-heroicons/solid'
 
-import { Alarm, Home, Planner, Profile } from '@screens'
+import { Home, Planner, Profile, Reminders } from '@screens'
 
 import { translate } from '../locales/i18n'
 
 export enum RouteName {
   Default = 'Default',
-  Alarm = 'Alarm',
   DefaultDrawer = 'DefaultDrawer',
+  Details = 'Details',
   Home = 'Home',
+  Login = 'Login',
   Planner = 'Planner',
   Profile = 'Profile',
+  Registration = 'Registration',
+  Reminders = 'Reminders',
   Search = 'Search',
 }
 
@@ -26,9 +29,9 @@ export const TAB_DATA = [
     name: translate('tab_data.planner'),
   },
   {
-    component: Alarm,
+    component: Reminders,
     icon: ClockIcon,
-    name: translate('tab_data.alarm'),
+    name: translate('tab_data.reminders'),
   },
   {
     component: Profile,

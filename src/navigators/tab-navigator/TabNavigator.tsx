@@ -12,7 +12,7 @@ import { styles } from './tabNavigator.styles'
 const RenderIcon =
   (Icon: React.FC<SvgProps>, name: string) =>
   ({ focused }: { focused: boolean }) => {
-    const tabColor = focused ? Colors.ActiveTab : Colors.InactiveTab
+    const tabColor = focused ? Colors.Primary : Colors.Secondary
     const labelStyle = focused ? styles.activeLabel : styles.inactiveLabel
 
     return (
